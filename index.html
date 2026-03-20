@@ -62,25 +62,25 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
    NAV
 ═══════════════════════════════ */
 #nav{position:fixed;top:0;left:0;right:0;z-index:500}
-.nav-bar{display:flex;align-items:stretch;height:62px;background:rgba(8,26,11,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);transition:box-shadow .3s}
-.nav-logo{display:flex;align-items:center;padding:0 28px 0 48px;text-decoration:none;border-right:1px solid rgba(255,255,255,.08);flex-shrink:0;height:100%}
-.nav-logo img{height:36px;width:auto;display:block;object-fit:contain}
+.nav-bar{display:flex;align-items:center;height:72px;background:rgba(8,26,11,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);transition:box-shadow .3s}
+.nav-logo{display:flex;align-items:center;padding:0 20px 0 32px;text-decoration:none;border-right:1px solid rgba(255,255,255,.08);flex-shrink:0;height:100%}
+.nav-logo img{height:50px;width:auto;display:block;object-fit:contain}
 .nav-logo-t{display:none}
-.nav-links{display:flex;flex:1;padding:0 8px}
-.nav-links a{display:flex;align-items:center;color:rgba(255,255,255,.58);text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:0 15px;border-bottom:2px solid transparent;transition:all var(--ease)}
+.nav-links{display:flex;flex:1;padding:0 8px;height:100%}
+.nav-links a{display:flex;align-items:center;color:rgba(255,255,255,.58);text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:0 14px;border-bottom:2px solid transparent;transition:all var(--ease)}
 .nav-links a:hover{color:var(--n0);border-bottom-color:rgba(255,255,255,.5)}
-.nav-r{display:flex;align-items:center;padding:0 48px 0 0;flex-shrink:0}
-.nav-cta{background:var(--g3);color:var(--n0);padding:9px 22px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;transition:all var(--ease)}
+.nav-r{display:flex;align-items:center;gap:12px;padding:0 28px;flex-shrink:0;margin-left:auto}
+.nav-cta{background:var(--g3);color:var(--n0);padding:9px 20px;border-radius:4px;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;transition:all var(--ease)}
 .nav-cta:hover{background:var(--g2)}
 /* Hamburger */
-.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-right:8px;flex-direction:column;gap:4px}
-.nav-ham span{display:block;width:21px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .25s}
-#nmob{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(8,26,11,.98);backdrop-filter:blur(20px);z-index:490;padding:12px 0 20px}
+.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;align-items:center;justify-content:center;flex-shrink:0}
+.nav-ham span{display:block;width:22px;height:2px;background:rgba(255,255,255,.8);border-radius:2px;transition:all .25s}
+#nmob{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(8,26,11,.98);backdrop-filter:blur(20px);z-index:490;padding:8px 0 16px}
 #nmob.open{display:block}
-#nmob a{display:block;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:13px 32px;border-bottom:1px solid rgba(255,255,255,.05)}
+#nmob a{display:block;color:rgba(255,255,255,.7);text-decoration:none;font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:14px 28px;border-bottom:1px solid rgba(255,255,255,.05)}
 #nmob a:last-child{border-bottom:none}
-#nmob a:hover{color:var(--n0)}
-#nmob .nm-btn{background:var(--g3);color:var(--n0);margin:14px 32px 0;text-align:center;border-radius:4px;border-bottom:none}
+#nmob a:hover{color:var(--n0);background:rgba(255,255,255,.04)}
+#nmob .nm-btn{background:var(--g3);color:var(--n0);margin:12px 28px 0;text-align:center;border-radius:4px;border-bottom:none;padding:13px 28px}
 
 /* ═══════════════════════════════
    HERO — YouTube bg
@@ -88,7 +88,7 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
 #hero{
   position:relative;min-height:100vh;
   display:flex;align-items:center;
-  padding-top:62px;overflow:hidden;
+  padding-top:72px;overflow:hidden;
 }
 .yt-bg{
   position:absolute;inset:0;z-index:0;
@@ -481,9 +481,8 @@ footer{background:var(--n6);padding:64px 0 0}
   .wrap{padding:0 28px}
   .nav-links{display:none}
   .nav-ham{display:flex}
-  .nav-logo{padding:0 20px 0 24px}
-  .nav-logo img{height:28px}
-  .nav-r{padding:0 16px 0 0}
+  .nav-logo{padding:0 16px 0 20px}
+  .nav-logo img{height:44px}
   .perf-2{grid-template-columns:1fr;gap:32px}
   .feat-row{grid-template-columns:repeat(3,1fr)}
   .apps-2{grid-template-columns:1fr}
@@ -502,15 +501,14 @@ footer{background:var(--n6);padding:64px 0 0}
   .wrap{padding:0 20px}
   .sec{padding:56px 0}
   /* Nav mobile */
-  .nav-bar{height:56px}
-  #nmob{top:56px}
-  .nav-logo{padding:0 16px 0 20px;height:56px}
-  .nav-logo img{height:24px}
-  .nav-r{padding:0 12px 0 0;gap:6px}
-  .nav-cta{padding:7px 13px;font-size:11px;letter-spacing:.8px}
-  .nav-ham{padding:6px}
+  .nav-bar{height:62px}
+  #nmob{top:62px}
+  .nav-logo{padding:0 14px 0 16px}
+  .nav-logo img{height:40px}
+  .nav-r{padding:0 14px;gap:10px}
+  .nav-cta{padding:8px 14px;font-size:11px;letter-spacing:.8px}
   /* Hero */
-  #hero{padding-top:56px}
+  #hero{padding-top:62px}
   .hero-c{padding:44px 0 60px}
   .hero-h1{font-size:clamp(42px,12vw,68px);letter-spacing:-.5px}
   .hero-sub{font-size:16px;max-width:100%}
@@ -541,13 +539,14 @@ footer{background:var(--n6);padding:64px 0 0}
   .wrap{padding:0 14px}
   .cat-g{grid-template-columns:1fr 1fr}
   .hero-h1{font-size:clamp(36px,11vw,52px)}
-  .nav-logo img{height:20px}
-  .nav-cta{padding:6px 10px;font-size:10px}
+  .nav-logo img{height:36px}
+  .nav-cta{padding:7px 12px;font-size:11px}
   .stats-g{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
+
 
 <!-- ═══ NAV ═══ -->
 <nav id="nav">
