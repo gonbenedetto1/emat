@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMAT — Ecoaislante de Celulosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Greens */
+  --g0:#f0f8f1;   /* lightest tint */
+  --g1:#d4edda;
+  --g2:#3a8a48;   /* mid green (accents) */
+  --g3:#2a6e37;   /* main green */
+  --g4:#1c5228;   /* dark green */
+  --g5:#102e16;   /* very dark */
+  --g6:#081a0b;   /* near black green */
+  /* Neutrals */
+  --n0:#ffffff;
+  --n1:#f6f4f0;
+  --n2:#e8e4dd;
+  --n3:#b8b2a8;
+  --n4:#787068;
+  --n5:#3a3630;
+  --n6:#18150f;
+  /* Typography */
+  --f:'Montserrat',sans-serif;
+  /* Transitions */
+  --ease:.22s ease;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1160px;margin:0 auto;padding:0 48px}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:4px;font-family:var(--f);font-size:15px;font-weight:700;cursor:pointer;border:2px solid transparent;transition:all var(--ease);text-decoration:none;white-space:nowrap;line-height:1;letter-spacing:.2px}
+/* Primary solid green */
+.btn-p{background:var(--g3);color:var(--n0);border-color:var(--g3)}
+.btn-p:hover{background:var(--g4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,82,40,.35)}
+/* Primary solid white */
+.btn-w{background:var(--n0);color:var(--g4);border-color:var(--n0)}
+.btn-w:hover{background:var(--g0);transform:translateY(-2px)}
+/* Outline white */
+.btn-ow{background:transparent;color:var(--n0);border-color:rgba(255,255,255,.5)}
+.btn-ow:hover{border-color:var(--n0);background:rgba(255,255,255,.1)}
+/* Outline green */
+.btn-og{background:transparent;color:var(--g3);border-color:var(--g3)}
+.btn-og:hover{background:var(--g3);color:var(--n0)}
+/* Light green fill */
+.btn-lg{background:var(--g2);color:var(--n0);border-color:var(--g2)}
+.btn-lg:hover{background:var(--g3);border-color:var(--g3);transform:translateY(-2px)}
+
+/* ── SCROLL REVEAL ── */
+.sr{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.sr.in{opacity:1;transform:none}
+
+/* ═══════════════════════════════
+   NAV
+═══════════════════════════════ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500}
+.nav-bar{display:flex;align-items:stretch;height:62px;background:rgba(8,26,11,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);transition:box-shadow .3s}
+.nav-logo{display:flex;align-items:center;gap:11px;padding:0 28px 0 48px;text-decoration:none;border-right:1px solid rgba(255,255,255,.08);flex-shrink:0}
+.nav-logo svg{width:27px;height:27px}
+.nav-logo-t{font-size:18px;font-weight:900;color:var(--n0);letter-spacing:5px;text-transform:uppercase}
+.nav-links{display:flex;flex:1;padding:0 8px}
+.nav-links a{display:flex;align-items:center;color:rgba(255,255,255,.58);text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:0 15px;border-bottom:2px solid transparent;transition:all var(--ease)}
+.nav-links a:hover{color:var(--n0);border-bottom-color:rgba(255,255,255,.5)}
+.nav-r{display:flex;align-items:center;padding:0 48px 0 0;flex-shrink:0}
+.nav-cta{background:var(--g3);color:var(--n0);padding:9px 22px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;transition:all var(--ease)}
+.nav-cta:hover{background:var(--g2)}
+/* Hamburger */
+.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-right:8px;flex-direction:column;gap:4px}
+.nav-ham span{display:block;width:21px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .25s}
+#nmob{display:none;position:fixed;top:62px;left:0;right:0;background:rgba(8,26,11,.98);backdrop-filter:blur(20px);z-index:490;padding:12px 0 20px}
+#nmob.open{display:block}
+#nmob a{display:block;color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:13px 32px;border-bottom:1px solid rgba(255,255,255,.05)}
+#nmob a:last-child{border-bottom:none}
+#nmob a:hover{color:var(--n0)}
+#nmob .nm-btn{background:var(--g3);color:var(--n0);margin:14px 32px 0;text-align:center;border-radius:4px;border-bottom:none}
+
+/* ═══════════════════════════════
+   HERO — YouTube bg
+═══════════════════════════════ */
+#hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  padding-top:62px;overflow:hidden;
+}
+.yt-bg{
+  position:absolute;inset:0;z-index:0;
+  background:linear-gradient(135deg,var(--g6) 0%,var(--g5) 50%,#1a4822 100%);
+}
+/* YouTube player div — sized to always cover */
+#yt-player{
+  position:absolute;
+  width:177.8vh;height:100vh;
+  min-width:100%;min-height:56.25vw;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+#yt-player iframe{
+  width:100%;height:100%;
+  border:none;
+}
+/* Fallback notice when running from file:// */
+.yt-local-notice{
+  position:absolute;bottom:80px;right:32px;z-index:5;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.7);
+  font-size:12px;font-weight:500;
+  padding:10px 16px;border-radius:4px;
+  display:none;align-items:center;gap:9px;
+  max-width:280px;line-height:1.4;
+}
+.yt-local-notice svg{width:16px;height:16px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:2;flex-shrink:0}
+.yt-local-notice a{color:#7dcf8a;text-decoration:none;font-weight:700}
+.yt-local-notice a:hover{text-decoration:underline}
+.hero-ov{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(
+    100deg,
+    rgba(6,18,8,.92) 0%,
+    rgba(10,28,12,.84) 40%,
+    rgba(6,18,8,.68) 100%
+  );
+}
+.hero-c{
+  position:relative;z-index:2;
+  padding:80px 0 100px;
+  /* LEFT ALIGNED — no text-align override */
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(58,138,72,.2);
+  border:1px solid rgba(58,138,72,.45);
+  color:#7dcf8a;
+  font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  padding:7px 15px;border-radius:3px;margin-bottom:28px;
+}
+.hero-dot{width:5px;height:5px;border-radius:50%;background:#7dcf8a;animation:blink 2.2s ease-in-out infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-h1{
+  font-size:clamp(52px,7.5vw,112px);
+  font-weight:900;line-height:.92;
+  color:var(--n0);letter-spacing:-1px;text-transform:uppercase;
+  margin-bottom:26px;
+  text-align:left;
+}
+.hero-h1 .accent{color:#7dcf8a}
+.hero-h1 .soft{font-weight:500;opacity:.6;letter-spacing:0}
+.hero-sub{
+  font-size:clamp(16px,1.7vw,20px);font-weight:400;
+  color:rgba(255,255,255,.65);line-height:1.75;
+  max-width:520px;margin-bottom:40px;
+  text-align:left;
+}
+.hero-ctas{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:48px;justify-content:flex-start}
+.hero-chips{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding-top:22px;border-top:1px solid rgba(255,255,255,.1);
+  justify-content:flex-start;
+}
+.hero-chips-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.chip{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.62);padding:5px 13px;border-radius:3px;
+  font-size:11px;font-weight:600;letter-spacing:.8px;
+}
+/* Scroll hint */
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px}
+.hs-ln{width:1px;height:32px;background:linear-gradient(to bottom,rgba(255,255,255,.4),transparent);animation:grow 1.8s ease-in-out infinite}
+@keyframes grow{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hs-lb{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.22)}
+
+/* ═══════════════════════════════
+   RIBBON
+═══════════════════════════════ */
+.ribbon{background:var(--g3);padding:14px 0}
+.rib{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0}
+.rib::-webkit-scrollbar{display:none}
+.ri{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.88);font-size:13px;font-weight:500;padding:3px 22px;flex-shrink:0;white-space:nowrap}
+.ri svg{width:13px;height:13px;flex-shrink:0}
+.rd{width:1px;height:14px;background:rgba(255,255,255,.2);flex-shrink:0}
+
+/* ═══════════════════════════════
+   STATS
+═══════════════════════════════ */
+.stats{background:var(--g5);padding:0}
+.stats-g{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(255,255,255,.05)}
+.st{padding:32px 20px;text-align:center;border-right:1px solid rgba(255,255,255,.05)}
+.st:last-child{border-right:none}
+.st .n{font-size:clamp(36px,4.5vw,54px);font-weight:900;color:#7dcf8a;line-height:1;margin-bottom:7px;letter-spacing:-1px}
+.st .l{font-size:14px;color:rgba(255,255,255,.42);font-weight:400}
+
+/* ═══════════════════════════════
+   SECTION BASE
+═══════════════════════════════ */
+.sec{padding:96px 0}
+.lbl{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--g2);margin-bottom:12px}
+.lbl-w{color:rgba(255,255,255,.45)}
+.h2{font-size:clamp(30px,3.8vw,52px);font-weight:800;line-height:1.05;color:var(--n5);margin-bottom:20px;text-transform:uppercase;letter-spacing:-.5px}
+.h2-w{color:var(--n0)}
+.bod{font-size:clamp(16px,1.5vw,18px);font-weight:400;line-height:1.8;color:var(--n4);max-width:560px}
+.bod-w{color:rgba(255,255,255,.6)}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:44px;flex-wrap:wrap}
+
+/* ═══════════════════════════════
+   FEATURES
+═══════════════════════════════ */
+#perf{background:var(--n0)}
+.perf-2{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-bottom:56px}
+.feat-row{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--n2);border-radius:6px;overflow:hidden}
+.fi{padding:30px 14px;text-align:center;border-right:1px solid var(--n2);cursor:default;transition:background var(--ease);position:relative}
+.fi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--g3);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.fi:last-child{border-right:none}
+.fi:hover{background:var(--g0)}
+.fi:hover::after{transform:scaleX(1)}
+.fi-ico{width:50px;height:50px;border-radius:50%;background:var(--g0);display:flex;align-items:center;justify-content:center;margin:0 auto 13px;transition:background var(--ease)}
+.fi-ico svg{width:20px;height:20px;stroke:var(--g3);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.fi:hover .fi-ico{background:rgba(42,110,55,.15)}
+.fi strong{display:block;font-size:13px;font-weight:700;color:var(--n5);margin-bottom:4px}
+.fi span{font-size:12px;color:var(--n3);font-weight:400;line-height:1.4;display:block}
+
+/* ═══════════════════════════════
+   APPLICATIONS
+═══════════════════════════════ */
+#apps{padding:0}
+.apps-2{display:grid;grid-template-columns:1fr 1fr}
+.ap{padding:80px 64px;position:relative;overflow:hidden}
+.ap-l{background:var(--g5)}
+.ap-r{background:var(--n6)}
+.ap-deco{position:absolute;right:-40px;bottom:-40px;opacity:.04;pointer-events:none}
+.ap-deco svg{width:250px;height:250px}
+.ap .h2{font-size:clamp(22px,2.6vw,38px);margin-bottom:14px}
+.ap .bod{font-size:clamp(15px,1.4vw,17px);margin-bottom:26px;max-width:100%}
+.ap-ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
+.ap-ul li{display:flex;align-items:center;gap:9px;color:rgba(255,255,255,.75);font-size:clamp(14px,1.3vw,16px);font-weight:400}
+.ap-ul li svg{width:13px;height:13px;stroke:#7dcf8a;fill:none;stroke-width:2.5;stroke-linecap:round;flex-shrink:0}
+
+/* ═══════════════════════════════
+   PRODUCTS
+═══════════════════════════════ */
+#prods{background:var(--n0)}
+.prods-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:6px;overflow:hidden}
+.pc{background:var(--n0);display:flex;flex-direction:column;transition:background var(--ease)}
+.pc:hover{background:var(--g0)}
+.pc-img{height:190px;display:flex;align-items:center;justify-content:center;position:relative}
+.pi-g{background:linear-gradient(145deg,var(--g5),var(--g3))}
+.pi-dg{background:linear-gradient(145deg,#121512,var(--g4))}
+.pi-dk{background:linear-gradient(145deg,#181614,#383028)}
+.pc-img svg{width:58px;height:58px;stroke:rgba(255,255,255,.55);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.pc-tag{position:absolute;top:13px;left:13px;background:var(--g2);color:var(--n0);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.pc-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.pc-body h3{font-size:clamp(17px,1.8vw,20px);font-weight:800;color:var(--n5);margin-bottom:9px;text-transform:uppercase;letter-spacing:-.2px}
+.pc-body p{font-size:clamp(14px,1.3vw,15px);color:var(--n4);line-height:1.7;font-weight:400;flex:1;margin-bottom:18px}
+.pc-lnk{display:inline-flex;align-items:center;gap:6px;color:var(--g3);font-size:14px;font-weight:600;text-decoration:none;border-top:1px solid var(--n2);padding-top:14px;transition:gap var(--ease)}
+.pc-lnk svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;transition:transform var(--ease)}
+.pc-lnk:hover{gap:10px}.pc-lnk:hover svg{transform:translateX(3px)}
+
+/* ═══════════════════════════════
+   TESTIMONIAL
+═══════════════════════════════ */
+#testi{background:var(--g5)}
+.testi-2{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.tq{font-size:clamp(18px,2.3vw,26px);font-weight:500;line-height:1.45;color:var(--n0);margin-bottom:24px;padding-left:22px;position:relative;font-style:italic}
+.tq::before{content:'"';position:absolute;left:0;top:-8px;font-size:58px;color:rgba(125,207,138,.45);font-family:Georgia,serif;line-height:1;font-style:normal}
+.ta{display:flex;align-items:center;gap:12px}
+.tav{width:42px;height:42px;border-radius:50%;background:rgba(58,138,72,.3);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--n0);font-weight:700;flex-shrink:0}
+.tai strong{display:block;color:var(--n0);font-size:14px;font-weight:700;margin-bottom:2px}
+.tai span{color:rgba(255,255,255,.38);font-size:13px;font-weight:400}
+.testi-r{display:flex;flex-direction:column;gap:13px}
+.ts2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.tsc{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);border-radius:5px;padding:24px 22px}
+.tsc .n{font-size:clamp(32px,4vw,46px);font-weight:900;color:#7dcf8a;line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.tsc .n small{font-size:clamp(20px,2.2vw,26px)}
+.tsc .d{font-size:clamp(13px,1.2vw,14px);color:rgba(255,255,255,.4);line-height:1.55;font-weight:400}
+
+/* ═══════════════════════════════
+   PRESUPUESTO — PROMINENT
+═══════════════════════════════ */
+#presupuesto{
+  background:var(--g4);
+  padding:96px 0;
+  position:relative;overflow:hidden;
+}
+/* Subtle texture */
+#presupuesto::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    -55deg,transparent,transparent 30px,
+    rgba(255,255,255,.018) 30px,rgba(255,255,255,.018) 31px
+  );
+}
+.pres-head{text-align:center;margin-bottom:48px;position:relative;z-index:1}
+.pres-head .lbl{color:rgba(255,255,255,.55)}
+.pres-head .h2{color:var(--n0);font-size:clamp(28px,4vw,52px)}
+.pres-head p{font-size:clamp(15px,1.5vw,18px);color:rgba(255,255,255,.6);font-weight:400;margin:0 auto;max-width:480px}
+.pres-wrap{max-width:860px;margin:0 auto;position:relative;z-index:1}
+
+/* Steps */
+.step-bar{display:flex;align-items:flex-start;margin-bottom:36px;position:relative}
+.step-bar::before{content:'';position:absolute;top:17px;left:calc(12.5%);right:calc(12.5%);height:1px;background:rgba(255,255,255,.15);z-index:0}
+.step-bar::after{content:'';position:absolute;top:17px;left:calc(12.5%);height:1px;background:rgba(255,255,255,.7);z-index:1;transition:width .5s ease;width:var(--bw,0%)}
+.si{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;z-index:2}
+.si-n{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);transition:all .3s}
+.si.done .si-n{background:rgba(255,255,255,.9);border-color:var(--n0);color:var(--g4)}
+.si.active .si-n{background:var(--n0);border-color:var(--n0);color:var(--g4);box-shadow:0 0 0 5px rgba(255,255,255,.2)}
+.si-l{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);text-align:center;letter-spacing:.3px}
+.si.done .si-l,.si.active .si-l{color:rgba(255,255,255,.85)}
+
+/* Card */
+.pcard{background:var(--n0);border-radius:10px;padding:clamp(24px,4vw,48px);box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.pstep{display:none}
+.pstep.on{display:block;animation:fup .32s ease}
+@keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.ps-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--n3);margin-bottom:6px}
+.pstep h2{font-size:clamp(20px,2.5vw,26px);font-weight:800;color:var(--n5);margin-bottom:6px;text-transform:uppercase;letter-spacing:-.3px}
+.pstep .pd{font-size:clamp(14px,1.3vw,15px);color:var(--n4);font-weight:400;margin-bottom:28px}
+
+/* Category cards */
+.cat-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.cc{border:2px solid var(--n2);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;background:var(--n0)}
+.cc:hover,.cc.on{border-color:var(--g3);box-shadow:0 4px 18px rgba(42,110,55,.18)}
+.cc.on .cc-ck{opacity:1;transform:scale(1)}
+.cc-img{height:100px;display:flex;align-items:center;justify-content:center}
+.c1{background:linear-gradient(145deg,#d8f2dd,#aadbb2)}
+.c2{background:linear-gradient(145deg,#daeee0,#9ad0a8)}
+.c3{background:linear-gradient(145deg,#d0ebd8,#88c898)}
+.c4{background:linear-gradient(145deg,#c8e8d0,#70bc80)}
+.cc-img svg{width:36px;height:36px;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-width:1.6}
+.c1 svg,.c2 svg,.c3 svg,.c4 svg{stroke:var(--g4)}
+.cc-body{padding:10px 12px}
+.cc-body h4{font-size:13px;font-weight:700;color:var(--n5);margin-bottom:2px;text-transform:uppercase;letter-spacing:.1px}
+.cc-body span{font-size:11px;color:var(--n4);font-weight:400;display:block;line-height:1.3}
+.cc-ck{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--g3);display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.5);transition:all .22s}
+.cc-ck svg{width:10px;height:10px;stroke:white;fill:none;stroke-width:3;stroke-linecap:round}
+
+/* Fields */
+.pf-g{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+.pff{grid-column:1/-1}
+.pf{display:flex;flex-direction:column;gap:7px}
+.pf label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--n4)}
+.pf input,.pf select,.pf textarea{
+  background:var(--n1);border:1.5px solid var(--n2);border-radius:4px;
+  color:var(--n5);font-family:var(--f);font-size:clamp(14px,1.3vw,15px);
+  padding:12px 15px;outline:none;transition:all .2s;resize:none;-webkit-appearance:none;width:100%
+}
+.pf input:focus,.pf select:focus,.pf textarea:focus{border-color:var(--g3);background:var(--n0);box-shadow:0 0 0 3px rgba(42,110,55,.1)}
+.pf input::placeholder,.pf textarea::placeholder{color:var(--n3)}
+.pf textarea{height:82px}
+
+/* Nav */
+.pnav{display:flex;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid var(--n2);gap:10px;flex-wrap:wrap}
+.pbk{background:none;border:1.5px solid var(--n2);color:var(--n4);padding:10px 20px;border-radius:4px;font-family:var(--f);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.pbk svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.pbk:hover{border-color:var(--n3);color:var(--n5)}
+.pnxt{background:var(--g3);color:var(--n0);border:none;padding:13px 26px;border-radius:4px;font-family:var(--f);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;letter-spacing:.2px}
+.pnxt svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.pnxt:hover{background:var(--g4);box-shadow:0 4px 14px rgba(42,110,55,.35)}
+.perr{font-size:13px;color:#c0392b;margin-top:8px;display:none}
+.p-ind{font-size:12px;color:var(--n3);font-weight:500}
+
+/* Result */
+.res-hd{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid var(--n2)}
+.res-ico{width:48px;height:48px;border-radius:50%;background:var(--g0);border:1.5px solid rgba(42,110,55,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.res-ico svg{width:22px;height:22px;stroke:var(--g3);fill:none;stroke-width:2;stroke-linecap:round}
+.res-hd h2{font-size:clamp(18px,2.2vw,24px);font-weight:800;color:var(--n5);text-transform:uppercase;margin-bottom:2px}
+.res-hd p{font-size:13px;color:var(--n4);font-weight:400}
+.res-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px}
+.rn{background:var(--n1);border:1px solid var(--n2);border-top:3px solid var(--g3);border-radius:4px;padding:18px 14px}
+.rn.hi{border-top-color:var(--g2)}
+.rn .rv{font-size:clamp(20px,2.5vw,28px);font-weight:900;color:var(--g3);line-height:1;margin-bottom:4px;letter-spacing:-.5px}
+.rn.hi .rv{color:var(--g2)}
+.rn .rl{font-size:11px;color:var(--n3);line-height:1.4;font-weight:500}
+.res-nrg{background:rgba(42,110,55,.06);border:1px solid rgba(42,110,55,.15);border-radius:4px;padding:18px 20px;margin-bottom:20px}
+.re-lbl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--g3);margin-bottom:10px}
+.re-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.re-i .rv{font-size:clamp(18px,2.2vw,22px);font-weight:800;color:var(--g4);line-height:1;margin-bottom:2px}
+.re-i .rl{font-size:11px;color:var(--n4);font-weight:400}
+.res-acts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ═══════════════════════════════
+   CASA INTERACTIVA
+═══════════════════════════════ */
+#casa{background:var(--n1);padding:96px 0}
+.casa-intro{text-align:center;max-width:580px;margin:0 auto 52px}
+.casa-lay{display:grid;grid-template-columns:1fr 340px;gap:30px;align-items:start}
+.casa-svg-w{border-radius:10px;overflow:hidden;background:linear-gradient(175deg,#ddf0e2 0%,#c8e8d0 100%);border:1px solid rgba(42,110,55,.14)}
+.casa-svg-w svg{display:block;width:100%}
+/* hotspot */
+.hs{cursor:pointer}
+.hs .outer{transition:r .2s}
+.hs:hover .outer,.hs.on .outer{r:17;opacity:.28}
+.hs.on .inner{fill:var(--g2)}
+/* panel */
+.cp{position:sticky;top:74px}
+.cp-in{background:var(--n0);border:1px solid var(--n2);border-radius:8px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.cp-hd{background:var(--g5);padding:18px 22px}
+.cp-hd h3{font-size:clamp(15px,1.8vw,18px);font-weight:800;color:var(--n0);text-transform:uppercase;margin-bottom:2px;letter-spacing:-.2px}
+.cp-hd p{font-size:12px;color:rgba(255,255,255,.38);font-weight:400}
+.cp-bd{padding:20px}
+.cp-mt{text-align:center;padding:24px 12px;color:var(--n3)}
+.cp-mt svg{width:40px;height:40px;stroke:var(--n2);fill:none;stroke-width:1.2;margin:0 auto 10px;display:block}
+.cp-mt p{font-size:clamp(13px,1.2vw,14px);font-weight:400;line-height:1.6}
+.zi{display:none}
+.zi.on{display:block;animation:fup .3s ease}
+.zi-title{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.zi-ico{width:36px;height:36px;border-radius:5px;background:var(--g0);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.zi-ico svg{width:17px;height:17px;stroke:var(--g3);fill:none;stroke-width:2;stroke-linecap:round}
+.zi-title h4{font-size:clamp(14px,1.6vw,16px);font-weight:800;color:var(--n5);text-transform:uppercase;letter-spacing:-.2px}
+.zi-desc{font-size:clamp(12px,1.2vw,13px);color:var(--n4);font-weight:400;line-height:1.7;margin-bottom:14px}
+.zi-sp{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.zs{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--n1);border:1px solid var(--n2);border-radius:3px;font-size:12px;gap:6px}
+.zs strong{color:var(--n5);font-weight:600;flex-shrink:0}
+.zs span{color:var(--g3);font-weight:700;font-size:11px;background:var(--g0);padding:2px 7px;border-radius:2px;text-align:right}
+.zi-cta{width:100%;background:var(--g3);color:var(--n0);border:none;padding:11px;border-radius:4px;font-family:var(--f);font-size:13px;font-weight:700;cursor:pointer;transition:background var(--ease);display:flex;align-items:center;justify-content:center;gap:7px;letter-spacing:.2px}
+.zi-cta svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.zi-cta:hover{background:var(--g4)}
+
+/* ═══════════════════════════════
+   CTA FINAL
+═══════════════════════════════ */
+#ctaf{background:var(--g3);padding:80px 0;text-align:center;position:relative;overflow:hidden}
+#ctaf::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 36px,rgba(255,255,255,.018) 36px,rgba(255,255,255,.018) 37px)}
+#ctaf .h2{text-align:center;font-size:clamp(28px,4.5vw,58px);position:relative;z-index:1}
+#ctaf p{color:rgba(255,255,255,.6);font-size:clamp(15px,1.5vw,18px);text-align:center;margin:0 auto 32px;max-width:460px;font-weight:400;position:relative;z-index:1}
+.ctaf-acts{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+
+/* ═══════════════════════════════
+   CONTACTO
+═══════════════════════════════ */
+#cont{background:var(--n0);padding:96px 0}
+.cont-lay{display:grid;grid-template-columns:1fr 1.2fr;gap:80px}
+.ci-items{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.ci{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border:1.5px solid var(--n2);border-radius:4px;transition:border-color var(--ease)}
+.ci:hover{border-color:var(--g3)}
+.ci-ic{width:36px;height:36px;border-radius:4px;background:var(--g0);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-ic svg{width:15px;height:15px;stroke:var(--g3);fill:none;stroke-width:2.1;stroke-linecap:round}
+.ci strong{display:block;font-size:14px;font-weight:700;color:var(--n5);margin-bottom:2px}
+.ci span{font-size:14px;color:var(--n4);font-weight:400}
+.cf{display:flex;flex-direction:column;gap:13px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--n4)}
+.fg input,.fg select,.fg textarea{background:var(--n1);border:1.5px solid var(--n2);border-radius:4px;color:var(--n5);font-family:var(--f);font-size:clamp(14px,1.3vw,15px);padding:12px 15px;outline:none;transition:all .2s;resize:none;-webkit-appearance:none;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g3);background:var(--n0);box-shadow:0 0 0 3px rgba(42,110,55,.1)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--n3)}
+.fg textarea{height:100px}
+.fsub{background:var(--g3);color:var(--n0);border:none;padding:13px 28px;border-radius:4px;font-family:var(--f);font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.fsub svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+.fsub:hover{background:var(--g4);box-shadow:0 4px 14px rgba(42,110,55,.3)}
+.fok{display:none;padding:14px;border-radius:4px;background:var(--g0);border:1px solid rgba(42,110,55,.2);color:var(--g4);font-size:15px;font-weight:600}
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer{background:var(--n6);padding:64px 0 0}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:52px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.06)}
+.fb-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px;text-decoration:none}
+.fb-logo svg{width:24px;height:24px}
+.fb-logo-t{font-size:18px;font-weight:900;color:var(--n0);letter-spacing:5px}
+.fb p{font-size:13px;color:rgba(255,255,255,.3);line-height:1.8;font-weight:400;max-width:240px}
+.fb-chips{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap}
+.fcc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);padding:4px 11px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:1.5px}
+.fc h4{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.22);margin-bottom:14px}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc ul li a{color:rgba(255,255,255,.38);text-decoration:none;font-size:13px;font-weight:400;transition:color .2s}
+.fc ul li a:hover{color:rgba(255,255,255,.82)}
+.fb-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:16px 0;color:rgba(255,255,255,.16);font-size:11px}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media(max-width:960px){
+  .wrap{padding:0 28px}
+  .nav-links{display:none}
+  .nav-ham{display:flex}
+  .perf-2{grid-template-columns:1fr;gap:32px}
+  .feat-row{grid-template-columns:repeat(3,1fr)}
+  .apps-2{grid-template-columns:1fr}
+  .prods-3{grid-template-columns:1fr;gap:0;border-radius:6px}
+  .prods-3 .pc{border-bottom:1px solid var(--n2)}
+  .prods-3 .pc:last-child{border-bottom:none}
+  .testi-2{grid-template-columns:1fr;gap:36px}
+  .cont-lay{grid-template-columns:1fr;gap:40px}
+  .casa-lay{grid-template-columns:1fr}
+  .cp{position:static}
+  .ft{grid-template-columns:1fr 1fr;gap:36px}
+  .stats-g{grid-template-columns:repeat(2,1fr)}
+  .ap{padding:52px 36px}
+}
+@media(max-width:600px){
+  .wrap{padding:0 20px}
+  .sec{padding:60px 0}
+  .feat-row{grid-template-columns:1fr 1fr;border:1px solid var(--n2)}
+  .feat-row .fi{border-bottom:1px solid var(--n2)}
+  .ts2,.res-nums{grid-template-columns:1fr 1fr}
+  .re-g{grid-template-columns:1fr}
+  .fr,.pf-g{grid-template-columns:1fr}
+  .pff{grid-column:1}
+  .cat-g{grid-template-columns:1fr 1fr}
+  .sec-hdr{flex-direction:column;align-items:flex-start;gap:10px}
+  .ft{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .testi-r .ts2{grid-template-columns:1fr 1fr}
+}
+@media(max-width:380px){
+  .stats-g{grid-template-columns:1fr 1fr}
+  .cat-g{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="nav-bar">
+    <a class="nav-logo" href="#">
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9Z" fill="#2a6e37"/><path d="M16 7L24 11.5V21L16 25.5L8 21V11.5Z" fill="#3a8a48"/><path d="M16 12L20 14.5V19.5L16 22L12 19.5V14.5Z" fill="white"/></svg>
+      <span class="nav-logo-t">EMAT</span>
+    </a>
+    <div class="nav-links">
+      <a href="#prods">Producto</a>
+      <a href="#apps">Aplicaciones</a>
+      <a href="#presupuesto">Cotizador</a>
+      <a href="#casa">Tu casa</a>
+      <a href="#cont">Contacto</a>
+    </div>
+    <div class="nav-r">
+      <button class="nav-ham" id="hambtn" onclick="toggleNav()" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="#presupuesto" class="nav-cta">Cotizar</a>
+    </div>
+  </div>
+</nav>
+<div id="nmob">
+  <a href="#prods" onclick="closeNav()">Producto</a>
+  <a href="#apps" onclick="closeNav()">Aplicaciones</a>
+  <a href="#presupuesto" onclick="closeNav()">Cotizador</a>
+  <a href="#casa" onclick="closeNav()">Tu casa</a>
+  <a href="#cont" onclick="closeNav()">Contacto</a>
+  <a href="#presupuesto" class="nm-btn" onclick="closeNav()">Cotizar proyecto</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="yt-bg">
+    <!-- YouTube player container — loaded via JS API so works on file:// too -->
+    <div id="yt-player"></div>
+  </div>
+  <div class="hero-ov"></div>
+  <!-- Shown only when file:// protocol detected -->
+  <div class="yt-local-notice" id="yt-notice">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    El video requiere un servidor. <a href="https://youtu.be/qAH3frzl_UA" target="_blank">Ver en YouTube</a>
+  </div>
+  <div class="wrap">
+    <div class="hero-c sr">
+      <div class="hero-eyebrow"><div class="hero-dot"></div>Córdoba, Argentina</div>
+      <h1 class="hero-h1">
+        AISLACIÓN<br>
+        <span class="accent">SUSTENTABLE</span><br>
+        <span class="soft">para cada proyecto</span>
+      </h1>
+      <p class="hero-sub">Celulosa reciclada de alta performance. Confort térmico, acústico y ambiental en una sola solución.</p>
+      <div class="hero-ctas">
+        <a href="#presupuesto" class="btn btn-p">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-4M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M9 7h6"/></svg>
+          Cotizar proyecto
+        </a>
+        <a href="#casa" class="btn btn-ow">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Ver aplicaciones
+        </a>
+      </div>
+      <div class="hero-chips">
+        <span class="hero-chips-lbl">Certifica</span>
+        <div class="chip">LEED</div>
+        <div class="chip">EDGE</div>
+        <div class="chip">80% Reciclado</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="hs-ln"></div><span class="hs-lb">Scroll</span></div>
+</section>
+
+<!-- ═══ RIBBON ═══ -->
+<div class="ribbon">
+  <div class="rib">
+    <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Aislación Térmica</div>
+    <div class="rd"></div>
+    <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Aislación Acústica</div>
+    <div class="rd"></div>
+    <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>80% Reciclado</div>
+    <div class="rd"></div>
+    <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Ignífugo</div>
+    <div class="rd"></div>
+    <div class="ri"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>LEED / EDGE</div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-g">
+      <div class="st sr"><div class="n">17</div><div class="l">Árboles por tonelada</div></div>
+      <div class="st sr"><div class="n">1875</div><div class="l">Litros de agua ahorrados</div></div>
+      <div class="st sr"><div class="n">122</div><div class="l">Litros de petróleo</div></div>
+      <div class="st sr"><div class="n">95%</div><div class="l">Reducción de polución</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PERFORMANCE ═══ -->
+<section id="perf" class="sec">
+  <div class="wrap">
+    <div class="perf-2">
+      <div>
+        <div class="lbl sr">Por qué celulosa</div>
+        <h2 class="h2 sr">CONSTRUIDO<br>PARA RENDIR</h2>
+      </div>
+      <div class="sr">
+        <p class="bod" style="margin-bottom:26px">La celulosa EMAT combina el mejor desempeño técnico con el menor impacto ambiental posible.</p>
+        <a href="#presupuesto" class="btn btn-p">Cotizar ahora</a>
+      </div>
+    </div>
+    <div class="feat-row sr">
+      <div class="fi">
+        <div class="fi-ico"><svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg></div>
+        <strong>Eficiencia Térmica</strong><span>Hasta 40% menos consumo</span>
+      </div>
+      <div class="fi">
+        <div class="fi-ico"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1a2 2 0 01-2-2v-3a2 2 0 012-2h3zM3 19a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H3z"/></svg></div>
+        <strong>Reducción Acústica</strong><span>45–55 dB</span>
+      </div>
+      <div class="fi">
+        <div class="fi-ico"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <strong>Ignífugo</strong><span>No propaga llamas</span>
+      </div>
+      <div class="fi">
+        <div class="fi-ico"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg></div>
+        <strong>Control Humedad</strong><span>Evita condensación</span>
+      </div>
+      <div class="fi">
+        <div class="fi-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <strong>Repele Plagas</strong><span>Tratamiento bórax</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APPLICATIONS ═══ -->
+<section id="apps">
+  <div class="apps-2">
+    <div class="ap ap-l">
+      <svg class="ap-deco" viewBox="0 0 200 200" fill="white"><path d="M20 180L100 20L180 180H20Z"/></svg>
+      <div class="lbl lbl-w sr">Instalación</div>
+      <h2 class="h2 h2-w sr">VERSÁTIL PARA TODA APLICACIÓN</h2>
+      <p class="bod bod-w sr" style="margin-bottom:24px">Adaptable a cualquier proyecto de construcción en seco, residencial o comercial.</p>
+      <ul class="ap-ul sr">
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Techos inclinados y planos</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Paredes interiores y exteriores</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Pisos y entrepisos</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Steel frame y wood frame</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Remodelaciones y retrofit</li>
+      </ul>
+      <a href="#casa" class="btn btn-ow sr">Ver en tu casa <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="ap ap-r">
+      <svg class="ap-deco" viewBox="0 0 200 200" fill="white"><circle cx="100" cy="100" r="90"/></svg>
+      <div class="lbl lbl-w sr">Sustentabilidad</div>
+      <h2 class="h2 h2-w sr">PRODUCCIÓN DESDE CÓRDOBA</h2>
+      <p class="bod bod-w sr" style="margin-bottom:24px">Cada tonelada representa un impacto ambiental positivo medible y verificable.</p>
+      <ul class="ap-ul sr">
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>80% de insumos reciclados</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Baja demanda energética</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Certificaciones LEED y EDGE</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Trabajo local en Córdoba</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Material biodegradable</li>
+      </ul>
+      <a href="#presupuesto" class="btn btn-ow sr">Calcular impacto <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section id="prods" class="sec">
+  <div class="wrap">
+    <div class="sec-hdr sr">
+      <div><div class="lbl">Soluciones</div><h2 class="h2" style="margin-bottom:0">PRODUCTOS</h2></div>
+      <a href="#cont" class="btn btn-og" style="padding:11px 22px;font-size:13px">Ver todo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="prods-3 sr">
+      <div class="pc">
+        <div class="pc-img pi-g"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><div class="pc-tag">Más vendido</div></div>
+        <div class="pc-body"><h3>Inyectado</h3><p>Para rellenar cavidades en obras existentes. Sin obra civil, mínima intervención y máximo rendimiento.</p><a href="#presupuesto" class="pc-lnk">Cotizar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      </div>
+      <div class="pc">
+        <div class="pc-img pi-dg"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><div class="pc-tag">Obra nueva</div></div>
+        <div class="pc-body"><h3>Proyectado</h3><p>Aplicación directa en construcciones nuevas. Cobertura total sin puentes térmicos, ideal para steel frame.</p><a href="#presupuesto" class="pc-lnk">Cotizar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      </div>
+      <div class="pc">
+        <div class="pc-img pi-dk"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="pc-body"><h3>A Granel</h3><p>Para instaladores y constructores. Entrega en Córdoba y zona de influencia con asesoramiento técnico.</p><a href="#cont" class="pc-lnk">Consultar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIAL ═══ -->
+<section id="testi" class="sec">
+  <div class="wrap">
+    <div class="testi-2">
+      <div class="sr">
+        <div class="lbl lbl-w" style="margin-bottom:18px">Resultados reales</div>
+        <blockquote class="tq">Instalamos celulosa EMAT y la diferencia en confort es notable desde el primer invierno.</blockquote>
+        <div class="ta"><div class="tav">MR</div><div class="tai"><strong>Martín Rojas</strong><span>Constructor — Steel Frame Córdoba</span></div></div>
+      </div>
+      <div class="sr">
+        <div class="ts2">
+          <div class="tsc"><div class="n">40<small>%</small></div><div class="d">Reducción en calefacción</div></div>
+          <div class="tsc"><div class="n">95<small>%</small></div><div class="d">Menos polución</div></div>
+        </div>
+        <div class="tsc" style="margin-top:13px"><div class="n" style="font-size:clamp(28px,4vw,38px)">+500</div><div class="d">Proyectos en Córdoba y región</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRESUPUESTO ═══ -->
+<section id="presupuesto">
+  <div class="pres-head sr">
+    <div class="wrap">
+      <div class="lbl lbl-w" style="text-align:center">Cotizador</div>
+      <h2 class="h2 h2-w" style="text-align:center">CALCULÁ TU PRESUPUESTO</h2>
+      <p>Completá los datos y recibí una estimación personalizada en segundos.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="pres-wrap">
+      <div class="step-bar sr" id="sb" style="--bw:0%">
+        <div class="si active" id="si1"><div class="si-n">1</div><div class="si-l">Tipo</div></div>
+        <div class="si" id="si2"><div class="si-n">2</div><div class="si-l">Dimensiones</div></div>
+        <div class="si" id="si3"><div class="si-n">3</div><div class="si-l">Datos</div></div>
+        <div class="si" id="si4"><div class="si-n">4</div><div class="si-l">Resultado</div></div>
+      </div>
+      <div class="pcard sr">
+        <!-- STEP 1 -->
+        <div class="pstep on" id="ps1">
+          <div class="ps-lbl">Paso 1 de 4</div>
+          <h2>¿Qué querés aislar?</h2>
+          <p class="pd">Seleccioná el tipo de zona para tu proyecto.</p>
+          <div class="cat-g">
+            <div class="cc" data-cat="pared" onclick="selC(this)">
+              <div class="cc-img c1"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/><line x1="15" y1="9" x2="15" y2="21"/></svg></div>
+              <div class="cc-body"><h4>Pared</h4><span>Interior o exterior</span></div>
+              <div class="cc-ck"><svg viewBox="0 0 12 12"><polyline points="1 6 4 10 11 2"/></svg></div>
+            </div>
+            <div class="cc" data-cat="techo" onclick="selC(this)">
+              <div class="cc-img c2"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div class="cc-body"><h4>Techo</h4><span>Inclinado o plano</span></div>
+              <div class="cc-ck"><svg viewBox="0 0 12 12"><polyline points="1 6 4 10 11 2"/></svg></div>
+            </div>
+            <div class="cc" data-cat="bano" onclick="selC(this)">
+              <div class="cc-img c3"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 01-2-2V6a2 2 0 012-2h1a2 2 0 012 2v3"/><rect x="2" y="12" width="20" height="8" rx="2"/></svg></div>
+              <div class="cc-body"><h4>Húmedos</h4><span>Baño / cocina</span></div>
+              <div class="cc-ck"><svg viewBox="0 0 12 12"><polyline points="1 6 4 10 11 2"/></svg></div>
+            </div>
+            <div class="cc" data-cat="exterior" onclick="selC(this)">
+              <div class="cc-img c4"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+              <div class="cc-body"><h4>Fachada</h4><span>Envolvente exterior</span></div>
+              <div class="cc-ck"><svg viewBox="0 0 12 12"><polyline points="1 6 4 10 11 2"/></svg></div>
+            </div>
+          </div>
+          <p class="perr" id="e1">Seleccioná una categoría para continuar.</p>
+          <div class="pnav">
+            <span class="p-ind">Paso 1 de 4</span>
+            <button class="pnxt" onclick="irP(2)">Continuar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          </div>
+        </div>
+        <!-- STEP 2 -->
+        <div class="pstep" id="ps2">
+          <div class="ps-lbl">Paso 2 de 4</div>
+          <h2>Dimensiones</h2>
+          <p class="pd">Superficie aproximada y características del proyecto.</p>
+          <div class="pf-g">
+            <div class="pf"><label>Superficie (m²)</label><input type="number" id="s-sup" placeholder="Ej: 80" min="1"></div>
+            <div class="pf"><label>Zona climática</label>
+              <select id="s-zona">
+                <option value="18">Cálido / Templado (Córdoba)</option>
+                <option value="28">Frío / Serrano</option>
+                <option value="40">Muy Frío / Patagónico</option>
+              </select>
+            </div>
+            <div class="pf"><label>Tipo de construcción</label>
+              <select id="s-tipo">
+                <option value="1.0">Residencial</option>
+                <option value="1.3">Comercial</option>
+                <option value="1.6">Industrial</option>
+              </select>
+            </div>
+            <div class="pf"><label>Método</label>
+              <select id="s-met">
+                <option value="28">Inyectado (obra existente)</option>
+                <option value="35">Proyectado (obra nueva)</option>
+                <option value="25">Material a granel</option>
+              </select>
+            </div>
+          </div>
+          <p class="perr" id="e2">Ingresá la superficie para continuar.</p>
+          <div class="pnav">
+            <button class="pbk" onclick="irP(1)"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Volver</button>
+            <span class="p-ind">Paso 2 de 4</span>
+            <button class="pnxt" onclick="irP(3)">Continuar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          </div>
+        </div>
+        <!-- STEP 3 -->
+        <div class="pstep" id="ps3">
+          <div class="ps-lbl">Paso 3 de 4</div>
+          <h2>Tus datos</h2>
+          <p class="pd">Para enviarte el presupuesto detallado.</p>
+          <div class="pf-g">
+            <div class="pf"><label>Nombre</label><input type="text" id="s-nom" placeholder="Tu nombre"></div>
+            <div class="pf"><label>Email</label><input type="email" id="s-mail" placeholder="tu@email.com"></div>
+            <div class="pf"><label>WhatsApp</label><input type="tel" id="s-tel" placeholder="+54 9 351..."></div>
+            <div class="pf"><label>Ciudad</label><input type="text" id="s-ciudad" placeholder="Córdoba"></div>
+            <div class="pf pff"><label>Comentarios</label><textarea id="s-obs" placeholder="Detalles adicionales del proyecto..."></textarea></div>
+          </div>
+          <p class="perr" id="e3">Completá nombre y email para continuar.</p>
+          <div class="pnav">
+            <button class="pbk" onclick="irP(2)"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Volver</button>
+            <span class="p-ind">Paso 3 de 4</span>
+            <button class="pnxt" onclick="calcP()">Ver presupuesto <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>
+          </div>
+        </div>
+        <!-- STEP 4 -->
+        <div class="pstep" id="ps4">
+          <div class="res-hd">
+            <div class="res-ico"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div><h2 id="res-t">¡Listo!</h2><p>Estimación orientativa. Un asesor te contactará para confirmar.</p></div>
+          </div>
+          <div class="res-nums">
+            <div class="rn"><div class="rv" id="r-s">—</div><div class="rl">Superficie</div></div>
+            <div class="rn"><div class="rv" id="r-m">—</div><div class="rl">Material (kg)</div></div>
+            <div class="rn hi"><div class="rv" id="r-p">—</div><div class="rl">Presupuesto est.</div></div>
+          </div>
+          <div class="res-nrg">
+            <div class="re-lbl">Ahorro energético estimado</div>
+            <div class="re-g">
+              <div class="re-i"><div class="rv" id="r-k">—</div><div class="rl">kWh/año ahorrados</div></div>
+              <div class="re-i"><div class="rv" id="r-c">—</div><div class="rl">kg CO₂ evitados</div></div>
+              <div class="re-i"><div class="rv" id="r-a">—</div><div class="rl">$ ahorro/año est.</div></div>
+            </div>
+          </div>
+          <div class="res-acts">
+            <a href="#cont" class="btn btn-p">Confirmar y contactar</a>
+            <button class="btn btn-og" onclick="irP(1)">Nueva consulta</button>
+          </div>
+          <p style="font-size:12px;color:var(--n3);margin-top:16px;text-align:center">* Precio final puede variar según inspección técnica y materiales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASA INTERACTIVA ═══ -->
+<section id="casa" class="sec" style="background:var(--n1)">
+  <div class="wrap">
+    <div class="casa-intro sr">
+      <div class="lbl" style="text-align:center">Explorá</div>
+      <h2 class="h2" style="text-align:center">DÓNDE APLICA EN TU CASA</h2>
+      <p class="bod" style="margin:0 auto;text-align:center">Hacé click en los <strong>+</strong> para ver solución, método y beneficios de cada zona.</p>
+    </div>
+    <div class="casa-lay sr">
+      <div class="casa-svg-w">
+        <svg id="csv" viewBox="0 0 700 490" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c4e4d0"/><stop offset="100%" stop-color="#daf0e2"/></linearGradient>
+            <linearGradient id="grd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a8d490"/><stop offset="100%" stop-color="#88bc70"/></linearGradient>
+            <linearGradient id="wl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f4f0e6"/><stop offset="100%" stop-color="#e8e2d4"/></linearGradient>
+            <linearGradient id="rf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8a7a68"/><stop offset="100%" stop-color="#645848"/></linearGradient>
+            <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4ecf8" stop-opacity=".92"/><stop offset="100%" stop-color="#a8d0ec" stop-opacity=".82"/></linearGradient>
+            <linearGradient id="wd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9a7040"/><stop offset="100%" stop-color="#724e28"/></linearGradient>
+            <linearGradient id="ins" x1="1" y1="0" x2="0" y2="0"><stop offset="0%" stop-color="#2a6e37" stop-opacity=".0"/><stop offset="100%" stop-color="#2a6e37" stop-opacity=".3"/></linearGradient>
+            <linearGradient id="ins2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a6e37" stop-opacity=".22"/><stop offset="100%" stop-color="#2a6e37" stop-opacity=".0"/></linearGradient>
+          </defs>
+          <rect width="700" height="490" fill="url(#sky)"/>
+          <ellipse cx="100" cy="52" rx="36" ry="13" fill="white" opacity=".6"/>
+          <ellipse cx="127" cy="45" rx="24" ry="15" fill="white" opacity=".5"/>
+          <ellipse cx="570" cy="62" rx="30" ry="11" fill="white" opacity=".5"/>
+          <circle cx="626" cy="50" r="28" fill="#f0d050" opacity=".35"/>
+          <circle cx="626" cy="50" r="20" fill="#f5de60" opacity=".55"/>
+          <circle cx="626" cy="50" r="14" fill="#fae870" opacity=".75"/>
+          <rect x="0" y="398" width="700" height="92" fill="url(#grd)"/>
+          <ellipse cx="350" cy="401" rx="270" ry="7" fill="#90c878" opacity=".35"/>
+          <rect x="316" y="396" width="68" height="10" fill="#d4cabc" rx="2"/>
+          <rect x="74" y="330" width="10" height="70" fill="#624418" rx="2"/>
+          <circle cx="79" cy="316" r="26" fill="#3a8030"/>
+          <circle cx="68" cy="328" r="17" fill="#2e7028"/>
+          <circle cx="93" cy="324" r="19" fill="#4a9038"/>
+          <rect x="616" y="338" width="9" height="62" fill="#624418" rx="2"/>
+          <circle cx="620" cy="325" r="23" fill="#3a8030"/>
+          <circle cx="609" cy="335" r="15" fill="#2e7028"/>
+          <circle cx="632" cy="330" r="17" fill="#4a9038"/>
+          <circle cx="168" cy="399" r="13" fill="#3a8028" opacity=".75"/>
+          <circle cx="183" cy="397" r="11" fill="#4a9030" opacity=".65"/>
+          <circle cx="525" cy="399" r="13" fill="#3a8028" opacity=".75"/>
+          <circle cx="511" cy="398" r="10" fill="#4a9030" opacity=".65"/>
+          <ellipse cx="348" cy="404" rx="195" ry="8" fill="rgba(0,0,0,.09)"/>
+          <rect x="150" y="386" width="400" height="18" fill="#b4a89a" rx="2"/>
+          <rect x="157" y="230" width="386" height="80" fill="url(#wl)"/>
+          <rect x="157" y="308" width="386" height="82" fill="#ece6d8"/>
+          <rect x="157" y="306" width="386" height="5" fill="#c4b8a4"/>
+          <line x1="157" y1="246" x2="543" y2="246" stroke="#dcd6c8" stroke-width=".7"/>
+          <line x1="157" y1="262" x2="543" y2="262" stroke="#dcd6c8" stroke-width=".7"/>
+          <line x1="157" y1="278" x2="543" y2="278" stroke="#dcd6c8" stroke-width=".7"/>
+          <line x1="157" y1="294" x2="543" y2="294" stroke="#dcd6c8" stroke-width=".7"/>
+          <line x1="157" y1="322" x2="543" y2="322" stroke="#d8d0c0" stroke-width=".7"/>
+          <line x1="157" y1="338" x2="543" y2="338" stroke="#d8d0c0" stroke-width=".7"/>
+          <line x1="157" y1="354" x2="543" y2="354" stroke="#d8d0c0" stroke-width=".7"/>
+          <line x1="157" y1="370" x2="543" y2="370" stroke="#d8d0c0" stroke-width=".7"/>
+          <rect x="155" y="228" width="6" height="163" fill="#c4b8a2"/>
+          <rect x="539" y="228" width="6" height="163" fill="#c4b8a2"/>
+          <rect x="157" y="230" width="386" height="160" fill="none" stroke="#c0b09a" stroke-width="1.2"/>
+          <rect x="155" y="230" width="8" height="160" fill="url(#ins)"/>
+          <rect x="537" y="230" width="8" height="160" fill="url(#ins)" transform="scale(-1,1) translate(-700,0)"/>
+          <polygon points="135,234 350,88 565,234 554,234 350,100 146,234" fill="#b8aa98"/>
+          <polygon points="146,234 350,100 554,234" fill="url(#rf)"/>
+          <line x1="248" y1="167" x2="350" y2="100" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
+          <line x1="197" y1="200" x2="350" y2="100" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+          <line x1="452" y1="167" x2="350" y2="100" stroke="rgba(255,255,255,.1)" stroke-width="2"/>
+          <line x1="502" y1="200" x2="350" y2="100" stroke="rgba(255,255,255,.08)" stroke-width="2"/>
+          <polygon points="146,234 350,100 554,234" fill="none" stroke="#524438" stroke-width="1.8"/>
+          <line x1="350" y1="100" x2="350" y2="114" stroke="#42342a" stroke-width="4" stroke-linecap="round"/>
+          <polygon points="160,232 350,112 540,232 528,232 350,122 172,232" fill="#2a6e37" opacity=".2"/>
+          <g opacity=".88"><rect x="225" y="164" width="68" height="38" fill="#3a5888" rx="2"/><line x1="225" y1="175" x2="293" y2="175" stroke="#6898d8" stroke-width=".7" opacity=".9"/><line x1="225" y1="186" x2="293" y2="186" stroke="#6898d8" stroke-width=".7" opacity=".9"/><line x1="248" y1="164" x2="248" y2="202" stroke="#6898d8" stroke-width=".7" opacity=".9"/><line x1="271" y1="164" x2="271" y2="202" stroke="#6898d8" stroke-width=".7" opacity=".9"/><rect x="225" y="164" width="68" height="38" fill="none" stroke="#88b0e0" stroke-width=".8" rx="2"/></g>
+          <rect x="450" y="136" width="30" height="68" fill="#9a8878" rx="2"/>
+          <rect x="446" y="132" width="38" height="8" fill="#786858" rx="1"/>
+          <circle cx="465" cy="122" r="5" fill="white" opacity=".25"/>
+          <circle cx="462" cy="112" r="4" fill="white" opacity=".18"/>
+          <rect x="188" y="242" width="78" height="55" fill="url(#gl)" rx="2"/>
+          <rect x="188" y="242" width="78" height="55" fill="none" stroke="#88aec8" stroke-width="1.6" rx="2"/>
+          <line x1="227" y1="242" x2="227" y2="297" stroke="#88aec8" stroke-width="1.1"/>
+          <line x1="188" y1="269" x2="266" y2="269" stroke="#88aec8" stroke-width="1.1"/>
+          <rect x="190" y="244" width="35" height="23" fill="rgba(255,255,255,.18)" rx="1"/>
+          <rect x="229" y="244" width="35" height="23" fill="rgba(255,255,255,.1)" rx="1"/>
+          <rect x="184" y="238" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="184" y="297" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="382" y="242" width="78" height="55" fill="url(#gl)" rx="2"/>
+          <rect x="382" y="242" width="78" height="55" fill="none" stroke="#88aec8" stroke-width="1.6" rx="2"/>
+          <line x1="421" y1="242" x2="421" y2="297" stroke="#88aec8" stroke-width="1.1"/>
+          <line x1="382" y1="269" x2="460" y2="269" stroke="#88aec8" stroke-width="1.1"/>
+          <rect x="384" y="244" width="35" height="23" fill="rgba(255,255,255,.18)" rx="1"/>
+          <rect x="423" y="244" width="35" height="23" fill="rgba(255,255,255,.1)" rx="1"/>
+          <rect x="378" y="238" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="378" y="297" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="188" y="320" width="78" height="55" fill="url(#gl)" rx="2"/>
+          <rect x="188" y="320" width="78" height="55" fill="none" stroke="#88aec8" stroke-width="1.6" rx="2"/>
+          <line x1="227" y1="320" x2="227" y2="375" stroke="#88aec8" stroke-width="1.1"/>
+          <line x1="188" y1="347" x2="266" y2="347" stroke="#88aec8" stroke-width="1.1"/>
+          <rect x="184" y="316" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="184" y="375" width="86" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="311" y="332" width="44" height="32" fill="#bcddf0" rx="2" opacity=".88"/>
+          <rect x="311" y="332" width="44" height="32" fill="none" stroke="#88aec8" stroke-width="1.4" rx="2"/>
+          <line x1="317" y1="337" x2="317" y2="360" stroke="white" stroke-width="1.1" opacity=".55"/>
+          <rect x="307" y="328" width="52" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="307" y="362" width="52" height="4" fill="#c0b09a" rx="1"/>
+          <rect x="418" y="316" width="66" height="78" fill="url(#wd)" rx="3"/>
+          <rect x="424" y="323" width="24" height="28" fill="rgba(255,255,255,.1)" rx="2"/>
+          <rect x="452" y="323" width="24" height="28" fill="rgba(255,255,255,.1)" rx="2"/>
+          <rect x="424" y="357" width="52" height="16" fill="rgba(255,255,255,.08)" rx="1"/>
+          <circle cx="477" cy="356" r="4.5" fill="#d4b060"/>
+          <circle cx="477" cy="356" r="3" fill="#e8c870"/>
+          <rect x="414" y="311" width="74" height="5" fill="#9a7840" rx="1"/>
+          <rect x="414" y="311" width="5" height="88" fill="#9a7840"/>
+          <rect x="483" y="311" width="5" height="88" fill="#9a7840"/>
+          <rect x="408" y="392" width="86" height="9" fill="#b8a88e" rx="1"/>
+          <rect x="448" y="306" width="9" height="6" fill="#d0c8b0" rx="1"/>
+          <circle cx="452" cy="304" r="2.8" fill="#f8e880" opacity=".7"/>
+          <!-- HOTSPOTS -->
+          <g class="hs" id="h-techo" onclick="showZ('techo')"><circle class="outer" cx="350" cy="153" r="12" fill="#2a6e37" opacity=".2"/><circle class="inner" cx="350" cy="153" r="12" fill="#2a6e37"/><line x1="350" y1="147" x2="350" y2="159" stroke="white" stroke-width="2.4" stroke-linecap="round"/><line x1="344" y1="153" x2="356" y2="153" stroke="white" stroke-width="2.4" stroke-linecap="round"/></g>
+          <g class="hs" id="h-pared" onclick="showZ('pared')"><circle class="outer" cx="174" cy="268" r="12" fill="#2a6e37" opacity=".2"/><circle class="inner" cx="174" cy="268" r="12" fill="#2a6e37"/><line x1="174" y1="262" x2="174" y2="274" stroke="white" stroke-width="2.4" stroke-linecap="round"/><line x1="168" y1="268" x2="180" y2="268" stroke="white" stroke-width="2.4" stroke-linecap="round"/></g>
+          <g class="hs" id="h-bano" onclick="showZ('bano')"><circle class="outer" cx="333" cy="350" r="12" fill="#2a6e37" opacity=".2"/><circle class="inner" cx="333" cy="350" r="12" fill="#2a6e37"/><line x1="333" y1="344" x2="333" y2="356" stroke="white" stroke-width="2.4" stroke-linecap="round"/><line x1="327" y1="350" x2="339" y2="350" stroke="white" stroke-width="2.4" stroke-linecap="round"/></g>
+          <g class="hs" id="h-entrepiso" onclick="showZ('entrepiso')"><circle class="outer" cx="510" cy="310" r="12" fill="#2a6e37" opacity=".2"/><circle class="inner" cx="510" cy="310" r="12" fill="#2a6e37"/><line x1="510" y1="304" x2="510" y2="316" stroke="white" stroke-width="2.4" stroke-linecap="round"/><line x1="504" y1="310" x2="516" y2="310" stroke="white" stroke-width="2.4" stroke-linecap="round"/></g>
+          <g class="hs" id="h-fachada" onclick="showZ('fachada')"><circle class="outer" cx="544" cy="362" r="12" fill="#2a6e37" opacity=".2"/><circle class="inner" cx="544" cy="362" r="12" fill="#2a6e37"/><line x1="544" y1="356" x2="544" y2="368" stroke="white" stroke-width="2.4" stroke-linecap="round"/><line x1="538" y1="362" x2="550" y2="362" stroke="white" stroke-width="2.4" stroke-linecap="round"/></g>
+          <text x="350" y="462" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="11.5" fill="#2a6e37" opacity=".5" font-weight="600" letter-spacing=".5">Hacé click en los  +  para explorar cada zona</text>
+        </svg>
+      </div>
+      <!-- Panel -->
+      <div class="cp">
+        <div class="cp-in">
+          <div class="cp-hd"><h3 id="cp-t">Explorá tu casa</h3><p id="cp-s">Seleccioná una zona</p></div>
+          <div class="cp-bd">
+            <div class="cp-mt" id="cp-mt">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <p>Hacé click en cualquier <strong>+</strong> para ver información técnica de esa zona.</p>
+            </div>
+            <div class="zi" id="z-techo"><div class="zi-title"><div class="zi-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div><h4>Techo</h4></div><p class="zi-desc">Zona crítica de pérdida de calor. La celulosa proyectada entre vigas logra sellado total.</p><div class="zi-sp"><div class="zs"><strong>Método</strong><span>Proyectado húmedo</span></div><div class="zs"><strong>Espesor</strong><span>150–200 mm</span></div><div class="zs"><strong>Ahorro</strong><span>Hasta 35%</span></div><div class="zs"><strong>Acústica</strong><span>Alta</span></div></div><button class="zi-cta" onclick="cotZ('techo')">Cotizar esta zona <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+            <div class="zi" id="z-pared"><div class="zi-title"><div class="zi-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg></div><h4>Pared interior</h4></div><p class="zi-desc">Paredes dobles con celulosa inyectada. Máximo aislamiento térmico y acústico.</p><div class="zi-sp"><div class="zs"><strong>Método</strong><span>Inyectado seco</span></div><div class="zs"><strong>Espesor</strong><span>100–140 mm</span></div><div class="zs"><strong>Acústica</strong><span>45–55 dB</span></div><div class="zs"><strong>Aplicación</strong><span>Nueva o existente</span></div></div><button class="zi-cta" onclick="cotZ('pared')">Cotizar esta zona <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+            <div class="zi" id="z-bano"><div class="zi-title"><div class="zi-ico"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a2 2 0 01-2-2V6a2 2 0 012-2h1a2 2 0 012 2v3"/><rect x="2" y="12" width="20" height="8" rx="2"/></svg></div><h4>Baño / Húmedos</h4></div><p class="zi-desc">Celulosa con tratamiento hidrófugo. Controla humedad, evita condensación y hongos.</p><div class="zi-sp"><div class="zs"><strong>Método</strong><span>Inyectado tratado</span></div><div class="zs"><strong>Tratamiento</strong><span>Hidrófugo + bórax</span></div><div class="zs"><strong>Humedad</strong><span>Control muy alto</span></div><div class="zs"><strong>Anti-hongos</strong><span>Sí</span></div></div><button class="zi-cta" onclick="cotZ('bano')">Cotizar esta zona <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+            <div class="zi" id="z-entrepiso"><div class="zi-title"><div class="zi-ico"><svg viewBox="0 0 24 24"><line x1="2" y1="12" x2="22" y2="12"/><rect x="2" y="9" width="20" height="6" rx="1"/></svg></div><h4>Entrepiso</h4></div><p class="zi-desc">Rellena cavidades eliminando ruido de pisadas entre plantas.</p><div class="zi-sp"><div class="zs"><strong>Método</strong><span>Inyectado seco</span></div><div class="zs"><strong>Espesor</strong><span>Según viga</span></div><div class="zs"><strong>Acústica</strong><span>Muy alta</span></div><div class="zs"><strong>Aplicación</strong><span>Dúplex / PH</span></div></div><button class="zi-cta" onclick="cotZ('entrepiso')">Cotizar esta zona <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+            <div class="zi" id="z-fachada"><div class="zi-title"><div class="zi-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div><h4>Fachada</h4></div><p class="zi-desc">Barrera térmica continua en toda la envolvente. Maximiza la eficiencia de toda la construcción.</p><div class="zi-sp"><div class="zs"><strong>Método</strong><span>Proyectado húmedo</span></div><div class="zs"><strong>Espesor</strong><span>80–120 mm</span></div><div class="zs"><strong>Ahorro</strong><span>Hasta 40%</span></div><div class="zs"><strong>Aplicación</strong><span>Obra nueva</span></div></div><button class="zi-cta" onclick="cotZ('fachada')">Cotizar esta zona <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section id="ctaf">
+  <div class="wrap">
+    <div class="lbl lbl-w sr" style="text-align:center">¿Listo?</div>
+    <h2 class="h2 h2-w sr">POTENCIÁ TU PROYECTO</h2>
+    <p class="sr">Asesoramiento técnico personalizado sin cargo.</p>
+    <div class="ctaf-acts sr">
+      <a href="#presupuesto" class="btn btn-w">Cotizar ahora</a>
+      <a href="#cont" class="btn btn-ow">Contactar asesor</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACTO ═══ -->
+<section id="cont" class="sec">
+  <div class="wrap">
+    <div class="cont-lay">
+      <div class="sr">
+        <div class="lbl">Contacto</div>
+        <h2 class="h2">HABLEMOS</h2>
+        <p class="bod" style="margin-bottom:0">Córdoba. Lunes a viernes, 9 a 17 hs.</p>
+        <div class="ci-items">
+          <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Dirección</strong><span>Av. La Voz del Interior 4080, Córdoba</span></div></div>
+          <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6z"/></svg></div><div><strong>WhatsApp</strong><span>Consultanos directo</span></div></div>
+          <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><strong>Horario</strong><span>Lunes a viernes, 9:00 a 17:00 hs</span></div></div>
+        </div>
+      </div>
+      <div class="sr">
+        <div class="cf">
+          <div class="fr"><div class="fg"><label>Nombre</label><input type="text" placeholder="Tu nombre"></div><div class="fg"><label>Email</label><input type="email" placeholder="tu@email.com"></div></div>
+          <div class="fr"><div class="fg"><label>WhatsApp</label><input type="tel" placeholder="+54 9 351..."></div><div class="fg"><label>Consulta</label><select><option>Presupuesto</option><option>Material a granel</option><option>Información técnica</option><option>Certificaciones</option><option>Otro</option></select></div></div>
+          <div class="fg"><label>Mensaje</label><textarea placeholder="Contanos sobre tu proyecto..."></textarea></div>
+          <button class="fsub" onclick="envF(this)">Enviar <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <div class="fok" id="fok">Mensaje enviado. Te contactaremos pronto.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div class="fb">
+        <a href="#" class="fb-logo"><svg viewBox="0 0 32 32" fill="none"><path d="M16 2L28 9V23L16 30L4 23V9Z" fill="#2a6e37"/><path d="M16 7L24 11.5V21L16 25.5L8 21V11.5Z" fill="#3a8a48"/><path d="M16 12L20 14.5V19.5L16 22L12 19.5V14.5Z" fill="white"/></svg><span class="fb-logo-t">EMAT</span></a>
+        <p>Aislación sustentable con celulosa reciclada. Córdoba, Argentina.</p>
+        <div class="fb-chips"><div class="fcc">LEED</div><div class="fcc">EDGE</div><div class="fcc">ARG</div></div>
+      </div>
+      <div class="fc"><h4>Producto</h4><ul><li><a href="#perf">Beneficios</a></li><li><a href="#apps">Aplicaciones</a></li><li><a href="#prods">Productos</a></li></ul></div>
+      <div class="fc"><h4>Herramientas</h4><ul><li><a href="#presupuesto">Cotizador</a></li><li><a href="#casa">Tu casa</a></li><li><a href="#cont">Fichas técnicas</a></li></ul></div>
+      <div class="fc"><h4>Empresa</h4><ul><li><a href="#cont">Contacto</a></li><li><a href="#apps">Sustentabilidad</a></li><li><a href="#ctaf">Presupuesto</a></li></ul></div>
+    </div>
+    <div class="fb-bot"><span>© 2026 EMAT — Ecoaislante de Celulosa. Córdoba, Argentina.</span><span>Av. La Voz del Interior 4080</span></div>
+  </div>
+</footer>
+
+<script>
+// ── YouTube IFrame API ──
+// Works on both file:// and hosted servers.
+// When opened from file://, YouTube blocks autoplay — we show a notice instead.
+var ytReady = false;
+
+function onYouTubeIframeAPIReady() {
+  ytReady = true;
+  new YT.Player('yt-player', {
+    videoId: 'qAH3frzl_UA',
+    playerVars: {
+      autoplay: 1,
+      mute: 1,
+      loop: 1,
+      playlist: 'qAH3frzl_UA',
+      controls: 0,
+      disablekb: 1,
+      iv_load_policy: 3,
+      modestbranding: 1,
+      playsinline: 1,
+      rel: 0,
+      showinfo: 0,
+      start: 3
+    },
+    events: {
+      onReady: function(e) { e.target.playVideo(); }
+    }
+  });
+}
+
+// Detect file:// protocol — YouTube won't work, show notice
+if (location.protocol === 'file:') {
+  document.getElementById('yt-notice').style.display = 'flex';
+} else {
+  // Load YouTube IFrame API script dynamically
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+
+// Fallback: if API doesn't load in 4s (ad blocker, etc), show notice
+setTimeout(function() {
+  if (!ytReady && location.protocol !== 'file:') {
+    document.getElementById('yt-notice').style.display = 'flex';
+  }
+}, 4000);
+
+// Scroll reveal
+const ro=new IntersectionObserver(ents=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*50);ro.unobserve(e.target)}})},{threshold:.07});
+document.querySelectorAll('.sr').forEach(el=>ro.observe(el));
+
+// Nav
+window.addEventListener('scroll',()=>{document.querySelector('.nav-bar').style.boxShadow=scrollY>50?'0 2px 20px rgba(0,0,0,.55)':'none'},{passive:true});
+function toggleNav(){document.getElementById('nmob').classList.toggle('open')}
+function closeNav(){document.getElementById('nmob').classList.remove('open')}
+document.addEventListener('click',e=>{if(!e.target.closest('#nav')&&!e.target.closest('#nmob'))closeNav()});
+
+// Contact
+function envF(btn){btn.innerHTML='Enviando...';btn.disabled=true;setTimeout(()=>{btn.style.display='none';document.getElementById('fok').style.display='block'},1100)}
+
+// Presupuesto
+let pCat=null,pStep=1;
+const bw=['0%','33%','66%','100%'];
+function selC(el){document.querySelectorAll('.cc').forEach(c=>c.classList.remove('on'));el.classList.add('on');pCat=el.dataset.cat;document.getElementById('e1').style.display='none'}
+function irP(n){
+  if(n===2&&!pCat){document.getElementById('e1').style.display='block';return}
+  if(n===3){const s=document.getElementById('s-sup').value;if(!s||+s<=0){document.getElementById('e2').style.display='block';return}document.getElementById('e2').style.display='none'}
+  document.getElementById('ps'+pStep).classList.remove('on');
+  const ps=document.getElementById('si'+pStep);ps.classList.remove('active');
+  if(n>pStep)ps.classList.add('done');else document.getElementById('si'+n).classList.remove('done');
+  pStep=n;
+  document.getElementById('ps'+n).classList.add('on');
+  const ns=document.getElementById('si'+n);ns.classList.remove('done');ns.classList.add('active');
+  document.getElementById('sb').style.setProperty('--bw',bw[n-1]);
+  document.getElementById('presupuesto').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function calcP(){
+  const nom=document.getElementById('s-nom').value.trim();
+  const em=document.getElementById('s-mail').value.trim();
+  if(!nom||!em){document.getElementById('e3').style.display='block';return}
+  document.getElementById('e3').style.display='none';
+  const sup=parseFloat(document.getElementById('s-sup').value)||80;
+  const zona=parseFloat(document.getElementById('s-zona').value);
+  const tipo=parseFloat(document.getElementById('s-tipo').value);
+  const dens=parseFloat(document.getElementById('s-met').value);
+  const mat=Math.round(sup*dens);
+  const precio=Math.round(mat*850);
+  const kwh=Math.round(sup*zona*tipo);
+  const co2=Math.round(kwh*.37);
+  const aho=Math.round(kwh*90);
+  const f=n=>n>=10000?(n/1000).toFixed(1)+'k':n.toLocaleString('es-AR');
+  document.getElementById('r-s').textContent=sup+' m²';
+  document.getElementById('r-m').textContent=f(mat)+' kg';
+  document.getElementById('r-p').textContent='$'+f(precio);
+  document.getElementById('r-k').textContent=f(kwh);
+  document.getElementById('r-c').textContent=f(co2);
+  document.getElementById('r-a').textContent='$'+f(aho);
+  document.getElementById('res-t').textContent='¡Listo, '+nom.split(' ')[0]+'!';
+  irP(4);
+}
+
+// Casa
+const zm={techo:{t:'Techo inclinado',s:'Aislación entre vigas'},pared:{t:'Pared interior',s:'División de ambientes'},bano:{t:'Baño / Húmedos',s:'Control de humedad'},entrepiso:{t:'Entrepiso / Losa',s:'Entre plantas'},fachada:{t:'Fachada exterior',s:'Envolvente térmica'}};
+function showZ(id){
+  document.querySelectorAll('.hs .inner').forEach(c=>c.setAttribute('fill','#2a6e37'));
+  document.querySelectorAll('.zi').forEach(z=>z.classList.remove('on'));
+  document.getElementById('cp-mt').style.display='none';
+  document.querySelector('#h-'+id+' .inner').setAttribute('fill','#3a8a48');
+  document.getElementById('z-'+id).classList.add('on');
+  const m=zm[id];document.getElementById('cp-t').textContent=m.t;document.getElementById('cp-s').textContent=m.s;
+}
+function cotZ(zona){
+  document.querySelectorAll('.cc').forEach(c=>{if(c.dataset.cat===zona)c.click()});
+  irP(1);document.getElementById('presupuesto').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
