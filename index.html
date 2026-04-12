@@ -1158,7 +1158,82 @@ function closeNav(){document.getElementById('nmob').classList.remove('open')}
 document.addEventListener('click',e=>{if(!e.target.closest('#nav')&&!e.target.closest('#nmob'))closeNav()});
 
 // Contact
-function envF(btn){btn.innerHTML='Enviando...';btn.disabled=true;setTimeout(()=>{btn.style.display='none';document.getElementById('fok').style.display='block'},1100)}
+function envF(btn){
+  // Collect field values
+  const fields = btn.closest('.cf').querySelectorAll('input,select,textarea');
+  const nombre  = fields[0]?.value.trim();
+  const email   = fields[1]?.value.trim();
+  const wapp    = fields[2]?.value.trim();
+  const consulta= fields[3]?.value;
+  const mensaje = fields[4]?.value.trim();
+
+  if(!nombre||!email){alert('Completá nombre y email para continuar.');return;}
+
+  btn.innerHTML='Enviando...';btn.disabled=true;
+
+  // ── FormSubmit.co ── cambiá el email por el de la empresa ──────────────
+  const DEST_EMAIL = 'gonbenedetto1@gmail.com';   // ← ÚNICO LUGAR A EDITAR
+  // ───────────────────────────────────────────────────────────────────────
+
+  fetch('https://formsubmit.co/ajax/'+DEST_EMAIL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      _subject:'Nueva consulta EMAT desde la web',
+      nombre, email, whatsapp:wapp||'—', consulta, mensaje
+    })
+  })
+  .then(r=>r.json())
+  .then(()=>{btn.style.display='none';document.getElementById('fok').style.display='block';})
+  .catch(()=>{btn.innerHTML='Enviar';btn.disabled=false;alert('Error al enviar. Intentá de nuevo o escribinos por WhatsApp.');});
+}
+
+// ── PRECIO POR KG ──────────────────────────────────────────────────────────
+function getPrecioKg(){
+  return parseFloat(localStorage.getItem('emat_precio_kg'))||850;
+}
+
+// ── PANEL DE ADMIN (precio) ─────────────────────────────────────────────────
+// Acceso: tipear "emat" en cualquier parte de la página
+(function(){
+  let buf='';
+  document.addEventListener('keydown',e=>{
+    buf+=(e.key||'').toLowerCase();
+    if(buf.length>6) buf=buf.slice(-6);
+    if(buf.endsWith('emat')) abrirAdmin();
+  });
+})();
+
+function abrirAdmin(){
+  // Evitar duplicados
+  if(document.getElementById('emat-admin')) return;
+
+  const actual = getPrecioKg();
+  const panel  = document.createElement('div');
+  panel.id='emat-admin';
+  panel.style.cssText='position:fixed;bottom:24px;right:24px;z-index:9999;background:#fff;border:2px solid #2a6e37;border-radius:10px;padding:22px 26px;box-shadow:0 8px 32px rgba(0,0,0,.18);font-family:sans-serif;min-width:280px;';
+  panel.innerHTML=`
+    <div style="font-weight:700;font-size:15px;color:#2a6e37;margin-bottom:14px;">⚙️ Panel de administración EMAT</div>
+    <label style="font-size:13px;font-weight:600;display:block;margin-bottom:5px;">Precio por kg de material (ARS)</label>
+    <input id="adm-precio" type="number" min="1" value="${actual}"
+      style="width:100%;padding:8px 10px;border:1px solid #ccc;border-radius:5px;font-size:15px;margin-bottom:12px;">
+    <div style="font-size:11px;color:#888;margin-bottom:14px;">Valor actual: <strong>$${actual.toLocaleString('es-AR')}</strong>/kg</div>
+    <div style="display:flex;gap:8px;">
+      <button onclick="guardarPrecio()" style="flex:1;background:#2a6e37;color:#fff;border:none;padding:9px;border-radius:5px;font-size:13px;font-weight:700;cursor:pointer;">Guardar</button>
+      <button onclick="document.getElementById('emat-admin').remove()" style="flex:1;background:#eee;color:#333;border:none;padding:9px;border-radius:5px;font-size:13px;cursor:pointer;">Cerrar</button>
+    </div>
+    <div id="adm-ok" style="display:none;margin-top:10px;color:#2a6e37;font-size:13px;font-weight:600;">✓ Guardado correctamente</div>
+  `;
+  document.body.appendChild(panel);
+}
+
+function guardarPrecio(){
+  const v=parseFloat(document.getElementById('adm-precio').value);
+  if(!v||v<=0){alert('Ingresá un valor válido.');return;}
+  localStorage.setItem('emat_precio_kg',v);
+  document.getElementById('adm-ok').style.display='block';
+  setTimeout(()=>document.getElementById('emat-admin').remove(),1500);
+}
 
 // Presupuesto
 let pCat=null,pStep=1;
@@ -1186,7 +1261,7 @@ function calcP(){
   const tipo=parseFloat(document.getElementById('s-tipo').value);
   const dens=parseFloat(document.getElementById('s-met').value);
   const mat=Math.round(sup*dens);
-  const precio=Math.round(mat*850);
+  const precio=Math.round(mat*getPrecioKg());
   const kwh=Math.round(sup*zona*tipo);
   const co2=Math.round(kwh*.37);
   const aho=Math.round(kwh*90);
