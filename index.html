@@ -61,16 +61,10 @@
 
 <!-- ═══ HERO ═══ -->
 <section id="hero">
-  <div class="yt-bg">
-    <!-- YouTube player container — loaded via JS API so works on file:// too -->
-    <div id="yt-player"></div>
-  </div>
+  <video class="hero-video" autoplay loop muted playsinline preload="auto" poster="">
+    <source src="assets/img/hero-bg.mp4" type="video/mp4">
+  </video>
   <div class="hero-ov"></div>
-  <!-- Shown only when file:// protocol detected -->
-  <div class="yt-local-notice" id="yt-notice">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    El video requiere un servidor. <a href="https://youtu.be/qAH3frzl_UA" target="_blank">Ver en YouTube</a>
-  </div>
   <div class="wrap">
     <div class="hero-c sr">
       <div class="hero-eyebrow"><div class="hero-dot"></div>Córdoba, Argentina</div>
@@ -751,52 +745,6 @@
 </footer>
 
 <script>
-// ── YouTube IFrame API ──
-// Works on both file:// and hosted servers.
-// When opened from file://, YouTube blocks autoplay — we show a notice instead.
-var ytReady = false;
-
-function onYouTubeIframeAPIReady() {
-  ytReady = true;
-  new YT.Player('yt-player', {
-    videoId: 'qAH3frzl_UA',
-    playerVars: {
-      autoplay: 1,
-      mute: 1,
-      loop: 1,
-      playlist: 'qAH3frzl_UA',
-      controls: 0,
-      disablekb: 1,
-      iv_load_policy: 3,
-      modestbranding: 1,
-      playsinline: 1,
-      rel: 0,
-      showinfo: 0,
-      start: 3
-    },
-    events: {
-      onReady: function(e) { e.target.playVideo(); }
-    }
-  });
-}
-
-// Detect file:// protocol — YouTube won't work, show notice
-if (location.protocol === 'file:') {
-  document.getElementById('yt-notice').style.display = 'flex';
-} else {
-  // Load YouTube IFrame API script dynamically
-  var tag = document.createElement('script');
-  tag.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(tag);
-}
-
-// Fallback: if API doesn't load in 4s (ad blocker, etc), show notice
-setTimeout(function() {
-  if (!ytReady && location.protocol !== 'file:') {
-    document.getElementById('yt-notice').style.display = 'flex';
-  }
-}, 4000);
-
 // Scroll reveal
 const ro=new IntersectionObserver(ents=>{ents.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*50);ro.unobserve(e.target)}})},{threshold:.07});
 document.querySelectorAll('.sr').forEach(el=>ro.observe(el));
