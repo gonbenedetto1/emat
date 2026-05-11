@@ -116,9 +116,9 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(
     100deg,
-    rgba(6,18,8,.55) 0%,
-    rgba(10,28,12,.40) 40%,
-    rgba(6,18,8,.25) 100%
+    rgba(6,18,8,.78) 0%,
+    rgba(10,28,12,.62) 40%,
+    rgba(6,18,8,.45) 100%
   );
 }
 .hero-c{
