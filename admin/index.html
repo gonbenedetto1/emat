@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · EMAT</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../assets/img/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div id="login-screen" class="screen">
+  <div class="login-card">
+    <img src="../assets/logo.png" alt="EMAT" class="login-logo">
+    <h1>Panel de administración</h1>
+    <p class="muted">Iniciá sesión para gestionar el contenido del sitio.</p>
+
+    <form id="login-form">
+      <label>Email</label>
+      <input type="email" id="login-email" required autocomplete="username">
+
+      <label>Contraseña</label>
+      <input type="password" id="login-password" required autocomplete="current-password">
+
+      <button type="submit" class="btn btn-primary" id="login-btn">Entrar</button>
+
+      <div class="login-error" id="login-error"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════════ DASHBOARD ══════════════ -->
+<div id="dashboard" class="screen hidden">
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="../assets/logo.png" alt="EMAT" class="topbar-logo">
+      <span class="topbar-sep"></span>
+      <strong>Admin</strong>
+    </div>
+    <div class="topbar-right">
+      <span class="user-email" id="user-email"></span>
+      <a href="../index.html" class="btn btn-ghost">Ver sitio</a>
+      <button class="btn btn-ghost" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="posts">📝 Notas del blog</button>
+    <button class="tab" data-tab="settings">⚙️ Configuración</button>
+  </nav>
+
+  <main class="content">
+
+    <!-- ══════════ TAB POSTS ══════════ -->
+    <section class="tab-panel active" data-panel="posts">
+      <div class="panel-header">
+        <div>
+          <h2>Notas del blog</h2>
+          <p class="muted">Crear, editar y publicar notas. Las marcadas como <em>publicadas</em> aparecen en el sitio.</p>
+        </div>
+        <button class="btn btn-primary" id="new-post-btn">+ Nueva nota</button>
+      </div>
+
+      <div class="loading" id="posts-loading">Cargando notas…</div>
+      <div class="posts-grid" id="posts-grid"></div>
+      <div class="empty hidden" id="posts-empty">
+        <p>No hay notas todavía.</p>
+        <button class="btn btn-primary" onclick="document.getElementById('new-post-btn').click()">Crear la primera</button>
+      </div>
+    </section>
+
+    <!-- ══════════ TAB SETTINGS ══════════ -->
+    <section class="tab-panel" data-panel="settings">
+      <div class="panel-header">
+        <div>
+          <h2>Configuración del sitio</h2>
+          <p class="muted">Estos valores se cargan automáticamente en el sitio público.</p>
+        </div>
+      </div>
+
+      <div class="loading" id="settings-loading">Cargando…</div>
+      <form id="settings-form" class="settings-form hidden"></form>
+    </section>
+
+  </main>
+</div>
+
+<!-- ══════════════ MODAL: EDITOR DE NOTA ══════════════ -->
+<div id="post-modal" class="modal hidden">
+  <div class="modal-content">
+    <header class="modal-header">
+      <h2 id="post-modal-title">Nueva nota</h2>
+      <button class="btn btn-ghost" id="post-modal-close" aria-label="Cerrar">✕</button>
+    </header>
+
+    <div class="modal-body">
+      <div class="post-editor">
+        <div class="editor-form">
+          <label>Título</label>
+          <input type="text" id="p-title" placeholder="Ej: Cómo elegir el espesor correcto">
+
+          <label>Slug (URL) <span class="muted">— se genera del título</span></label>
+          <input type="text" id="p-slug" placeholder="como-elegir-espesor">
+
+          <div class="row-2">
+            <div>
+              <label>Categoría</label>
+              <select id="p-category">
+                <option>Sustentabilidad</option>
+                <option>Construcción</option>
+                <option>Casos</option>
+                <option>Novedades</option>
+              </select>
+            </div>
+            <div>
+              <label>Fecha</label>
+              <input type="date" id="p-date">
+            </div>
+          </div>
+
+          <label>Autor</label>
+          <input type="text" id="p-author" value="Equipo EMAT">
+
+          <label>Imagen destacada</label>
+          <div class="img-upload">
+            <input type="file" id="p-image" accept="image/*">
+            <div class="img-preview" id="p-image-preview">Sin imagen</div>
+          </div>
+          <div class="muted small">Recomendado 1200×600px. Se sube automáticamente al servidor.</div>
+
+          <label>Resumen (excerpt)</label>
+          <textarea id="p-excerpt" rows="3" placeholder="2-3 líneas que aparecen en la card del listado."></textarea>
+
+          <label>Cuerpo de la nota</label>
+          <textarea id="p-body" rows="14" placeholder="Markdown soportado: **negrita**, *itálica*, ## títulos, listas, etc."></textarea>
+          <div class="muted small">Soporta Markdown. <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">Guía</a></div>
+
+          <label class="check">
+            <input type="checkbox" id="p-published" checked>
+            <span>Publicada (visible en el sitio)</span>
+          </label>
+        </div>
+
+        <div class="editor-preview">
+          <div class="preview-label">PREVIEW</div>
+          <iframe id="preview-iframe" srcdoc="<p style='padding:60px;text-align:center;color:#999;font-family:sans-serif'>Empezá a llenar el formulario.</p>"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <footer class="modal-footer">
+      <button class="btn btn-danger hidden" id="post-delete-btn">Eliminar</button>
+      <div class="footer-actions">
+        <button class="btn btn-ghost" id="post-cancel-btn">Cancelar</button>
+        <button class="btn btn-primary" id="post-save-btn">Guardar nota</button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- ══════════════ TOAST ══════════════ -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- Supabase + Markdown -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>

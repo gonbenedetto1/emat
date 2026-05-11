@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor de notas — EMAT</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+.ed-wrap{display:grid;grid-template-columns:420px 1fr;min-height:100vh;background:var(--n1)}
+.ed-form{padding:32px 28px;background:var(--n0);border-right:1px solid var(--n2);overflow-y:auto;max-height:100vh;position:sticky;top:0}
+.ed-preview{padding:32px 24px;overflow-y:auto;max-height:100vh}
+.ed-form h1{font-size:20px;font-weight:800;margin-bottom:6px;color:var(--g4);letter-spacing:-.3px}
+.ed-form .ed-sub{font-size:12px;color:var(--n4);margin-bottom:24px;line-height:1.5}
+.ed-form label{display:block;font-size:11.5px;font-weight:700;color:var(--n5);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.8px}
+.ed-form input,.ed-form select,.ed-form textarea{width:100%;font-family:var(--f);font-size:14px;padding:10px 12px;border:1px solid var(--n2);border-radius:5px;color:var(--n5);background:var(--n0);outline:none;transition:border var(--ease)}
+.ed-form input:focus,.ed-form select:focus,.ed-form textarea:focus{border-color:var(--g3)}
+.ed-form textarea{resize:vertical;font-family:'Menlo',monospace;font-size:13px;line-height:1.55}
+.ed-form textarea#ed-body{min-height:280px}
+.ed-form .ed-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ed-form .ed-img-prev{margin-top:8px;width:100%;height:120px;background:var(--n1);border-radius:5px;background-size:cover;background-position:center;border:1px dashed var(--n3);display:flex;align-items:center;justify-content:center;color:var(--n3);font-size:12px}
+.ed-form .ed-help{font-size:11px;color:var(--n4);margin-top:5px;line-height:1.4}
+.ed-form .ed-help code{background:var(--n1);padding:1px 5px;border-radius:3px;font-family:'Menlo',monospace;font-size:11px}
+.ed-actions{margin-top:24px;display:flex;flex-direction:column;gap:8px}
+.ed-actions button{font-family:var(--f);font-size:13px;font-weight:700;padding:12px 18px;border-radius:5px;border:none;cursor:pointer;transition:all var(--ease);letter-spacing:.3px}
+.ed-actions .ed-btn-primary{background:var(--g3);color:var(--n0)}
+.ed-actions .ed-btn-primary:hover{background:var(--g4)}
+.ed-actions .ed-btn-secondary{background:var(--n0);color:var(--g3);border:1.5px solid var(--g3)}
+.ed-actions .ed-btn-secondary:hover{background:var(--g0)}
+.ed-actions .ed-btn-ghost{background:transparent;color:var(--n4);border:1px solid var(--n2)}
+.ed-actions .ed-btn-ghost:hover{background:var(--n1)}
+.ed-status{margin-top:14px;padding:10px 12px;border-radius:5px;background:var(--g0);color:var(--g4);font-size:12px;display:none;font-weight:600}
+.ed-status.show{display:block}
+.ed-status.error{background:#fde2e2;color:#9b1c1c}
+.ed-instructions{background:var(--n0);border:1px solid var(--n2);padding:16px 18px;border-radius:6px;margin-bottom:20px;font-size:13px;line-height:1.6;color:var(--n5)}
+.ed-instructions h3{font-size:13px;font-weight:800;color:var(--g4);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px}
+.ed-instructions ol{margin-left:18px}
+.ed-preview-frame{background:var(--n0);border:1px solid var(--n2);border-radius:6px;overflow:hidden;min-height:600px}
+.ed-preview-frame iframe{width:100%;border:none;display:block;min-height:800px}
+@media(max-width:980px){
+  .ed-wrap{grid-template-columns:1fr}
+  .ed-form{position:relative;max-height:none;border-right:none;border-bottom:1px solid var(--n2)}
+  .ed-preview{max-height:none}
+}
+</style>
+</head>
+<body>
+
+<div class="ed-wrap">
+
+  <!-- ──── FORM ──── -->
+  <div class="ed-form">
+    <h1>Editor de notas — EMAT</h1>
+    <div class="ed-sub">Llená los datos, mirá el preview a la derecha y descargá los archivos cuando estés conforme. Después se los pasás a tu desarrollador para que los suba al sitio.</div>
+
+    <label>Título de la nota</label>
+    <input type="text" id="ed-title" placeholder="Ej: Por qué la celulosa es mejor que la lana de vidrio">
+
+    <label>Slug (URL) <span style="color:var(--n4);font-weight:500;text-transform:none">— se genera solo</span></label>
+    <input type="text" id="ed-slug" placeholder="por-que-la-celulosa-es-mejor">
+    <div class="ed-help">Solo letras, números y guiones. Será el nombre del archivo: <code>blog/[slug].html</code></div>
+
+    <div class="ed-row">
+      <div>
+        <label>Categoría</label>
+        <select id="ed-cat">
+          <option>Sustentabilidad</option>
+          <option>Construcción</option>
+          <option>Casos</option>
+          <option>Novedades</option>
+        </select>
+      </div>
+      <div>
+        <label>Fecha</label>
+        <input type="date" id="ed-date">
+      </div>
+    </div>
+
+    <label>Autor</label>
+    <input type="text" id="ed-author" value="Equipo EMAT">
+
+    <label>Imagen destacada</label>
+    <input type="file" id="ed-img" accept="image/*">
+    <div class="ed-img-prev" id="ed-img-prev">Sin imagen seleccionada</div>
+    <div class="ed-help">Recomendado: 1200×600px. La descarga te da el archivo renombrado a <code>[slug].jpg</code> para subir junto al HTML.</div>
+
+    <label>Resumen (excerpt)</label>
+    <textarea id="ed-excerpt" rows="3" placeholder="2 o 3 líneas que aparecen en la card del listado del blog."></textarea>
+
+    <label>Cuerpo de la nota</label>
+    <textarea id="ed-body" placeholder="Escribí el contenido de la nota. Podés usar:
+**texto en negrita**
+*texto en itálica*
+## Título grande
+### Título mediano
+- Item de lista
+- Otro item
+> Cita destacada
+[texto del link](https://url.com)
+![texto alt](url-de-imagen.jpg)"></textarea>
+    <div class="ed-help">Formato Markdown — el preview se actualiza solo. <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" style="color:var(--g3)">Guía de markdown</a></div>
+
+    <div class="ed-actions">
+      <button class="ed-btn-primary" onclick="downloadHTML()">⬇ Descargar nota HTML</button>
+      <button class="ed-btn-primary" onclick="downloadImage()" id="ed-dl-img" disabled style="opacity:.5">⬇ Descargar imagen renombrada</button>
+      <button class="ed-btn-secondary" onclick="copyCard()">📋 Copiar card del listado</button>
+      <button class="ed-btn-ghost" onclick="if(confirm('¿Limpiar todo el formulario?'))resetForm()">Limpiar formulario</button>
+    </div>
+
+    <div class="ed-status" id="ed-status"></div>
+  </div>
+
+  <!-- ──── PREVIEW ──── -->
+  <div class="ed-preview">
+    <div class="ed-instructions">
+      <h3>📌 Instrucciones</h3>
+      <ol>
+        <li>Llená el formulario de la izquierda. El preview se actualiza solo.</li>
+        <li>Hacé click en <strong>Descargar nota HTML</strong> para guardar el archivo de la nota.</li>
+        <li>Si subiste imagen, hacé click en <strong>Descargar imagen renombrada</strong>.</li>
+        <li>Hacé click en <strong>Copiar card del listado</strong> y mandale ese texto a tu desarrollador.</li>
+        <li>Mandale los 2 archivos descargados (HTML + imagen) y el texto copiado por WhatsApp.</li>
+      </ol>
+    </div>
+    <div class="ed-preview-frame">
+      <iframe id="ed-iframe" srcdoc="<p style='padding:60px;text-align:center;color:#999;font-family:sans-serif'>Empezá a llenar el formulario y la nota aparecerá acá.</p>"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<!-- Markdown parser (tiny) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+// ── State ──
+let imageData = null;  // base64
+let imageFilename = null;
+
+// ── Helpers ──
+function slugify(s){
+  return s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9\s-]/g,'')
+    .trim().replace(/\s+/g,'-');
+}
+
+function formatDate(iso){
+  if(!iso) return '';
+  const m = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const [y,mo,d] = iso.split('-');
+  return `${parseInt(d)} ${m[parseInt(mo)-1]} ${y}`;
+}
+
+function showStatus(msg, error){
+  const s = document.getElementById('ed-status');
+  s.textContent = msg;
+  s.classList.toggle('error', !!error);
+  s.classList.add('show');
+  setTimeout(()=>s.classList.remove('show'), 4000);
+}
+
+// ── Auto-fill slug from title ──
+document.getElementById('ed-title').addEventListener('input', e => {
+  const slugInput = document.getElementById('ed-slug');
+  if(!slugInput.dataset.manual) slugInput.value = slugify(e.target.value);
+  updatePreview();
+});
+document.getElementById('ed-slug').addEventListener('input', e => {
+  e.target.dataset.manual = '1';
+  e.target.value = slugify(e.target.value);
+});
+
+// ── Image upload ──
+document.getElementById('ed-img').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    imageData = ev.target.result;
+    const slug = document.getElementById('ed-slug').value || 'imagen';
+    const ext = file.name.split('.').pop().toLowerCase();
+    imageFilename = `${slug}.${ext}`;
+    document.getElementById('ed-img-prev').style.backgroundImage = `url(${imageData})`;
+    document.getElementById('ed-img-prev').textContent = '';
+    document.getElementById('ed-dl-img').disabled = false;
+    document.getElementById('ed-dl-img').style.opacity = '1';
+    updatePreview();
+  };
+  reader.readAsDataURL(file);
+});
+
+// ── Live preview ──
+['ed-title','ed-cat','ed-date','ed-author','ed-excerpt','ed-body'].forEach(id => {
+  document.getElementById(id).addEventListener('input', updatePreview);
+});
+
+document.getElementById('ed-date').valueAsDate = new Date();
+
+function buildHTML(forIframe){
+  const title = document.getElementById('ed-title').value || '[Sin título]';
+  const slug = document.getElementById('ed-slug').value || 'sin-slug';
+  const cat = document.getElementById('ed-cat').value;
+  const date = formatDate(document.getElementById('ed-date').value);
+  const author = document.getElementById('ed-author').value || 'Equipo EMAT';
+  const excerpt = document.getElementById('ed-excerpt').value || '';
+  const bodyMD = document.getElementById('ed-body').value || '';
+  const bodyHTML = marked.parse(bodyMD);
+  const initials = author.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+
+  // For preview iframe: use embedded image (base64)
+  // For download: use external file reference
+  const imgSrc = forIframe
+    ? (imageData || '../assets/img/obra-01.jpg')
+    : (imageFilename ? `../assets/img/${imageFilename}` : '../assets/img/obra-01.jpg');
+
+  const cssLink = forIframe
+    ? '<link rel="stylesheet" href="assets/styles.css">'
+    : '<link rel="stylesheet" href="../assets/styles.css">';
+
+  // Hero shows image as background
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title} | Blog EMAT</title>
+<meta name="description" content="${excerpt.replace(/"/g,'&quot;')}">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${excerpt.replace(/"/g,'&quot;')}">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://emat.com.ar/assets/img/${imageFilename || 'obra-01.jpg'}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+${cssLink}
+<style>
+.post-meta{display:flex;gap:14px;align-items:center;margin-bottom:18px;font-size:13px;color:rgba(255,255,255,.7);flex-wrap:wrap}
+.post-meta .bp-cat{background:rgba(255,255,255,.15);color:var(--n0);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.post-hero{position:relative;min-height:54vh;padding:130px 0 60px;display:flex;align-items:flex-end;color:var(--n0);background:linear-gradient(180deg,rgba(8,26,11,.55),rgba(8,26,11,.85)),url('${imgSrc}') center/cover;overflow:hidden}
+.post-body{max-width:780px;margin:0 auto;padding:64px 24px}
+.post-body p{font-size:17px;line-height:1.8;color:var(--n5);margin-bottom:22px}
+.post-body h2{font-size:28px;font-weight:800;color:var(--n6);margin:48px 0 18px;letter-spacing:-.4px}
+.post-body h3{font-size:22px;font-weight:700;color:var(--n6);margin:36px 0 14px}
+.post-body ul,.post-body ol{margin:0 0 22px 22px}
+.post-body li{font-size:17px;line-height:1.8;color:var(--n5);margin-bottom:8px}
+.post-body blockquote{border-left:4px solid var(--g3);padding:18px 24px;background:var(--g0);font-size:18px;font-style:italic;color:var(--n5);margin:32px 0;border-radius:0 6px 6px 0}
+.post-body img{max-width:100%;height:auto;border-radius:6px;margin:32px 0;display:block}
+.post-body a{color:var(--g3);text-decoration:underline}
+.post-author{display:flex;align-items:center;gap:14px;padding:24px;border:1px solid var(--n2);border-radius:8px;margin:48px 0 24px}
+.post-author-img{width:56px;height:56px;border-radius:50%;background:var(--g3);color:var(--n0);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
+.post-author-name{font-weight:700;color:var(--n5);margin-bottom:4px}
+.post-author-bio{font-size:13px;color:var(--n4)}
+.post-back{display:inline-flex;align-items:center;gap:6px;color:var(--g3);text-decoration:none;font-weight:600;font-size:14px;margin-bottom:24px}
+.post-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+</style>
+</head>
+<body>
+
+<section class="post-hero">
+  <div class="wrap">
+    <div class="post-meta">
+      <span class="bp-cat">${cat}</span>
+      <span>${date}</span>
+      <span>· por ${author}</span>
+    </div>
+    <h1 class="hero-h1" style="font-size:clamp(28px,4.2vw,46px);line-height:1.1;letter-spacing:-.6px">${title}</h1>
+  </div>
+</section>
+
+<article class="post-body">
+  <a href="index.html" class="post-back"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Volver al blog</a>
+
+  ${bodyHTML}
+
+  <div class="post-author">
+    <div class="post-author-img">${initials}</div>
+    <div>
+      <div class="post-author-name">${author}</div>
+      <div class="post-author-bio">EMAT — Aislación con celulosa reciclada · Córdoba, Argentina</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:48px">
+    <a href="../index.html#presupuesto" class="btn btn-p">Cotizar mi proyecto</a>
+  </div>
+</article>
+
+</body>
+</html>`;
+}
+
+function updatePreview(){
+  document.getElementById('ed-iframe').srcdoc = buildHTML(true);
+}
+
+// ── Downloads ──
+function downloadFile(name, content, mime){
+  const blob = new Blob([content], {type: mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 100);
+}
+
+function downloadHTML(){
+  const slug = document.getElementById('ed-slug').value;
+  if(!slug){ showStatus('Falta el slug (URL).', true); return; }
+  const html = buildHTML(false);
+  downloadFile(`${slug}.html`, html, 'text/html');
+  showStatus(`✓ Descargado: ${slug}.html — Súbelo a /blog/`);
+}
+
+function downloadImage(){
+  if(!imageData || !imageFilename){ showStatus('No hay imagen cargada.', true); return; }
+  // Convert dataURL to blob
+  const arr = imageData.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bin = atob(arr[1]);
+  const u8 = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) u8[i] = bin.charCodeAt(i);
+  const blob = new Blob([u8], {type:mime});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = imageFilename;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 100);
+  showStatus(`✓ Descargado: ${imageFilename} — Súbelo a /assets/img/`);
+}
+
+function copyCard(){
+  const slug = document.getElementById('ed-slug').value || 'sin-slug';
+  const cat = document.getElementById('ed-cat').value;
+  const title = document.getElementById('ed-title').value || '[Sin título]';
+  const excerpt = document.getElementById('ed-excerpt').value || '';
+  const date = formatDate(document.getElementById('ed-date').value);
+  const img = imageFilename ? `../assets/img/${imageFilename}` : '../assets/img/obra-01.jpg';
+  const snippet = `<a href="${slug}.html" class="bp-card sr">
+  <div class="bp-img" style="background-image:url('${img}')"></div>
+  <div class="bp-body">
+    <div class="bp-meta"><span class="bp-cat">${cat}</span><span class="bp-date">${date}</span></div>
+    <h3>${title}</h3>
+    <p>${excerpt}</p>
+    <span class="pc-lnk">Leer nota <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+  </div>
+</a>`;
+  navigator.clipboard.writeText(snippet).then(
+    () => showStatus('✓ Snippet copiado. Pegalo en blog/index.html dentro del .bp-grid'),
+    () => showStatus('No se pudo copiar al portapapeles.', true)
+  );
+}
+
+function resetForm(){
+  ['ed-title','ed-slug','ed-excerpt','ed-body'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('ed-author').value = 'Equipo EMAT';
+  document.getElementById('ed-cat').selectedIndex = 0;
+  document.getElementById('ed-date').valueAsDate = new Date();
+  document.getElementById('ed-img').value = '';
+  document.getElementById('ed-img-prev').style.backgroundImage = '';
+  document.getElementById('ed-img-prev').textContent = 'Sin imagen seleccionada';
+  document.getElementById('ed-slug').dataset.manual = '';
+  document.getElementById('ed-dl-img').disabled = true;
+  document.getElementById('ed-dl-img').style.opacity = '.5';
+  imageData = null;
+  imageFilename = null;
+  updatePreview();
+}
+
+updatePreview();
+</script>
+</body>
+</html>

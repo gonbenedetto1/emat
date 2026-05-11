@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Backups y trabajo local
+old/
+index-prueba.html
+*.bk.html
+index-bk*.html
+
+# Documentación interna (no para la web pública)
+PROPUESTA.html
+PROPUESTA.md
+PROPUESTA.pdf
+ESTADO.html
+ESTADO.pdf
+estado-web-emat.html
+estado-web-emat.pdf
+
+# Dev tools / temporales
+*.log
+.env
+.env.local
+.env.production
+node_modules/
+
+# Editor / sistema
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,17 @@
+Mapeo: nuevo nombre → archivo original
+============================================================
+obra-01.jpg  ←  20240731_165246.jpg
+obra-02.jpg  ←  7940f2a3-3d4f-454a-a27c-8ec81fb14a2e.jpg
+obra-03.jpg  ←  9026e885-cbe4-488b-9dc8-9aee6e273efb.jpeg
+obra-04.jpg  ←  9b98fc26-0644-418d-bb30-acb4dc50fd59.jpeg
+obra-05.jpg  ←  DSC08023.JPG
+obra-06.jpg  ←  Emat - 2024-02-09T101854.620.png
+obra-07.jpg  ←  GYM LOMAS CELULOSA BLANCA 2.jpeg
+obra-08.jpg  ←  GYM LOMAS.jpeg
+obra-09.jpg  ←  IMG-20240517-WA0022.jpg
+obra-10.jpg  ←  WhatsApp Image 2024-03-11 at 10.42.37.jpeg
+obra-11.jpg  ←  WhatsApp Image 2024-03-11 at 11.06.46 (2).jpeg
+obra-12.jpg  ←  WhatsApp Image 2024-06-05 at 12.51.53 (2).jpeg
+obra-13.jpg  ←  WhatsApp Image 2024-08-15 at 10.26.02 AM.jpeg
+obra-14.jpg  ←  WhatsApp Image 2024-08-15 at 10.30.04 AM.jpeg
+obra-15.jpg  ←  lomas celulosa en negro.jpg
