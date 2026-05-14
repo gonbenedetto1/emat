@@ -214,6 +214,7 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
 ═══════════════════════════════ */
 #prods{background:var(--n0)}
 .prods-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:6px;overflow:hidden}
+.prods-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--n2);border:1px solid var(--n2);border-radius:6px;overflow:hidden}
 .pc{background:var(--n0);display:flex;flex-direction:column;transition:background var(--ease)}
 .pc:hover{background:var(--g0)}
 .pc-img{height:300px;display:flex;align-items:center;justify-content:center;position:relative;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#0e2114}
@@ -472,9 +473,9 @@ footer{background:var(--n6);padding:64px 0 0}
   .perf-2{grid-template-columns:1fr;gap:32px}
   .feat-row{grid-template-columns:repeat(3,1fr)}
   .apps-2{grid-template-columns:1fr}
-  .prods-3{grid-template-columns:1fr;gap:0;border-radius:6px}
-  .prods-3 .pc{border-bottom:1px solid var(--n2)}
-  .prods-3 .pc:last-child{border-bottom:none}
+  .prods-3,.prods-2{grid-template-columns:1fr;gap:0;border-radius:6px}
+  .prods-3 .pc,.prods-2 .pc{border-bottom:1px solid var(--n2)}
+  .prods-3 .pc:last-child,.prods-2 .pc:last-child{border-bottom:none}
   .testi-2{grid-template-columns:1fr;gap:36px}
   .cont-lay{grid-template-columns:1fr;gap:40px}
   .casa-lay{grid-template-columns:1fr}

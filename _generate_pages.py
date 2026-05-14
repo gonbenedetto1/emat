@@ -398,7 +398,7 @@ hogar_content = '''
     <div class="prods-3 sr">
       <div class="pc">
         <div class="pc-img pi-g" style="background-image:url('assets/img/inyectada.jpg')"><div class="pc-tag">Casa existente</div></div>
-        <div class="pc-body"><h3>Inyectado</h3><span class="pc-sub">Aislás tu casa sin romper paredes</span><p>Si tu casa ya está construida, esta es la solución. Hacemos perforaciones mínimas, soplamos la celulosa adentro y queda invisible.</p><a href="index.html#presupuesto" class="pc-lnk">Cotizar para mi casa <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+        <div class="pc-body"><h3>Soplado</h3><span class="pc-sub">Aislás tu casa sin romper paredes</span><p>Si tu casa ya está construida, esta es la solución. Hacemos perforaciones mínimas, soplamos la celulosa adentro y queda invisible.</p><a href="index.html#presupuesto" class="pc-lnk">Cotizar para mi casa <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
       </div>
       <div class="pc">
         <div class="pc-img pi-dg" style="background-image:url('assets/img/proyectada.jpg')"><div class="pc-tag">Construcción nueva</div></div>
@@ -640,7 +640,7 @@ blog_post_content = '''
   </ul>
 
   <h2>Próximos pasos</h2>
-  <p>Si estás evaluando aislar una obra (nueva o existente), el primer paso es siempre el mismo: <strong>diagnosticar bien</strong>. Saber qué construcción tenés, qué resultados esperás y qué presupuesto manejás. A partir de ahí, definimos qué solución (inyectado, proyectado o granel) es la indicada.</p>
+  <p>Si estás evaluando aislar una obra (nueva o existente), el primer paso es siempre el mismo: <strong>diagnosticar bien</strong>. Saber qué construcción tenés, qué resultados esperás y qué presupuesto manejás. A partir de ahí, definimos qué solución (soplado o proyectado) es la indicada.</p>
 
   <p>Podés escribirnos para coordinar una visita o pedir una cotización inicial. La consulta no tiene costo y, generalmente, podemos darte un estimado en menos de 48 horas.</p>
 
