@@ -720,8 +720,8 @@ pages = [
         "asset_prefix": "",
         "page_url": "quienes-somos.html",
         "hero": page_hero(
-            "Sobre EMAT",
-            "QUIÉNES SOMOS<br><span class='accent'>INNOVACIÓN EN AISLACIÓN</span><br><span class='soft'>sustentable con celulosa</span>",
+            "Quiénes somos",
+            "INNOVACIÓN EN<br><span class='accent'>AISLACIÓN</span><br><span class='soft'>sustentable con celulosa</span>",
             "Experiencia corporativa aplicada a una construcción más humana, eficiente y consciente con el medio ambiente.",
             cta_label="Conocernos",
             cta_href="#historia",
