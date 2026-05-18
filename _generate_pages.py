@@ -492,7 +492,7 @@ quienes_content = '''
   <div class="wrap">
     <div class="team-grid sr">
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" style="object-position: center 12%" /></div>
+        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" style="object-position: center 25%" /></div>
         <strong>Cr. Andrés Brandan</strong>
         <span>Director Comercial</span>
       </div>
@@ -502,7 +502,7 @@ quienes_content = '''
         <span>Director de Producción</span>
       </div>
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/tristan.jpg" alt="Ing. Tristán Ríos Carranza" style="object-position: center 12%" /></div>
+        <div class="team-photo"><img src="assets/img/tristan.jpg" alt="Ing. Tristán Ríos Carranza" style="object-position: center 20%" /></div>
         <strong>Ing. Tristán Ríos Carranza</strong>
         <span>Director Comercial</span>
       </div>
