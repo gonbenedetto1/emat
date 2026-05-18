@@ -533,8 +533,8 @@ quienes_content = '''
     <h2 class="h2 h2-w sr" style="margin-bottom:18px">Construyamos juntos</h2>
     <p class="bod bod-w sr" style="margin-bottom:32px;max-width:640px;margin-left:auto;margin-right:auto">Si te interesa lo que hacemos, escribinos. Estamos siempre abiertos a nuevas obras, alianzas y conversaciones.</p>
     <div class="hero-ctas sr" style="justify-content:center">
-      <a href="index.html#cont" class="btn btn-w">Contactanos</a>
-      <a href="blog/index.html" class="btn btn-ow">Leer el blog</a>
+      <a href="/#cont" class="btn btn-w">Contactanos</a>
+      <a href="/blog" class="btn btn-ow">Leer el blog</a>
     </div>
   </div>
 </section>
@@ -589,7 +589,6 @@ blog_index_content = f'''
       {blog_post_card("post-ejemplo", "Sustentabilidad", "Economía circular en la construcción: del papel al aislante", "El recorrido completo del material: desde que entra a planta como papel descartado hasta que sale como solución de alta performance.", "01 Abr 2026", "../assets/img/obra-13.jpg")}
       {blog_post_card("post-ejemplo", "Construcción", "Aislación acústica: cómo elegir el material correcto", "No todos los aislantes funcionan igual contra el ruido. Comparamos celulosa proyectada con alternativas tradicionales en distintos escenarios.", "25 Mar 2026", "../assets/img/obra-11.jpg")}
     </div>
-    <p class="bod sr" style="text-align:center;margin-top:24px;color:var(--n4);font-style:italic">Las notas mostradas son ejemplos. Reemplazá el contenido por las notas reales cargando archivos HTML en la carpeta /blog/.</p>
   </div>
 </section>
 
