@@ -492,12 +492,12 @@ quienes_content = '''
   <div class="wrap">
     <div class="team-grid sr">
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" /></div>
+        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" style="object-position: center 12%" /></div>
         <strong>Cr. Andrés Brandan</strong>
         <span>Director Comercial</span>
       </div>
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/pablo.jpg" alt="Ing. Pablo Raimondo" /></div>
+        <div class="team-photo"><img src="assets/img/pablo.jpg" alt="Ing. Pablo Raimondo" style="object-position: center 12%" /></div>
         <strong>Ing. Pablo Raimondo</strong>
         <span>Director de Producción</span>
       </div>
