@@ -738,3 +738,15 @@ footer{background:var(--n6);padding:64px 0 0}
 .arq-gal-i:hover{transform:scale(1.02)}
 @media(max-width:900px){.arq-gal{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.arq-gal{grid-template-columns:1fr}.arq-gal-i{height:180px}}
+
+
+/* ── QUIÉNES SOMOS — imagen + cierre ── */
+.nosotros-img{margin:60px auto 0;max-width:1280px;padding:0 24px}
+.nosotros-img img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 16px 48px rgba(0,0,0,.12)}
+.qs-cierre{max-width:780px;margin:56px auto 16px;padding:32px 28px;text-align:center;border-top:1px solid var(--n2);border-bottom:1px solid var(--n2)}
+.qs-cierre p{font-size:clamp(18px,2.2vw,24px);line-height:1.5;color:var(--g4);font-weight:500;letter-spacing:-.2px}
+.qs-cierre p strong{color:var(--g3);font-weight:800}
+@media(max-width:600px){
+  .nosotros-img{margin-top:42px;padding:0 16px}
+  .qs-cierre{margin:40px auto 10px;padding:24px 16px}
+}
