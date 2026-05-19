@@ -753,7 +753,7 @@ pages = [
             cta2_label="Ir al contacto",
             cta2_href="index.html#cont",
             bg_image="assets/img/obra-05.jpg",
-            bg_position="center 20%",
+            bg_position="center 35%",
         ),
         "content": quienes_content,
     },
