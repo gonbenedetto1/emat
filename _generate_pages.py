@@ -129,11 +129,11 @@ document.addEventListener('click',e=>{{if(!e.target.closest('#nav')&&!e.target.c
 
 # Hero genérico para subpáginas (más bajo que el del home, sin video)
 def page_hero(eyebrow, h1, sub, cta_label="Cotizar proyecto", cta_href="index.html#presupuesto",
-              cta2_label=None, cta2_href=None, bg_image=None):
+              cta2_label=None, cta2_href=None, bg_image=None, bg_position="center"):
     cta2 = ""
     if cta2_label:
         cta2 = f'<a href="{cta2_href}" class="btn btn-ow">{cta2_label}</a>'
-    bg_style = f' style="background-image:linear-gradient(135deg,rgba(8,26,11,.75) 0%,rgba(16,46,22,.6) 50%,rgba(26,72,34,.55) 100%),url(\'{bg_image}\');background-size:cover;background-position:center"' if bg_image else ''
+    bg_style = f' style="background-image:linear-gradient(135deg,rgba(8,26,11,.75) 0%,rgba(16,46,22,.6) 50%,rgba(26,72,34,.55) 100%),url(\'{bg_image}\');background-size:cover;background-position:{bg_position}"' if bg_image else ''
     return f'''<!-- ═══ HERO PÁGINA ═══ -->
 <section id="hero" class="page-hero">
   <div class="page-hero-bg"{bg_style}></div>
@@ -492,22 +492,22 @@ quienes_content = '''
   <div class="wrap">
     <div class="team-grid sr">
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" style="object-position: center 15%" /></div>
+        <div class="team-photo"><img src="assets/img/andres.jpg" alt="Cr. Andrés Brandan" style="object-position: center 25%" /></div>
         <strong>Cr. Andrés Brandan</strong>
         <span>Director Comercial</span>
       </div>
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/pablo.jpg" alt="Ing. Pablo Raimondo" style="object-position: center 5%" /></div>
+        <div class="team-photo"><img src="assets/img/pablo.jpg" alt="Ing. Pablo Raimondo" style="object-position: center 12%" /></div>
         <strong>Ing. Pablo Raimondo</strong>
         <span>Director de Producción</span>
       </div>
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/tristan.jpg" alt="Ing. Tristán Ríos Carranza" style="object-position: center 10%" /></div>
+        <div class="team-photo"><img src="assets/img/tristan.jpg" alt="Ing. Tristán Ríos Carranza" style="object-position: center 20%" /></div>
         <strong>Ing. Tristán Ríos Carranza</strong>
         <span>Director Comercial</span>
       </div>
       <div class="team-c">
-        <div class="team-photo"><img src="assets/img/esteban.jpg" alt="Ing. Esteban Nieto" style="object-position: center 5%" /></div>
+        <div class="team-photo"><img src="assets/img/esteban.jpg" alt="Ing. Esteban Nieto" style="object-position: center 12%" /></div>
         <strong>Ing. Esteban Nieto</strong>
         <span>Director Administrativo y Financiero</span>
       </div>
@@ -752,7 +752,8 @@ pages = [
             cta_href="#historia",
             cta2_label="Ir al contacto",
             cta2_href="index.html#cont",
-            bg_image="assets/img/obra-05.jpg",
+            bg_image="assets/img/obra-05-hero.jpg",
+            bg_position="center 30%",
         ),
         "content": quienes_content,
     },
