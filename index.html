@@ -801,6 +801,27 @@ function envF(btn){
   .catch(()=>{btn.innerHTML='Enviar';btn.disabled=false;alert('Error al enviar. Intentá de nuevo o escribinos por WhatsApp.');});
 }
 
+// ── SYNC SETTINGS DESDE SUPABASE ──────────────────────────────────────────
+// Trae precio_kg, whatsapp_number y contact_email del panel admin
+// y los cachea en localStorage para que las funciones de abajo los usen.
+(async function syncSettings(){
+  try {
+    const SB_URL = 'https://imovmcyiegrgwhxibcjf.supabase.co';
+    const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltb3ZtY3lpZWdyZ3doeGliY2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDk1NTYsImV4cCI6MjA5MjQ4NTU1Nn0.Bnr_IF6xOHfRXi0lUmoBDlKBWUaUhaUdeP_BgjZhokY';
+    const r = await fetch(SB_URL + '/rest/v1/emat_settings?select=key,value', {
+      headers: { apikey: SB_ANON, Authorization: 'Bearer ' + SB_ANON }
+    });
+    if (!r.ok) return;
+    const rows = await r.json();
+    const m = {};
+    rows.forEach(x => m[x.key] = x.value);
+    if (m.precio_kg)        localStorage.setItem('emat_precio_kg', m.precio_kg);
+    if (m.whatsapp_number)  localStorage.setItem('emat_wa_num',    m.whatsapp_number);
+    if (m.contact_email)    localStorage.setItem('emat_mail',      m.contact_email);
+    if (typeof applyWA === 'function') applyWA();
+  } catch(e) { /* offline o supabase caído → usa localStorage previo / fallback */ }
+})();
+
 // ── PRECIO POR KG ──────────────────────────────────────────────────────────
 function getPrecioKg(){
   return parseFloat(localStorage.getItem('emat_precio_kg'))||850;

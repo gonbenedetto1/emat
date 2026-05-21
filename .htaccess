@@ -1,0 +1,84 @@
+# ════════════════════════════════════════════════════════════════════
+# EMAT — Configuración Apache / LiteSpeed
+# Compatible con Donweb y la mayoría de hostings compartidos
+# ════════════════════════════════════════════════════════════════════
+
+# Página por defecto
+DirectoryIndex index.html index.htm
+
+# ════════════════════════════════════════════════════
+# 1. Forzar HTTPS (redirect http → https)
+# ════════════════════════════════════════════════════
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} !^localhost [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ════════════════════════════════════════════════════
+# 2. URLs limpias — /arquitectos sirve arquitectos.html
+#    (los enlaces con .html siguen funcionando sin redirect)
+# ════════════════════════════════════════════════════
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^.]+)$ $1.html [L]
+
+# ════════════════════════════════════════════════════
+# 3. MIME types (asegurar que el video y assets se sirvan bien)
+# ════════════════════════════════════════════════════
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType video/webm .webm
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType application/json .json
+</IfModule>
+
+# ════════════════════════════════════════════════════
+# 4. Cache de assets estáticos (acelera navegación)
+# ════════════════════════════════════════════════════
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 6 months"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# ════════════════════════════════════════════════════
+# 5. Compresión gzip
+# ════════════════════════════════════════════════════
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ════════════════════════════════════════════════════
+# 6. Headers de seguridad básicos
+# ════════════════════════════════════════════════════
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ════════════════════════════════════════════════════
+# 7. Bloquear acceso a archivos sensibles
+# ════════════════════════════════════════════════════
+<FilesMatch "(^\.|\.sql$|\.bak$|\.md$)">
+  Require all denied
+</FilesMatch>
