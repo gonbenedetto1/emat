@@ -29,3 +29,8 @@ node_modules/
 .idea/
 *.swp
 bk/
+
+# Archivos sensibles
+accesoFTP.png
+*-anterior.*
+*.zip
