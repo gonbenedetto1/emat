@@ -565,10 +565,11 @@ blog_index_content = '''
 .bp-date{font-size:12px;color:var(--n4)}
 .bp-card h3{font-size:17px;font-weight:800;color:var(--n5);margin-bottom:10px;line-height:1.3}
 .bp-card p{font-size:14px;color:var(--n4);line-height:1.6;flex:1;margin-bottom:14px}
-.bp-empty{text-align:center;padding:80px 24px;background:var(--n0);border:2px dashed var(--n2);border-radius:8px;color:var(--n4)}
-.bp-empty h3{font-size:18px;font-weight:700;color:var(--n5);margin-bottom:10px}
-.bp-empty p{font-size:14px;line-height:1.6}
-.bp-loading{text-align:center;padding:60px;color:var(--n4);font-size:14px}
+.bp-empty{text-align:center;padding:60px 28px;background:var(--n0);border:2px dashed var(--n2);border-radius:8px;color:var(--n4);max-width:640px;margin:80px auto}
+.bp-empty .bp-empty-icon{width:56px;height:56px;margin:0 auto 18px;color:var(--g2);opacity:.6}
+.bp-empty h3{font-size:19px;font-weight:800;color:var(--n5);margin-bottom:10px}
+.bp-empty p{font-size:14px;line-height:1.65}
+.bp-loading{text-align:center;padding:80px 24px;color:var(--n4);font-size:14px;min-height:200px}
 @media(max-width:960px){.bp-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.bp-grid{grid-template-columns:1fr}}
 </style>
@@ -578,6 +579,7 @@ blog_index_content = '''
     <div class="bp-loading" id="bp-loading">Cargando notas…</div>
     <div class="bp-grid" id="bp-grid" style="display:none"></div>
     <div class="bp-empty" id="bp-empty" style="display:none">
+      <svg class="bp-empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="14" x2="15" y2="14"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
       <h3>No hay notas disponibles por el momento</h3>
       <p>Estamos preparando contenido para compartir.<br>Volvé pronto para encontrar nuevas notas sobre construcción sustentable, aislación y eficiencia energética.</p>
     </div>
@@ -595,7 +597,7 @@ blog_index_content = '''
 </section>
 
 <script>
-(async function loadBlogPosts(){
+(async function loadBlogPosts(){\n  // Safety: mostrar empty si falla a los 6s\n  const safety = setTimeout(showEmpty, 6000);
   const SB_URL = \'https://imovmcyiegrgwhxibcjf.supabase.co\';
   const SB_ANON = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltb3ZtY3lpZWdyZ3doeGliY2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDk1NTYsImV4cCI6MjA5MjQ4NTU1Nn0.Bnr_IF6xOHfRXi0lUmoBDlKBWUaUhaUdeP_BgjZhokY\';
   const loadingEl = document.getElementById(\'bp-loading\');
