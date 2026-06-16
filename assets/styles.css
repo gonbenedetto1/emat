@@ -697,6 +697,7 @@ footer{background:var(--n6);padding:64px 0 0}
 .map-list li:last-child{border-bottom:none}
 .map-list li strong{display:block;color:var(--g4);font-weight:800;font-size:14px;letter-spacing:.1px}
 .map-list li .ml-tag{display:block;color:var(--n4);font-size:12px;font-weight:500;margin-top:2px}
+.map-list li .ml-addr{display:block;color:var(--n5);font-size:12.5px;font-weight:600;margin-top:6px;padding-top:6px;border-top:1px dashed var(--n2)}
 .map-list li::before{content:'';position:absolute;left:0;top:18px;width:18px;height:18px;border-radius:50%;background:var(--g0);border:1.5px solid var(--g3)}
 .map-list li::after{content:'';position:absolute;left:6px;top:24px;width:6px;height:6px;border-radius:50%;background:var(--g3)}
 .map-list li:first-child::before{background:var(--g3);border-color:var(--g4)}

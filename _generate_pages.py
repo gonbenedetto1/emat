@@ -552,123 +552,195 @@ def blog_post_card(slug, category, title, excerpt, date, image="../assets/img/ob
         </div>
       </a>'''
 
-blog_index_content = f'''
+blog_index_content = '''
 <style>
-.bp-grid{{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:48px}}
-.bp-card{{display:flex;flex-direction:column;background:var(--n0);border:1px solid var(--n2);border-radius:8px;overflow:hidden;text-decoration:none;color:inherit;transition:all var(--ease)}}
-.bp-card:hover{{border-color:var(--g2);box-shadow:0 8px 28px rgba(26,82,40,.08);transform:translateY(-3px)}}
-.bp-img{{height:200px;background-size:cover;background-position:center;background-color:var(--g5);position:relative}}
-.bp-img::after{{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.25));pointer-events:none}}
-.bp-body{{padding:24px;flex:1;display:flex;flex-direction:column}}
-.bp-meta{{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}}
-.bp-cat{{background:var(--g0);color:var(--g3);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}}
-.bp-date{{font-size:12px;color:var(--n4)}}
-.bp-card h3{{font-size:17px;font-weight:800;color:var(--n5);margin-bottom:10px;line-height:1.3}}
-.bp-card p{{font-size:14px;color:var(--n4);line-height:1.6;flex:1;margin-bottom:14px}}
-.bp-filters{{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:40px}}
-.bp-filt{{background:var(--n0);border:1px solid var(--n2);color:var(--n5);font-size:13px;font-weight:600;padding:8px 18px;border-radius:20px;cursor:pointer;transition:all var(--ease)}}
-.bp-filt:hover,.bp-filt.active{{background:var(--g3);color:var(--n0);border-color:var(--g3)}}
-@media(max-width:960px){{.bp-grid{{grid-template-columns:repeat(2,1fr)}}}}
-@media(max-width:600px){{.bp-grid{{grid-template-columns:1fr}}}}
+.bp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:48px}
+.bp-card{display:flex;flex-direction:column;background:var(--n0);border:1px solid var(--n2);border-radius:8px;overflow:hidden;text-decoration:none;color:inherit;transition:all var(--ease);cursor:pointer}
+.bp-card:hover{border-color:var(--g2);box-shadow:0 8px 28px rgba(26,82,40,.08);transform:translateY(-3px)}
+.bp-img{height:200px;background-size:cover;background-position:center;background-color:var(--g5);position:relative}
+.bp-img::after{content:\'\';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.25));pointer-events:none}
+.bp-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.bp-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.bp-cat{background:var(--g0);color:var(--g3);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.bp-date{font-size:12px;color:var(--n4)}
+.bp-card h3{font-size:17px;font-weight:800;color:var(--n5);margin-bottom:10px;line-height:1.3}
+.bp-card p{font-size:14px;color:var(--n4);line-height:1.6;flex:1;margin-bottom:14px}
+.bp-empty{text-align:center;padding:80px 24px;background:var(--n0);border:2px dashed var(--n2);border-radius:8px;color:var(--n4)}
+.bp-empty h3{font-size:18px;font-weight:700;color:var(--n5);margin-bottom:10px}
+.bp-empty p{font-size:14px;line-height:1.6}
+.bp-loading{text-align:center;padding:60px;color:var(--n4);font-size:14px}
+@media(max-width:960px){.bp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.bp-grid{grid-template-columns:1fr}}
 </style>
 
 <section class="sec">
   <div class="wrap">
-    <div class="bp-filters sr">
-      <button class="bp-filt active">Todos</button>
-      <button class="bp-filt">Sustentabilidad</button>
-      <button class="bp-filt">Construcción</button>
-      <button class="bp-filt">Casos</button>
-      <button class="bp-filt">Novedades</button>
-    </div>
-    <div class="bp-grid">
-      {blog_post_card("post-ejemplo", "Sustentabilidad", "Por qué la celulosa reciclada es el futuro de la aislación", "Una mirada profunda a cómo el papel reciclado se convierte en uno de los aislantes más eficientes del mercado, con menor huella de carbono que cualquier alternativa convencional.", "29 Abr 2026", "../assets/img/obra-01.jpg")}
-      {blog_post_card("post-ejemplo", "Construcción", "Steel frame y aislación: cómo lograr el máximo rendimiento", "Detalles constructivos, espesores recomendados y errores comunes al aislar viviendas en sistema steel frame. Una guía técnica práctica.", "22 Abr 2026", "../assets/img/obra-04.jpg")}
-      {blog_post_card("post-ejemplo", "Casos", "Caso de obra: vivienda eficiente en las sierras de Córdoba", "Cómo una casa de 180 m² logró reducir un 45% el consumo de calefacción combinando diseño bioclimático con aislación de celulosa.", "15 Abr 2026", "../assets/img/obra-08.jpg")}
-      {blog_post_card("post-ejemplo", "Novedades", "EMAT certifica nuevos ensayos térmicos según norma IRAM", "Acabamos de obtener nuevos ensayos que validan el rendimiento de nuestros productos. Te contamos qué significan y cómo usarlos en tu pliego.", "08 Abr 2026", "../assets/img/obra-06.jpg")}
-      {blog_post_card("post-ejemplo", "Sustentabilidad", "Economía circular en la construcción: del papel al aislante", "El recorrido completo del material: desde que entra a planta como papel descartado hasta que sale como solución de alta performance.", "01 Abr 2026", "../assets/img/obra-13.jpg")}
-      {blog_post_card("post-ejemplo", "Construcción", "Aislación acústica: cómo elegir el material correcto", "No todos los aislantes funcionan igual contra el ruido. Comparamos celulosa proyectada con alternativas tradicionales en distintos escenarios.", "25 Mar 2026", "../assets/img/obra-11.jpg")}
+    <div class="bp-loading" id="bp-loading">Cargando notas…</div>
+    <div class="bp-grid" id="bp-grid" style="display:none"></div>
+    <div class="bp-empty" id="bp-empty" style="display:none">
+      <h3>No hay notas disponibles por el momento</h3>
+      <p>Estamos preparando contenido para compartir.<br>Volvé pronto para encontrar nuevas notas sobre construcción sustentable, aislación y eficiencia energética.</p>
     </div>
   </div>
 </section>
 
+<section id="ctaf">
+  <div class="wrap" style="text-align:center">
+    <h2 class="h2 h2-w sr" style="margin-bottom:18px">¿Querés saber más?</h2>
+    <p class="bod bod-w sr" style="margin-bottom:32px;max-width:640px;margin-left:auto;margin-right:auto">Contactanos para asesoramiento técnico sobre construcción sustentable, aislación o eficiencia energética.</p>
+    <div class="hero-ctas sr" style="justify-content:center">
+      <a href="/#cont" class="btn btn-w">Contactanos</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(async function loadBlogPosts(){
+  const SB_URL = \'https://imovmcyiegrgwhxibcjf.supabase.co\';
+  const SB_ANON = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltb3ZtY3lpZWdyZ3doeGliY2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDk1NTYsImV4cCI6MjA5MjQ4NTU1Nn0.Bnr_IF6xOHfRXi0lUmoBDlKBWUaUhaUdeP_BgjZhokY\';
+  const loadingEl = document.getElementById(\'bp-loading\');
+  const gridEl = document.getElementById(\'bp-grid\');
+  const emptyEl = document.getElementById(\'bp-empty\');
+
+  function showEmpty(){
+    loadingEl.style.display = \'none\';
+    gridEl.style.display = \'none\';
+    emptyEl.style.display = \'block\';
+  }
+  function fmtDate(iso){
+    if(!iso) return \'\';
+    const m = [\'Ene\',\'Feb\',\'Mar\',\'Abr\',\'May\',\'Jun\',\'Jul\',\'Ago\',\'Sep\',\'Oct\',\'Nov\',\'Dic\'];
+    const [y,mo,d] = iso.split(\'-\');
+    return parseInt(d)+\' \'+m[parseInt(mo)-1]+\' \'+y;
+  }
+  function esc(s){ return String(s||\'\').replace(/[&<>\"]/g, c => ({\'&\':\'&amp;\',\'<\':\'&lt;\',\'>\':\'&gt;\',\'\"\':\'&quot;\'}[c])); }
+
+  try {
+    const r = await fetch(SB_URL + \'/rest/v1/emat_posts?select=*&published=eq.true&order=publish_date.desc\', {
+      headers: { apikey: SB_ANON, Authorization: \'Bearer \' + SB_ANON }
+    });
+    if (!r.ok) { showEmpty(); return; }
+    const posts = await r.json();
+    if (!posts.length) { showEmpty(); return; }
+
+    gridEl.innerHTML = posts.map(p => {
+      const img = p.image_url || \'../assets/img/obra-01.jpg\';
+      return \'<a href="post.html?slug=\' + encodeURIComponent(p.slug) + \'" class="bp-card sr">\' +
+        \'<div class="bp-img" style="background-image:url(\\\'\' + img.replace(/\'/g,\'%27\') + \'\\\')"></div>\' +
+        \'<div class="bp-body">\' +
+          \'<div class="bp-meta"><span class="bp-cat">\' + esc(p.category) + \'</span><span class="bp-date">\' + fmtDate(p.publish_date) + \'</span></div>\' +
+          \'<h3>\' + esc(p.title) + \'</h3>\' +
+          \'<p>\' + esc(p.excerpt || \'\') + \'</p>\' +
+          \'<span class="pc-lnk">Leer nota <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>\' +
+        \'</div></a>\';
+    }).join(\'\');
+
+    loadingEl.style.display = \'none\';
+    gridEl.style.display = \'grid\';
+  } catch(e){
+    showEmpty();
+  }
+})();
+</script>
 '''
 
 # ──── BLOG POST EJEMPLO ────
 blog_post_content = '''
 <style>
-.post-meta{display:flex;gap:14px;align-items:center;margin-bottom:18px;font-size:13px;color:rgba(255,255,255,.7)}
-.post-meta .bp-cat{background:rgba(255,255,255,.15);color:var(--n0)}
+.post-meta{display:flex;gap:14px;align-items:center;margin-bottom:18px;font-size:13px;color:rgba(255,255,255,.7);flex-wrap:wrap}
+.post-meta .bp-cat{background:rgba(255,255,255,.15);color:var(--n0);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.post-hero{position:relative;min-height:46vh;padding:120px 0 56px;display:flex;align-items:flex-end;color:var(--n0);background-color:var(--g5);background-size:cover;background-position:center;overflow:hidden}
+.post-hero::before{content:\'\';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,26,11,.55),rgba(8,26,11,.85));pointer-events:none}
+.post-hero .wrap{position:relative;z-index:2}
 .post-body{max-width:780px;margin:0 auto;padding:64px 24px}
 .post-body p{font-size:17px;line-height:1.8;color:var(--n5);margin-bottom:22px}
 .post-body h2{font-size:28px;font-weight:800;color:var(--n6);margin:48px 0 18px;letter-spacing:-.4px}
 .post-body h3{font-size:22px;font-weight:700;color:var(--n6);margin:36px 0 14px}
-.post-body ul{margin:0 0 22px 22px}
+.post-body ul,.post-body ol{margin:0 0 22px 22px}
 .post-body li{font-size:17px;line-height:1.8;color:var(--n5);margin-bottom:8px}
 .post-body blockquote{border-left:4px solid var(--g3);padding:18px 24px;background:var(--g0);font-size:18px;font-style:italic;color:var(--n5);margin:32px 0;border-radius:0 6px 6px 0}
-.post-body .img-placeholder{background:var(--n2);height:380px;display:flex;align-items:center;justify-content:center;color:var(--n4);font-style:italic;margin:32px 0;border-radius:6px}
-.post-author{display:flex;align-items:center;gap:14px;padding:24px;border:1px solid var(--n2);border-radius:8px;margin:48px 0 24px}
-.post-author-img{width:56px;height:56px;border-radius:50%;background:var(--g3);color:var(--n0);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
-.post-author-name{font-weight:700;color:var(--n5);margin-bottom:4px}
-.post-author-bio{font-size:13px;color:var(--n4)}
+.post-body img{max-width:100%;height:auto;border-radius:6px;margin:32px 0;display:block}
+.post-body a{color:var(--g3);text-decoration:underline}
 .post-back{display:inline-flex;align-items:center;gap:6px;color:var(--g3);text-decoration:none;font-weight:600;font-size:14px;margin-bottom:24px}
 .post-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5}
+.post-loading{text-align:center;padding:120px 24px;color:var(--n4);font-size:15px}
+.post-notfound{text-align:center;padding:120px 24px;max-width:560px;margin:0 auto}
+.post-notfound h1{font-size:28px;font-weight:800;color:var(--n6);margin-bottom:14px}
+.post-notfound p{font-size:15px;color:var(--n4);line-height:1.6;margin-bottom:24px}
 </style>
 
-<article class="post-body">
-  <a href="index.html" class="post-back"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Volver al blog</a>
+<div id="post-loading" class="post-loading">Cargando nota…</div>
 
-  <p><em>Esta nota es un template de ejemplo. Reemplazá el contenido y duplicá este archivo (con un slug nuevo) cada vez que cargues una nota.</em></p>
-
-  <p>La aislación con celulosa reciclada está cambiando la forma en que pensamos los materiales en construcción. No es una tendencia: es una respuesta concreta a tres desafíos que hoy enfrenta cualquier obra: <strong>eficiencia energética, costos operativos y huella ambiental</strong>.</p>
-
-  <img src="../assets/img/obra-01.jpg" alt="Aplicación de celulosa proyectada" style="width:100%;height:auto;border-radius:6px;margin:32px 0">
-
-  <h2>Qué es la celulosa proyectada</h2>
-  <p>La celulosa proyectada es un material aislante fabricado a partir de papel reciclado, tratado con sales de bórax para resistir el fuego, los hongos y los insectos. Se aplica directamente sobre la estructura mediante equipos especializados, formando una capa continua que rellena cada espacio sin dejar puentes térmicos.</p>
-
-  <p>A diferencia de los paneles o las placas, no genera juntas ni recortes, y se adapta a geometrías complejas. Esto la hace especialmente eficiente en entrepisos, cubiertas inclinadas y muros con instalaciones internas.</p>
-
-  <h2>Por qué importa hoy</h2>
-
-  <h3>1. Eficiencia energética real</h3>
-  <p>Una vivienda bien aislada puede reducir hasta un 40% su consumo de calefacción y refrigeración. En un contexto de tarifas al alza y mayor conciencia sobre el consumo energético doméstico, ese ahorro se vuelve un argumento decisivo para cualquier proyecto.</p>
-
-  <h3>2. Sustentabilidad medible</h3>
-  <p>Más del 80% del material proviene de papel descartado que, en su mayoría, terminaría en rellenos sanitarios. La energía requerida para producirlo es una fracción de la que demandan otros aislantes industriales. Y al ser biodegradable al final de su ciclo de vida, cierra el círculo.</p>
-
-  <blockquote>"Aislar bien es la decisión de diseño más rentable que un proyecto puede tomar. Es lo único que sigue rindiendo durante toda la vida útil del edificio."</blockquote>
-
-  <h3>3. Confort interior</h3>
-  <p>Más allá del ahorro económico, una casa aislada se siente distinta. Las temperaturas se mantienen estables, no hay sensaciones de pared fría, el ruido exterior se reduce y la calidad del aire mejora porque se evita la condensación y el moho.</p>
-
-  <img src="../assets/img/obra-08.jpg" alt="Detalle de aplicación" style="width:100%;height:auto;border-radius:6px;margin:32px 0">
-
-  <h2>Cómo se elige el espesor adecuado</h2>
-  <p>El espesor correcto depende de tres variables principales:</p>
-  <ul>
-    <li><strong>Zona climática:</strong> según la norma IRAM 11603, Argentina se divide en zonas bioclimáticas. Cada una tiene un valor mínimo recomendado de resistencia térmica.</li>
-    <li><strong>Tipo de envolvente:</strong> no es lo mismo aislar un techo que un muro o un entrepiso. Cada elemento tiene exigencias distintas.</li>
-    <li><strong>Sistema constructivo:</strong> en steel frame o wood frame, el espesor está limitado por la profundidad del montante. En mampostería tradicional, depende de la cámara de aire disponible.</li>
-  </ul>
-
-  <h2>Próximos pasos</h2>
-  <p>Si estás evaluando aislar una obra (nueva o existente), el primer paso es siempre el mismo: <strong>diagnosticar bien</strong>. Saber qué construcción tenés, qué resultados esperás y qué presupuesto manejás. A partir de ahí, definimos qué solución (soplado o proyectado) es la indicada.</p>
-
-  <p>Podés escribirnos para coordinar una visita o pedir una cotización inicial. La consulta no tiene costo y, generalmente, podemos darte un estimado en menos de 48 horas.</p>
-
-  <div class="post-author">
-    <div class="post-author-img">EM</div>
-    <div>
-      <div class="post-author-name">Equipo EMAT</div>
-      <div class="post-author-bio">Especialistas en aislación con celulosa reciclada · Córdoba, Argentina</div>
+<div id="post-content" style="display:none">
+  <section class="post-hero" id="post-hero">
+    <div class="wrap">
+      <div class="post-meta" id="post-meta"></div>
+      <h1 class="hero-h1" id="post-title" style="font-size:clamp(28px,4.2vw,46px);line-height:1.1;letter-spacing:-.6px"></h1>
     </div>
-  </div>
+  </section>
 
-  <div style="text-align:center;margin-top:48px">
-    <a href="../index.html#presupuesto" class="btn btn-p">Cotizar mi proyecto</a>
-  </div>
-</article>
+  <article class="post-body">
+    <a href="index.html" class="post-back"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>Volver al blog</a>
+    <div id="post-html"></div>
+    <div style="text-align:center;margin-top:48px">
+      <a href="../index.html#presupuesto" class="btn btn-p">Cotizar mi proyecto</a>
+    </div>
+  </article>
+</div>
+
+<div id="post-notfound" class="post-notfound" style="display:none">
+  <h1>Nota no encontrada</h1>
+  <p>La nota que estás buscando no existe o fue eliminada.</p>
+  <a href="index.html" class="btn btn-p">Volver al blog</a>
+</div>
+
+<!-- Markdown parser -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+(async function loadPost(){
+  const SB_URL = \'https://imovmcyiegrgwhxibcjf.supabase.co\';
+  const SB_ANON = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imltb3ZtY3lpZWdyZ3doeGliY2pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDk1NTYsImV4cCI6MjA5MjQ4NTU1Nn0.Bnr_IF6xOHfRXi0lUmoBDlKBWUaUhaUdeP_BgjZhokY\';
+
+  function notFound(){
+    document.getElementById(\'post-loading\').style.display = \'none\';
+    document.getElementById(\'post-notfound\').style.display = \'block\';
+  }
+  function fmtDate(iso){
+    if(!iso) return \'\';
+    const m = [\'Ene\',\'Feb\',\'Mar\',\'Abr\',\'May\',\'Jun\',\'Jul\',\'Ago\',\'Sep\',\'Oct\',\'Nov\',\'Dic\'];
+    const [y,mo,d] = iso.split(\'-\');
+    return parseInt(d)+\' \'+m[parseInt(mo)-1]+\' \'+y;
+  }
+  function esc(s){ return String(s||\'\').replace(/[&<>\"]/g, c => ({\'&\':\'&amp;\',\'<\':\'&lt;\',\'>\':\'&gt;\',\'\"\':\'&quot;\'}[c])); }
+
+  const slug = new URLSearchParams(location.search).get(\'slug\');
+  if (!slug){ notFound(); return; }
+
+  try {
+    const r = await fetch(SB_URL + \'/rest/v1/emat_posts?select=*&published=eq.true&slug=eq.\' + encodeURIComponent(slug) + \'&limit=1\', {
+      headers: { apikey: SB_ANON, Authorization: \'Bearer \' + SB_ANON }
+    });
+    if (!r.ok){ notFound(); return; }
+    const posts = await r.json();
+    if (!posts.length){ notFound(); return; }
+    const p = posts[0];
+
+    // Hero
+    if (p.image_url) document.getElementById(\'post-hero\').style.backgroundImage = \'url(\\\'\' + p.image_url.replace(/\'/g,\'%27\') + \'\\\')\';
+    document.getElementById(\'post-meta\').innerHTML = \'<span class="bp-cat">\' + esc(p.category) + \'</span><span>\' + fmtDate(p.publish_date) + \'</span><span>· por \' + esc(p.author || \'Equipo EMAT\') + \'</span>\';
+    document.getElementById(\'post-title\').textContent = p.title;
+    document.title = p.title + \' | Blog EMAT\';
+
+    // Body (markdown → html)
+    document.getElementById(\'post-html\').innerHTML = marked.parse(p.body || \'\');
+
+    document.getElementById(\'post-loading\').style.display = \'none\';
+    document.getElementById(\'post-content\').style.display = \'block\';
+  } catch(e){
+    notFound();
+  }
+})();
+</script>
 '''
 
 
@@ -809,20 +881,12 @@ post_html = render_page(
     og_title="Por qué la celulosa reciclada es el futuro de la aislación",
     og_desc="El papel reciclado se transforma en uno de los aislantes más eficientes y sustentables del mercado.",
     body_class="",
-    hero_html='''<section class="page-hero" style="min-height:auto;padding:130px 0 60px">
-  <div class="page-hero-bg" style="background-image:linear-gradient(135deg,rgba(8,26,11,.75) 0%,rgba(16,46,22,.6) 50%,rgba(26,72,34,.55) 100%),url(\'../assets/img/obra-01.jpg\');background-size:cover;background-position:center"></div>
-  <div class="wrap">
-    <div class="hero-c sr" style="max-width:780px">
-      <div class="post-meta"><span class="bp-cat">Sustentabilidad</span><span>29 Abril 2026</span><span>· 6 min de lectura</span></div>
-      <h1 class="hero-h1 page-hero-h1" style="font-size:clamp(28px,4.2vw,46px)">Por qué la celulosa reciclada es el futuro de la aislación</h1>
-    </div>
-  </div>
-</section>''',
+    hero_html='',
     content_html=blog_post_content,
     asset_prefix="../",
-    page_url="blog/post-ejemplo.html",
+    page_url="blog/post.html",
 )
-with open(os.path.join(blog_dir, "post-ejemplo.html"),"w") as f: f.write(post_html)
-print(f"✓ blog/post-ejemplo.html ({len(post_html)} chars)")
+with open(os.path.join(blog_dir, "post.html"),"w") as f: f.write(post_html)
+print(f"✓ blog/post.html ({len(post_html)} chars)")
 
 print("\nPáginas generadas. Listas para abrir en el preview.")
