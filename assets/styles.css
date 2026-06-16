@@ -311,7 +311,7 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
 .pstep .pd{font-size:clamp(14px,1.3vw,15px);color:var(--n4);font-weight:400;margin-bottom:28px}
 
 /* Category cards */
-.cat-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.cat-g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 auto 24px;max-width:780px}
 .cc{border:2px solid var(--n2);border-radius:6px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;background:var(--n0)}
 .cc:hover,.cc.on{border-color:var(--g3);box-shadow:0 4px 18px rgba(42,110,55,.18)}
 .cc.on .cc-ck{opacity:1;transform:scale(1)}
