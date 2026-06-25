@@ -485,6 +485,7 @@
             <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4)"><span id="r-concepto">Material y mano de obra</span><span id="r-sub">—</span></div>
             <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4);border-top:1px solid var(--n2);margin-top:4px;padding-top:8px"><span>IVA 21%</span><span id="r-iva">—</span></div>
           </div>
+          <div style="font-size:12px;color:var(--n3);margin-top:8px;text-align:center"><strong>Material estimado:</strong> <span id="r-kg">—</span> · <em>el espesor final se define en la visita técnica</em></div>
           <div class="res-nrg">
             <div class="re-lbl">Ahorro energético estimado</div>
             <div class="re-g">
@@ -964,6 +965,10 @@ function calcP(){
   const iva       = Math.round(subtotal*0.21);
   const total     = subtotal+iva;
 
+  // Material estimado en kg (informativo) — espesor estándar por método
+  const kgM2 = met==='proyectado' ? 5 : 6.75;  // proyectado 100mm / soplado 150mm
+  const matKg = Math.round(sup*kgM2);
+
   // Ahorro energético estimado (Córdoba promedio)
   const kwh = Math.round(sup*25);
   const aho = Math.round(kwh*getCostoKwh());
@@ -976,6 +981,7 @@ function calcP(){
   document.getElementById('r-concepto').textContent='Material y mano de obra · '+metLabel+' · '+sup+' m²';
   document.getElementById('r-sub').textContent='$'+f(subtotal);
   document.getElementById('r-iva').textContent='$'+f(iva);
+  document.getElementById('r-kg').textContent=f(matKg)+' kg';
   document.getElementById('r-k').textContent=f(kwh);
   document.getElementById('r-a').textContent='$'+f(aho);
   document.getElementById('res-t').textContent='¡Listo, '+nom.split(' ')[0]+'!';
