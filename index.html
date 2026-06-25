@@ -443,16 +443,7 @@
                 <option value="soplado">Soplado</option>
               </select>
             </div>
-            <div class="pf"><label>Espesor</label>
-              <select id="s-esp">
-                <option value="50">50 mm</option>
-                <option value="70" selected>70 mm</option>
-                <option value="100">100 mm</option>
-                <option value="150">150 mm</option>
-                <option value="200">200 mm</option>
-              </select>
             </div>
-          </div>
           <p class="perr" id="e2">Ingresá la superficie para continuar.</p>
           <div class="pnav">
             <button class="pbk" onclick="irP(1)"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Volver</button>
@@ -487,14 +478,12 @@
           </div>
           <div class="res-nums">
             <div class="rn"><div class="rv" id="r-s">—</div><div class="rl">Superficie</div></div>
-            <div class="rn"><div class="rv" id="r-m">—</div><div class="rl">Material (kg)</div></div>
-            <div class="rn hi"><div class="rv" id="r-p">—</div><div class="rl">Total estimado</div></div>
+            <div class="rn"><div class="rv" id="r-met-l">—</div><div class="rl">Método</div></div>
+            <div class="rn hi"><div class="rv" id="r-p">—</div><div class="rl">Total con IVA</div></div>
           </div>
           <div class="res-breakdown" style="background:var(--n1);border-radius:6px;padding:14px 18px;margin-top:10px;font-size:13px">
-            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4)"><span>Material</span><span id="r-mat">—</span></div>
-            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4)"><span>Mano de obra</span><span id="r-mo">—</span></div>
-            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4);border-top:1px solid var(--n2);margin-top:4px;padding-top:8px"><span>Subtotal neto</span><span id="r-sub">—</span></div>
-            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4)"><span>IVA 21%</span><span id="r-iva">—</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4)"><span id="r-concepto">Material y mano de obra</span><span id="r-sub">—</span></div>
+            <div style="display:flex;justify-content:space-between;padding:4px 0;color:var(--n4);border-top:1px solid var(--n2);margin-top:4px;padding-top:8px"><span>IVA 21%</span><span id="r-iva">—</span></div>
           </div>
           <div class="res-nrg">
             <div class="re-lbl">Ahorro energético estimado</div>
@@ -966,35 +955,25 @@ function calcP(){
   if(!nom||!em){document.getElementById('e3').style.display='block';return}
   document.getElementById('e3').style.display='none';
   const sup=parseFloat(document.getElementById('s-sup').value)||80;
-  const met=document.getElementById('s-met').value;       // 'proyectado' o 'soplado'
-  const esp=parseInt(document.getElementById('s-esp').value); // 50/70/100/150/200
+  const met=document.getElementById('s-met').value;  // 'proyectado' o 'soplado'
 
-  // Tabla de consumo (kg/m²) real de EMAT
-  const CONSUMO={proyectado:{50:3,70:4,100:5},soplado:{100:4.5,150:6.75,200:9}};
-  let kgM2 = (CONSUMO[met]||{})[esp];
-  if(!kgM2){
-    // Combinaciones inexistentes: usar el espesor más cercano del método elegido
-    if(met==='proyectado') kgM2 = esp<=70 ? 4 : 5;
-    else                   kgM2 = esp<=125 ? 4.5 : esp<=175 ? 6.75 : 9;
-  }
-
-  const matKg     = Math.round(sup*kgM2);
-  const precioMat = Math.round(matKg*getPrecioKg());
-  const mo        = Math.round(sup*(met==='proyectado'?getMoProy():getMoSop()));
-  const subtotal  = precioMat+mo;
+  // Precio combinado (material + mano de obra) por m² según método
+  // Valores reales de EMAT - configurables desde el panel admin
+  const precio_m2 = met==='proyectado' ? getMoProy() : getMoSop();
+  const subtotal  = Math.round(sup*precio_m2);
   const iva       = Math.round(subtotal*0.21);
   const total     = subtotal+iva;
 
   // Ahorro energético estimado (Córdoba promedio)
-  const kwh = Math.round(sup*25);                    // 25 kWh/m²/año estimado
+  const kwh = Math.round(sup*25);
   const aho = Math.round(kwh*getCostoKwh());
 
   const f=n=>n>=10000?(n/1000).toFixed(1)+'k':n.toLocaleString('es-AR');
+  const metLabel = met==='proyectado' ? 'Proyectado' : 'Soplado';
   document.getElementById('r-s').textContent=sup+' m²';
-  document.getElementById('r-m').textContent=f(matKg)+' kg';
+  document.getElementById('r-met-l').textContent=metLabel;
   document.getElementById('r-p').textContent='$'+f(total);
-  document.getElementById('r-mat').textContent='$'+f(precioMat);
-  document.getElementById('r-mo').textContent='$'+f(mo);
+  document.getElementById('r-concepto').textContent='Material y mano de obra · '+metLabel+' · '+sup+' m²';
   document.getElementById('r-sub').textContent='$'+f(subtotal);
   document.getElementById('r-iva').textContent='$'+f(iva);
   document.getElementById('r-k').textContent=f(kwh);

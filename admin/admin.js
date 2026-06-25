@@ -315,9 +315,8 @@ document.getElementById('post-delete-btn').onclick = async () => {
 // SETTINGS
 // ════════════════════════════════════════════════
 const SETTING_LABELS = {
-  precio_kg:        { label: 'Precio por kg (ARS)', help: 'Precio del material por kilo (sin IVA). Default: 1769.' },
-  mo_proyectado:    { label: 'Mano de obra proyectado ($/m²)', help: 'Costo de mano de obra por m² para método proyectado. Default: 22300.' },
-  mo_soplado:       { label: 'Mano de obra soplado ($/m²)', help: 'Costo de mano de obra por m² para método soplado. Default: 25200.' },
+  mo_proyectado:    { label: 'Precio total Proyectado ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 22300.' },
+  mo_soplado:       { label: 'Precio total Soplado ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 25200.' },
   costo_kwh:        { label: 'Costo del kWh (ARS)', help: 'Valor del kWh para el cálculo del ahorro estimado. Default: 50.' },
   whatsapp_number:  { label: 'Número de WhatsApp', help: 'Formato internacional sin + ni espacios. Ej: 5493515555555' },
   contact_email:    { label: 'Email de contacto', help: 'Donde llegan las consultas del formulario.' },
