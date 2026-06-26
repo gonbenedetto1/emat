@@ -956,17 +956,28 @@ function calcP(){
   if(!nom||!em){document.getElementById('e3').style.display='block';return}
   document.getElementById('e3').style.display='none';
   const sup=parseFloat(document.getElementById('s-sup').value)||80;
-  const met=document.getElementById('s-met').value;  // 'proyectado' o 'soplado'
+  const met=document.getElementById('s-met').value;
+  const esp=parseInt(document.getElementById('s-esp').value);
 
-  // Precio combinado (material + mano de obra) por m² según método
-  // Valores reales de EMAT - configurables desde el panel admin
-  const precio_m2 = met==='proyectado' ? getMoProy() : getMoSop();
+  // Tabla de precios real EMAT (material + mano de obra por m², sin IVA)
+  // Fuente: catálogo de servicios EMAT
+  const PRECIO_TABLA = {
+    proyectado: { 50: 21600, 70: 22100, 100: 23100 },
+    soplado:    { 150: 23800 }
+  };
+  // Tabla de consumo (kg/m²) según método y espesor
+  const CONSUMO_TABLA = {
+    proyectado: { 50: 3, 70: 4, 100: 5 },
+    soplado:    { 100: 4.5, 150: 6.75, 200: 9 }
+  };
+
+  const precio_m2 = (PRECIO_TABLA[met]||{})[esp] || 22100;
   const subtotal  = Math.round(sup*precio_m2);
   const iva       = Math.round(subtotal*0.21);
   const total     = subtotal+iva;
 
-  // Material estimado en kg (informativo) — espesor estándar por método
-  const kgM2 = met==='proyectado' ? 5 : 6.75;  // proyectado 100mm / soplado 150mm
+  // Material estimado en kg (informativo)
+  const kgM2 = (CONSUMO_TABLA[met]||{})[esp] || 4;
   const matKg = Math.round(sup*kgM2);
 
   // Ahorro energético estimado (Córdoba promedio)
@@ -976,9 +987,9 @@ function calcP(){
   const f=n=>n>=10000?(n/1000).toFixed(1)+'k':n.toLocaleString('es-AR');
   const metLabel = met==='proyectado' ? 'Proyectado' : 'Soplado';
   document.getElementById('r-s').textContent=sup+' m²';
-  document.getElementById('r-met-l').textContent=metLabel;
+  document.getElementById('r-met-l').textContent=metLabel+' '+esp+'mm';
   document.getElementById('r-p').textContent='$'+f(total);
-  document.getElementById('r-concepto').textContent='Material y mano de obra · '+metLabel+' · '+sup+' m²';
+  document.getElementById('r-concepto').textContent='Material y mano de obra · '+metLabel+' '+esp+'mm · '+sup+' m²';
   document.getElementById('r-sub').textContent='$'+f(subtotal);
   document.getElementById('r-iva').textContent='$'+f(iva);
   document.getElementById('r-kg').textContent=f(matKg)+' kg';
@@ -987,6 +998,20 @@ function calcP(){
   document.getElementById('res-t').textContent='¡Listo, '+nom.split(' ')[0]+'!';
   irP(4);
 }
+
+// Espesores disponibles según método (del catálogo EMAT)
+function updateEspesores(){
+  const met = document.getElementById('s-met').value;
+  const esp = document.getElementById('s-esp');
+  const opts = met==='proyectado'
+    ? [['50','50 mm'],['70','70 mm'],['100','100 mm']]
+    : [['150','150 mm']];
+  esp.innerHTML = opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join('');
+  // Default: el espesor del medio si proyectado, único si soplado
+  esp.value = met==='proyectado' ? '70' : '150';
+}
+// Inicializar al cargar
+document.addEventListener('DOMContentLoaded', updateEspesores);
 
 // Casa
 const zm={techo:{t:'Techo inclinado',s:'Aislación entre vigas'},pared:{t:'Muro interior',s:'70 mm — divisorio'},bano:{t:'Baño / Húmedos',s:'Control de humedad'},entrepiso:{t:'Entrepiso / Losa',s:'Entre plantas'}};
