@@ -315,8 +315,9 @@ document.getElementById('post-delete-btn').onclick = async () => {
 // SETTINGS
 // ════════════════════════════════════════════════
 const SETTING_LABELS = {
-  mo_proyectado:    { label: 'Precio total Proyectado ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 22300.' },
-  mo_soplado:       { label: 'Precio total Soplado ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 25200.' },
+  precio_a:         { label: 'Precio A · Muro interior Proyectado 70mm ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 22300.' },
+  precio_b:         { label: 'Precio B · Techo Proyectado 25mm ($/m²)', help: 'Precio combinado material + mano de obra por m² (sin IVA). Default: 20700.' },
+  precio_c:         { label: 'Precio C · Insuflado 150mm ($/m²) — Techo y Piso', help: 'Precio combinado material + mano de obra por m² (sin IVA). Se aplica a techo insuflado y a pisos. Default: 23800.' },
   costo_kwh:        { label: 'Costo del kWh (ARS)', help: 'Valor del kWh para el cálculo del ahorro estimado. Default: 50.' },
   whatsapp_number:  { label: 'Número de WhatsApp', help: 'Formato internacional sin + ni espacios. Ej: 5493515555555' },
   contact_email:    { label: 'Email de contacto', help: 'Donde llegan las consultas del formulario.' },

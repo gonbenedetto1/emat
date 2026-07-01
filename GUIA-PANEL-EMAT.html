@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Guía del Panel de Administración — EMAT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-dark: #1c5228;
+    --green-mid: #2a6e37;
+    --green-bg: #f0f8f1;
+    --gray-1: #f6f4f0;
+    --gray-2: #e8e4dd;
+    --gray-3: #b8b2a8;
+    --gray-4: #787068;
+    --gray-5: #3a3630;
+    --gray-6: #18150f;
+    --orange: #e07a1f;
+    --orange-bg: #fef4e8;
+  }
+  body {
+    font-family: 'Montserrat', -apple-system, sans-serif;
+    color: var(--gray-5);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    background: white;
+  }
+  .header {
+    border-bottom: 2px solid var(--green-mid);
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    color: var(--gray-6);
+    letter-spacing: -.5px;
+    line-height: 1.1;
+  }
+  .header .meta {
+    text-align: right;
+    font-size: 9pt;
+    color: var(--gray-4);
+  }
+  .intro {
+    background: var(--green-bg);
+    border-left: 3px solid var(--green-mid);
+    padding: 12px 16px;
+    margin-bottom: 22px;
+    font-size: 10pt;
+    border-radius: 0 5px 5px 0;
+  }
+  section { margin-bottom: 20px; }
+  h2 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .num {
+    background: var(--green-mid);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: 800;
+  }
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--gray-6);
+    margin: 12px 0 6px;
+  }
+  p { margin-bottom: 8px; }
+  ul, ol { margin: 4px 0 10px 22px; }
+  li { margin-bottom: 4px; line-height: 1.5; }
+  strong { color: var(--gray-6); font-weight: 700; }
+  code {
+    background: var(--gray-1);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+    font-family: 'Menlo', monospace;
+    color: var(--green-dark);
+    font-weight: 600;
+  }
+  .credentials {
+    background: var(--gray-1);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+  .credentials .row { display: flex; padding: 4px 0; gap: 10px; }
+  .credentials .row strong { min-width: 110px; color: var(--green-dark); font-weight: 700; }
+  .step {
+    background: var(--gray-1);
+    border-radius: 5px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-size: 10pt;
+  }
+  .field-list {
+    background: var(--gray-1);
+    border-radius: 5px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 9.5pt;
+  }
+  .field-list .field {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-2);
+  }
+  .field-list .field:last-child { border-bottom: none; }
+  .field-list .field strong {
+    display: block;
+    color: var(--green-dark);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .field-list .field span {
+    display: block;
+    color: var(--gray-4);
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .tip {
+    background: var(--orange-bg);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 9.5pt;
+    border-radius: 0 4px 4px 0;
+  }
+  .tip strong { color: var(--orange); }
+  .footer {
+    margin-top: 28px;
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-2);
+    font-size: 8.5pt;
+    color: var(--gray-4);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Guía del Panel<br>de Administración</h1>
+  <div class="meta">
+    <strong>EMAT</strong><br>
+    Equipo · Junio 2026
+  </div>
+</div>
+
+<div class="intro">
+  Esta guía explica cómo entrar al panel de administración del sitio web para crear notas de blog, modificar precios del cotizador, datos de contacto y otras configuraciones. Es breve y va al grano.
+</div>
+
+<!-- ════════════════ 1. Acceso ════════════════ -->
+<section>
+  <h2><span class="num">1</span> Cómo entrar</h2>
+  <p>Abrí el navegador y entrá a la siguiente dirección:</p>
+  <p style="text-align:center;margin:10px 0"><code style="font-size:11pt;padding:6px 14px">emat.com.ar/panel-emat</code></p>
+  <p>Ingresá con estas credenciales:</p>
+  <div class="credentials">
+    <div class="row"><strong>Email:</strong> <span>andres.brandan@emat.com.ar</span></div>
+    <div class="row"><strong>Contraseña:</strong> <span>andres123</span></div>
+  </div>
+  <div class="tip">
+    <strong>Importante:</strong> esta contraseña se puede cambiar y se pueden agregar más usuarios. Ver al final de esta guía cómo hacerlo.
+  </div>
+</section>
+
+<!-- ════════════════ 2. Notas del blog ════════════════ -->
+<section>
+  <h2><span class="num">2</span> Crear y editar notas del blog</h2>
+  <p>Una vez dentro, vas a ver dos tabs: <strong>Notas del blog</strong> y <strong>Configuración</strong>. Esta sección cubre la primera.</p>
+
+  <h3>Crear una nota nueva</h3>
+  <ol>
+    <li>Click en el botón verde <strong>+ Nueva nota</strong> arriba a la derecha.</li>
+    <li>Se abre un editor con un formulario a la izquierda y un preview a la derecha.</li>
+    <li>Completá los datos:
+      <ul>
+        <li><strong>Título</strong> — el titular principal de la nota</li>
+        <li><strong>Slug</strong> — la URL de la nota (se genera solo, pero se puede editar)</li>
+        <li><strong>Categoría</strong> — Sustentabilidad, Construcción, Casos o Novedades</li>
+        <li><strong>Fecha</strong> — fecha de publicación</li>
+        <li><strong>Autor</strong> — por defecto "Equipo EMAT"</li>
+        <li><strong>Imagen destacada</strong> — subí una foto (recomendado 1200×600 px)</li>
+        <li><strong>Resumen</strong> — 2-3 líneas que aparecen en la card del listado</li>
+        <li><strong>Cuerpo</strong> — el contenido principal. Soporta <strong>Markdown</strong> (negritas con <code>**texto**</code>, títulos con <code>## Título</code>, listas con <code>-</code>, etc.)</li>
+      </ul>
+    </li>
+    <li>Marcá <strong>Publicada</strong> para que aparezca en el sitio (si no, queda como borrador).</li>
+    <li>Click en <strong>Guardar nota</strong>.</li>
+  </ol>
+
+  <h3>Editar o eliminar una nota</h3>
+  <p>Click en cualquier card de nota existente. Se abre el editor con todos los datos cargados. Modificá lo que necesites y guardá, o usá el botón <strong>Eliminar</strong> abajo a la izquierda.</p>
+
+  <div class="tip">
+    <strong>Tip:</strong> mientras escribís, el preview de la derecha se actualiza en tiempo real para ver cómo va a quedar la nota publicada.
+  </div>
+</section>
+
+<!-- ════════════════ 3. Configuración ════════════════ -->
+<section>
+  <h2><span class="num">3</span> Modificar configuración del sitio</h2>
+  <p>El tab <strong>Configuración</strong> permite editar valores que se cargan automáticamente en todo el sitio sin tocar código.</p>
+
+  <div class="field-list">
+    <div class="field">
+      <strong>Precio total Proyectado ($/m²)</strong>
+      <span>Precio combinado material + mano de obra por m² (sin IVA) para método proyectado. Impacta directamente en el cotizador. Default: $22.300.</span>
+    </div>
+    <div class="field">
+      <strong>Precio total Soplado ($/m²)</strong>
+      <span>Precio combinado material + mano de obra por m² (sin IVA) para método soplado. Default: $25.200.</span>
+    </div>
+    <div class="field">
+      <strong>Costo del kWh (ARS)</strong>
+      <span>Valor del kWh usado para mostrar el ahorro económico estimado en el cotizador. Default: $50. Sugerencia: actualizar a valor real de Córdoba (~$100-150).</span>
+    </div>
+    <div class="field">
+      <strong>Número de WhatsApp</strong>
+      <span>El número al que llegan las consultas del botón flotante. Formato: 5493515555555 (sin + ni espacios).</span>
+    </div>
+    <div class="field">
+      <strong>Email de contacto</strong>
+      <span>Donde llegan las consultas del formulario de contacto.</span>
+    </div>
+    <div class="field">
+      <strong>Link de LinkedIn</strong>
+      <span>URL completa al perfil de la empresa. Aparece en el footer.</span>
+    </div>
+    <div class="field">
+      <strong>Link de Instagram</strong>
+      <span>URL completa al perfil. Aparece en el footer.</span>
+    </div>
+  </div>
+
+  <p>Editá los valores y hacé click en <strong>Guardar configuración</strong>. Los cambios se reflejan en el sitio público en segundos (al recargar).</p>
+</section>
+
+<!-- ════════════════ 4. Usuarios y contraseña ════════════════ -->
+<section>
+  <h2><span class="num">4</span> Cambiar contraseña o agregar otro usuario</h2>
+  <p>Si quieren cambiar la contraseña o sumar otra persona que pueda entrar al panel, avisanos por WhatsApp o email y lo gestionamos. Toma 5 minutos.</p>
+
+  <h3>Para cambiar la contraseña actual</h3>
+  <p>Decinos qué contraseña nueva quieren usar y la actualizamos en el sistema.</p>
+
+  <h3>Para agregar otro usuario</h3>
+  <p>Pasanos:</p>
+  <ul>
+    <li>Email de la persona que va a acceder</li>
+    <li>Contraseña inicial (o que la elija ella en el primer ingreso)</li>
+    <li>Nombre y rol (opcional, solo para referencia)</li>
+  </ul>
+  <p>Una vez creado el usuario, puede entrar al mismo panel con sus propias credenciales y editar lo mismo que vos.</p>
+</section>
+
+<!-- ════════════════ 5. Cuando algo no funciona ════════════════ -->
+<section>
+  <h2><span class="num">5</span> Si algo no funciona</h2>
+  <ul>
+    <li>Recargá la página con <strong>Ctrl+Shift+R</strong> (Windows) o <strong>Cmd+Shift+R</strong> (Mac) para forzar refresh sin cache.</li>
+    <li>Probá entrar en modo incógnito para descartar problemas de extensiones.</li>
+    <li>Si el problema persiste, escribinos un WhatsApp con captura del error y lo resolvemos.</li>
+  </ul>
+</section>
+
+<div class="footer">
+  Cualquier consulta sobre el uso del panel, escribinos por WhatsApp o email.
+</div>
+
+</body>
+</html>
