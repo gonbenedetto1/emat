@@ -937,7 +937,7 @@ document.addEventListener('keydown', e => {
 // Presupuesto
 let pCat=null,pStep=1;
 const bw=['0%','33%','66%','100%'];
-function selC(el){document.querySelectorAll('.cc').forEach(c=>c.classList.remove('on'));el.classList.add('on');window._zona=el.dataset.cat;updateMetodos();}
+function selC(el){document.querySelectorAll('.cc').forEach(c=>c.classList.remove('on'));el.classList.add('on');pCat=el.dataset.cat;window._zona=el.dataset.cat;document.getElementById('e1').style.display='none';updateMetodos();}
 function irP(n){
   if(n===2&&!pCat){document.getElementById('e1').style.display='block';return}
   if(n===3){const s=document.getElementById('s-sup').value;if(!s||+s<=0){document.getElementById('e2').style.display='block';return}document.getElementById('e2').style.display='none'}
