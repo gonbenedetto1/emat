@@ -974,7 +974,7 @@ function calcP(){
   const kwh = Math.round(sup*25);
   const aho = Math.round(kwh*getCostoKwh());
 
-  const f=n=>n>=10000?(n/1000).toFixed(1)+'k':n.toLocaleString('es-AR');
+  const f=n=>Math.round(n).toLocaleString('es-AR');
   const metLabel = info.label;
   const zonaLabel = ZONAS[zona].label;
   document.getElementById('r-s').textContent=sup+' m²';
