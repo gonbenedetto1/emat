@@ -368,13 +368,20 @@ async function loadSettings() {
 
     const updates = [];
     form.querySelectorAll('input[name]').forEach(inp => {
-      updates.push({ key: inp.name, value: inp.value });
+      const v = (inp.value || '').trim();
+      if (v !== '') updates.push({ key: inp.name, value: v });
     });
 
-    const { error } = await sb.from('emat_settings').upsert(updates);
+    if (updates.length === 0) {
+      btn.disabled = false; btn.textContent = 'Guardar configuración';
+      toast('No hay valores para guardar', true);
+      return;
+    }
+
+    const { error } = await sb.from('emat_settings').upsert(updates, { onConflict: 'key' });
 
     btn.disabled = false; btn.textContent = 'Guardar configuración';
-    if (error) toast(error.message, true);
+    if (error) { toast('Error: ' + error.message, true); console.error('upsert emat_settings', error); }
     else toast('Configuración guardada ✓');
   };
 }
