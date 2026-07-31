@@ -414,7 +414,7 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
    CTA FINAL
 ═══════════════════════════════ */
 #ctaf{background:var(--g3);padding:80px 0;text-align:center;position:relative;overflow:hidden}
-#ctaf::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 36px,rgba(255,255,255,.018) 36px,rgba(255,255,255,.018) 37px)}
+#ctaf::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(45deg,transparent,transparent 36px,rgba(255,255,255,.018) 36px,rgba(255,255,255,.018) 37px)}
 #ctaf .h2{text-align:center;font-size:clamp(28px,4.5vw,58px);position:relative;z-index:1}
 #ctaf p{color:rgba(255,255,255,.6);font-size:clamp(15px,1.5vw,18px);text-align:center;margin:0 auto 32px;max-width:460px;font-weight:400;position:relative;z-index:1}
 .ctaf-acts{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
