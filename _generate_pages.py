@@ -570,8 +570,11 @@ hoja_seguridad_content = '''
 .hds-p + .hds-p{margin-top:10px}
 
 /* Tabla */
-.hds-table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
-.hds-table thead th{background:var(--g4);color:var(--n0);padding:12px 16px;text-align:left;font-weight:700;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase}
+.hds-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:6px 0;border-radius:6px;border:1px solid var(--n2)}
+.hds-table-wrap::-webkit-scrollbar{height:6px}
+.hds-table-wrap::-webkit-scrollbar-thumb{background:var(--n3);border-radius:3px}
+.hds-table{width:100%;border-collapse:collapse;font-size:14px;min-width:480px}
+.hds-table thead th{background:var(--g4);color:var(--n0);padding:12px 16px;text-align:left;font-weight:700;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
 .hds-table tbody td{padding:14px 16px;border-bottom:1px solid var(--n2);color:var(--n5);line-height:1.5}
 .hds-table tbody tr:last-child td{border-bottom:none}
 .hds-table tbody tr:nth-child(even){background:var(--g0)}
@@ -668,13 +671,15 @@ hoja_seguridad_content = '''
       <div class="hds-sec sr">
         <div class="hds-sec-hd"><span class="hds-num">3</span><h3>Composición / Información sobre los componentes</h3></div>
         <div class="hds-sec-body">
-          <table class="hds-table">
-            <thead><tr><th>Componente</th><th>Nombre químico</th><th>Número CAS</th><th>Concentración</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Celulosa</strong></td><td>Fibra de celulosa vegetal</td><td>9004-34-6</td><td>82%</td></tr>
-              <tr><td><strong>Ácido Bórico</strong></td><td>Ácido ortobórico</td><td>10043-35-3</td><td>18%</td></tr>
-            </tbody>
-          </table>
+          <div class="hds-table-wrap">
+            <table class="hds-table">
+              <thead><tr><th>Componente</th><th>Nombre químico</th><th>Número CAS</th><th>Concentración</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Celulosa</strong></td><td>Fibra de celulosa vegetal</td><td>9004-34-6</td><td>82%</td></tr>
+                <tr><td><strong>Ácido Bórico</strong></td><td>Ácido ortobórico</td><td>10043-35-3</td><td>18%</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -740,15 +745,17 @@ hoja_seguridad_content = '''
       <div class="hds-sec sr">
         <div class="hds-sec-hd"><span class="hds-num">9</span><h3>Propiedades físicas y químicas</h3></div>
         <div class="hds-sec-body">
-          <table class="hds-table">
-            <thead><tr><th>Propiedad</th><th>Descripción</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Estado físico</strong></td><td>Sólido (fibras / polvo)</td></tr>
-              <tr><td><strong>Olor</strong></td><td>Inodoro</td></tr>
-              <tr><td><strong>Solubilidad</strong></td><td>Insoluble en agua</td></tr>
-              <tr><td><strong>Temperatura de autoignición</strong></td><td>~230°C – 250°C</td></tr>
-            </tbody>
-          </table>
+          <div class="hds-table-wrap">
+            <table class="hds-table">
+              <thead><tr><th>Propiedad</th><th>Descripción</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Estado físico</strong></td><td>Sólido (fibras / polvo)</td></tr>
+                <tr><td><strong>Olor</strong></td><td>Inodoro</td></tr>
+                <tr><td><strong>Solubilidad</strong></td><td>Insoluble en agua</td></tr>
+                <tr><td><strong>Temperatura de autoignición</strong></td><td>~230°C – 250°C</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

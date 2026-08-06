@@ -425,8 +425,10 @@ body{font-family:var(--f);color:var(--n5);background:var(--n0);overflow-x:hidden
 #cont{background:var(--n0);padding:96px 0}
 .cont-lay{display:grid;grid-template-columns:1fr 1.2fr;gap:80px}
 .ci-items{display:flex;flex-direction:column;gap:10px;margin-top:24px}
-.ci{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border:1.5px solid var(--n2);border-radius:4px;transition:border-color var(--ease)}
+.ci{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border:1.5px solid var(--n2);border-radius:4px;transition:all var(--ease);text-decoration:none;color:inherit}
+a.ci{cursor:pointer}
 .ci:hover{border-color:var(--g3)}
+a.ci:hover{background:var(--g0);transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,82,40,.08)}
 .ci-ic{width:36px;height:36px;border-radius:4px;background:var(--g0);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ci-ic svg{width:15px;height:15px;stroke:var(--g3);fill:none;stroke-width:2.1;stroke-linecap:round}
 .ci strong{display:block;font-size:14px;font-weight:700;color:var(--n5);margin-bottom:2px}

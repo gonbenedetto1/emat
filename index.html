@@ -672,8 +672,8 @@
         <h2 class="h2">HABLEMOS</h2>
         <p class="bod" style="margin-bottom:0">Córdoba. Lunes a viernes, 9 a 17 hs.</p>
         <div class="ci-items">
-          <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Dirección</strong><span>Av. La Voz del Interior 4080, Córdoba</span></div></div>
-          <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6z"/></svg></div><div><strong>WhatsApp</strong><span>Consultanos directo</span></div></div>
+          <a class="ci" href="https://www.google.com/maps/search/?api=1&query=Av.+La+Voz+del+Interior+4080%2C+C%C3%B3rdoba" target="_blank" rel="noopener"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><strong>Dirección</strong><span>Av. La Voz del Interior 4080, Córdoba</span></div></a>
+          <a class="ci wa-link" href="#" target="_blank" rel="noopener"><div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6z"/></svg></div><div><strong>WhatsApp</strong><span>Escribinos ahora</span></div></a>
           <div class="ci"><div class="ci-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><strong>Horario</strong><span>Lunes a viernes, 9:00 a 17:00 hs</span></div></div>
         </div>
       </div>
@@ -823,8 +823,10 @@ function getMailAdmin(){
 // Actualizar el botón flotante de WhatsApp con el número guardado
 function applyWA(){
   const num = getWANum();
+  const url = 'https://wa.me/'+num+'?text='+encodeURIComponent('Hola, me comunico desde la web de EMAT.');
   const btn = document.getElementById('wa-float-btn');
-  if(btn) btn.href = 'https://wa.me/'+num+'?text='+encodeURIComponent('Hola, me comunico desde la web de EMAT.');
+  if(btn) btn.href = url;
+  document.querySelectorAll('.wa-link').forEach(a => { a.href = url; });
 }
 
 
