@@ -52,6 +52,7 @@ def render_page(*, title, description, og_title, og_desc, body_class,
       <a href="{asset_prefix}arquitectos.html">Arquitectos</a>
       <a href="{asset_prefix}constructoras.html">Constructoras</a>
       <a href="{asset_prefix}hogar.html">Hogar</a>
+      <a href="{asset_prefix}hoja-de-seguridad.html">Ficha técnica</a>
       <a href="{asset_prefix}quienes-somos.html">Nosotros</a>
       <a href="{asset_prefix}blog/index.html">Blog</a>
     </div>
@@ -68,6 +69,7 @@ def render_page(*, title, description, og_title, og_desc, body_class,
   <a href="{asset_prefix}arquitectos.html" onclick="closeNav()">Arquitectos</a>
   <a href="{asset_prefix}constructoras.html" onclick="closeNav()">Constructoras</a>
   <a href="{asset_prefix}hogar.html" onclick="closeNav()">Hogar</a>
+  <a href="{asset_prefix}hoja-de-seguridad.html" onclick="closeNav()">Ficha técnica</a>
   <a href="{asset_prefix}quienes-somos.html" onclick="closeNav()">Nosotros</a>
   <a href="{asset_prefix}blog/index.html" onclick="closeNav()">Blog</a>
   <a href="{asset_prefix}index.html#presupuesto" class="nm-btn" onclick="closeNav()">Cotizar proyecto</a>
@@ -95,7 +97,7 @@ def render_page(*, title, description, og_title, og_desc, body_class,
         </div>
       </div>
       <div class="fc"><h4>Soluciones</h4><ul><li><a href="{asset_prefix}arquitectos.html">Arquitectos</a></li><li><a href="{asset_prefix}constructoras.html">Constructoras</a></li><li><a href="{asset_prefix}hogar.html">Hogar</a></li></ul></div>
-      <div class="fc"><h4>Producto</h4><ul><li><a href="{asset_prefix}index.html#perf">Beneficios</a></li><li><a href="{asset_prefix}index.html#apps">Aplicaciones</a></li><li><a href="{asset_prefix}index.html#prods">Productos</a></li><li><a href="{asset_prefix}index.html#presupuesto">Cotizador</a></li></ul></div>
+      <div class="fc"><h4>Producto</h4><ul><li><a href="{asset_prefix}index.html#perf">Beneficios</a></li><li><a href="{asset_prefix}index.html#apps">Aplicaciones</a></li><li><a href="{asset_prefix}index.html#prods">Productos</a></li><li><a href="{asset_prefix}index.html#presupuesto">Cotizador</a></li><li><a href="{asset_prefix}hoja-de-seguridad.html">Ficha técnica</a></li></ul></div>
       <div class="fc"><h4>Empresa</h4><ul><li><a href="{asset_prefix}quienes-somos.html">Nosotros</a></li><li><a href="{asset_prefix}blog/index.html">Blog</a></li><li><a href="{asset_prefix}index.html#cont">Contacto</a></li></ul></div>
     </div>
     <div class="fb-bot"><span>© 2026 EMAT — Ecoaislante de Celulosa. Córdoba, Argentina.</span><span>Av. La Voz del Interior 4080</span></div>
@@ -540,6 +542,296 @@ quienes_content = '''
 </section>
 '''
 
+# ──── HOJA DE SEGURIDAD ────
+hoja_seguridad_content = '''
+<style>
+.hds-intro{background:var(--n0);border:1px solid var(--n2);border-radius:10px;padding:32px 36px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;margin-bottom:48px;box-shadow:0 4px 18px rgba(26,82,40,.06)}
+.hds-intro .hds-intro-txt{flex:1;min-width:280px}
+.hds-intro .lbl{margin-bottom:10px}
+.hds-intro h2{font-size:clamp(20px,2.6vw,28px);line-height:1.2;color:var(--n6);margin-bottom:10px;font-weight:800}
+.hds-intro p{font-size:15px;color:var(--n4);line-height:1.6;margin:0}
+.hds-download{flex-shrink:0}
+.hds-download .btn{padding:16px 26px;font-size:14px}
+.hds-download svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.hds-list{display:grid;grid-template-columns:1fr;gap:16px}
+.hds-sec{background:var(--n0);border:1px solid var(--n2);border-radius:10px;overflow:hidden;transition:border-color var(--ease)}
+.hds-sec:hover{border-color:var(--g1)}
+.hds-sec-hd{display:flex;align-items:center;gap:14px;padding:20px 24px;background:linear-gradient(180deg,var(--g0) 0%,rgba(240,248,241,.4) 100%);border-bottom:1px solid var(--n2)}
+.hds-num{background:var(--g3);color:var(--n0);width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.hds-sec-hd h3{font-size:16px;font-weight:800;color:var(--n6);margin:0;line-height:1.3;letter-spacing:.2px;text-transform:uppercase}
+.hds-sec-body{padding:22px 26px}
+.hds-dl{display:grid;grid-template-columns:220px 1fr;gap:12px 24px;font-size:14.5px;line-height:1.6}
+.hds-dl dt{color:var(--n4);font-weight:600}
+.hds-dl dd{color:var(--n5);margin:0}
+.hds-dl dd + dt{padding-top:10px;border-top:1px dashed var(--n2)}
+.hds-dl dt + dt{padding-top:10px;border-top:1px dashed var(--n2)}
+.hds-p{font-size:14.5px;line-height:1.65;color:var(--n5);margin:0}
+.hds-p + .hds-p{margin-top:10px}
+
+/* Tabla */
+.hds-table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0}
+.hds-table thead th{background:var(--g4);color:var(--n0);padding:12px 16px;text-align:left;font-weight:700;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase}
+.hds-table tbody td{padding:14px 16px;border-bottom:1px solid var(--n2);color:var(--n5);line-height:1.5}
+.hds-table tbody tr:last-child td{border-bottom:none}
+.hds-table tbody tr:nth-child(even){background:var(--g0)}
+.hds-table td strong{color:var(--n6);font-weight:700}
+
+/* Peligros / hazard badges */
+.hds-warn{background:#fef4e8;border:1px solid #f5d3a8;border-left:4px solid var(--o4);border-radius:6px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hds-warn svg{width:22px;height:22px;color:var(--o4);flex-shrink:0}
+.hds-warn strong{color:#a4560f;font-weight:800;letter-spacing:1px;text-transform:uppercase;font-size:13px}
+.hds-hcodes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+.hds-hcode{display:flex;gap:14px;padding:12px 16px;background:var(--g0);border-radius:6px;align-items:flex-start;font-size:14px;line-height:1.5}
+.hds-hcode-tag{background:var(--g4);color:var(--n0);font-weight:800;font-size:12px;padding:4px 10px;border-radius:4px;letter-spacing:.5px;flex-shrink:0;min-width:52px;text-align:center}
+.hds-hcode-txt{color:var(--n5)}
+
+/* Consejos (P-codes) */
+.hds-tips{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+.hds-tip{display:flex;gap:12px;padding:10px 14px;background:var(--n1);border-radius:5px;align-items:flex-start;font-size:14px;line-height:1.5}
+.hds-tip-tag{background:var(--n3);color:var(--n5);font-weight:700;font-size:11.5px;padding:3px 8px;border-radius:3px;letter-spacing:.4px;flex-shrink:0;min-width:52px;text-align:center}
+
+/* Responsive */
+@media(max-width:720px){
+  .hds-intro{padding:24px 22px;flex-direction:column;align-items:stretch;text-align:center}
+  .hds-download{width:100%}
+  .hds-download .btn{width:100%;justify-content:center}
+  .hds-sec-hd{padding:16px 18px;gap:10px}
+  .hds-sec-hd h3{font-size:14px}
+  .hds-sec-body{padding:18px 20px}
+  .hds-dl{grid-template-columns:1fr;gap:6px 0}
+  .hds-dl dt{padding-top:12px;border-top:1px dashed var(--n2)}
+  .hds-dl dt + dt, .hds-dl dd + dt{padding-top:12px}
+  .hds-dl dt:first-child{padding-top:0;border-top:none}
+  .hds-table{font-size:13px}
+  .hds-table thead th, .hds-table tbody td{padding:10px 12px}
+  .hds-hcode{flex-direction:column;gap:6px}
+  .hds-tip{flex-direction:column;gap:4px}
+}
+</style>
+
+<!-- Intro + descarga -->
+<section class="sec">
+  <div class="wrap">
+    <div class="hds-intro sr">
+      <div class="hds-intro-txt">
+        <div class="lbl">Documentación técnica</div>
+        <h2>Fibra de Celulosa con Retardante de Llama (Ácido Bórico)</h2>
+        <p>Hoja de Datos de Seguridad (HDS) del producto. Información completa sobre composición, riesgos, primeros auxilios y precauciones de manipulación.</p>
+      </div>
+      <div class="hds-download">
+        <a href="assets/hoja-de-seguridad.pdf" class="btn btn-p" download>
+          <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Descargar PDF
+        </a>
+      </div>
+    </div>
+
+    <div class="hds-list">
+
+      <!-- Sección 1 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">1</span><h3>Identificación del producto y de la empresa</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Nombre del producto</dt><dd>Fibra de Celulosa Técnica</dd>
+            <dt>Uso recomendado</dt><dd>Aislamiento térmico y acústico.</dd>
+            <dt>Empresa</dt><dd>EMAT SAS — Av. La Voz del Interior 6080, Córdoba, Argentina.<br>Tel: 351 3029126</dd>
+            <dt>Teléfono de emergencia</dt><dd>Hospital Posadas (Buenos Aires): 0800 333 0160<br>Sanatorio Allende (Córdoba): 0810 555 2553</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 2 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">2</span><h3>Identificación de los peligros</h3></div>
+        <div class="hds-sec-body">
+          <div class="hds-warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <strong>Palabra de advertencia: PELIGRO</strong>
+          </div>
+          <p class="hds-p" style="margin-bottom:12px"><strong>Clasificación GHS:</strong> Toxicidad para la reproducción (Categoría 1B) · Polvo combustible (Categoría 1) · Irritación ocular leve (Categoría 2B).</p>
+          <div class="hds-hcodes">
+            <div class="hds-hcode"><span class="hds-hcode-tag">H360</span><span class="hds-hcode-txt">Puede perjudicar la fertilidad o dañar al feto.</span></div>
+            <div class="hds-hcode"><span class="hds-hcode-tag">H320</span><span class="hds-hcode-txt">Provoca irritación ocular.</span></div>
+            <div class="hds-hcode"><span class="hds-hcode-tag">H232</span><span class="hds-hcode-txt">Puede formar concentraciones de polvo combustible en el aire.</span></div>
+          </div>
+          <div class="hds-tips">
+            <div class="hds-tip"><span class="hds-tip-tag">P201</span><span>Pedir instrucciones especiales antes del uso.</span></div>
+            <div class="hds-tip"><span class="hds-tip-tag">P280</span><span>Usar guantes, ropa de protección, equipo de protección para ojos y cara.</span></div>
+            <div class="hds-tip"><span class="hds-tip-tag">P308+P313</span><span>En caso de exposición manifiesta o presunta: consultar a un médico.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección 3 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">3</span><h3>Composición / Información sobre los componentes</h3></div>
+        <div class="hds-sec-body">
+          <table class="hds-table">
+            <thead><tr><th>Componente</th><th>Nombre químico</th><th>Número CAS</th><th>Concentración</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Celulosa</strong></td><td>Fibra de celulosa vegetal</td><td>9004-34-6</td><td>82%</td></tr>
+              <tr><td><strong>Ácido Bórico</strong></td><td>Ácido ortobórico</td><td>10043-35-3</td><td>18%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sección 4 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">4</span><h3>Primeros auxilios</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Inhalación</dt><dd>Trasladar al aire libre. Si persiste la tos, consultar al médico.</dd>
+            <dt>Contacto con la piel</dt><dd>Lavar con agua y jabón.</dd>
+            <dt>Contacto con los ojos</dt><dd>Enjuagar con agua abundante por 15 minutos. Quitar lentes de contacto si es posible.</dd>
+            <dt>Ingestión</dt><dd>No inducir el vómito. Beber 1 o 2 vasos de agua. Consultar si se ingieren cantidades grandes.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 5 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">5</span><h3>Medidas de lucha contra incendios</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Medios de extinción</dt><dd>Agua pulverizada, espuma, CO<sub>2</sub> o polvo químico seco.</dd>
+            <dt>Peligros específicos</dt><dd>El material es ignífugo, pero en incendios masivos libera CO y CO<sub>2</sub>. El polvo fino en suspensión puede ser explosivo si hay una fuente de ignición.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 6 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">6</span><h3>Medidas en caso de vertido accidental</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Precauciones</dt><dd>Evitar la formación de nubes de polvo. Eliminar fuentes de ignición. Aspirar con equipo con filtro HEPA o barrer en húmedo. No comprimir.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 7 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">7</span><h3>Manipulación y almacenamiento</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Manipulación</dt><dd>Manipular en áreas ventiladas. Evitar contacto prolongado con la piel.</dd>
+            <dt>Almacenamiento</dt><dd>Mantener en lugar seco y fresco. Proteger de la humedad para evitar degradación.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 8 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">8</span><h3>Controles de exposición / Protección personal</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Límites de exposición</dt><dd>Generalmente 10 mg/m³ para polvo total.</dd>
+            <dt>Protección respiratoria</dt><dd>Mascarilla certificada N95 o P100.</dd>
+            <dt>Protección ocular</dt><dd>Gafas de seguridad ajustadas.</dd>
+            <dt>Protección dérmica</dt><dd>Guantes de trabajo y ropa de manga larga.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 9 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">9</span><h3>Propiedades físicas y químicas</h3></div>
+        <div class="hds-sec-body">
+          <table class="hds-table">
+            <thead><tr><th>Propiedad</th><th>Descripción</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Estado físico</strong></td><td>Sólido (fibras / polvo)</td></tr>
+              <tr><td><strong>Olor</strong></td><td>Inodoro</td></tr>
+              <tr><td><strong>Solubilidad</strong></td><td>Insoluble en agua</td></tr>
+              <tr><td><strong>Temperatura de autoignición</strong></td><td>~230°C – 250°C</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sección 10 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">10</span><h3>Estabilidad y reactividad</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Estabilidad</dt><dd>Estable bajo condiciones normales.</dd>
+            <dt>Incompatibilidad</dt><dd>Agentes oxidantes fuertes (cloro, ácido nítrico).</dd>
+            <dt>Descomposición</dt><dd>Libera CO y CO<sub>2</sub> a temperaturas de combustión.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 11 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">11</span><h3>Información toxicológica</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Toxicidad aguda</dt><dd>LD50 Oral: &gt; 5000 mg/kg (prácticamente no tóxico por ingestión accidental).</dd>
+            <dt>Efectos crónicos</dt><dd>El ácido bórico inhalado o ingerido en altas dosis puede afectar la reproducción y el desarrollo fetal.</dd>
+            <dt>Irritación</dt><dd>Puede causar irritación mecánica en ojos y vías respiratorias.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 12 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">12</span><h3>Información ecotoxicológica</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Biodegradabilidad</dt><dd>La celulosa es biodegradable.</dd>
+            <dt>Efectos en plantas</dt><dd>El boro es un micronutriente, pero en concentraciones altas puede ser tóxico para la vegetación (herbicida).</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 13 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">13</span><h3>Información sobre la eliminación</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>Método de eliminación</dt><dd>Eliminar en vertederos industriales autorizados según la normativa local. No verter en fuentes de agua.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 14 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">14</span><h3>Información sobre el transporte</h3></div>
+        <div class="hds-sec-body">
+          <dl class="hds-dl">
+            <dt>DOT / ADR / IMDG</dt><dd>No clasificado como mercancía peligrosa para el transporte.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- Sección 15 -->
+      <div class="hds-sec sr">
+        <div class="hds-sec-hd"><span class="hds-num">15</span><h3>Información reglamentaria</h3></div>
+        <div class="hds-sec-body">
+          <p class="hds-p">Sustancia sujeta a regulaciones de salud y seguridad ocupacional (OSHA, REACH). El ácido bórico está en la lista de sustancias candidatas de alta preocupación (SVHC) en algunas jurisdicciones.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="ctaf" style="background-image:linear-gradient(135deg,rgba(26,82,40,.92) 0%,rgba(8,26,11,.88) 100%),url(\'assets/img/obra-04.jpg\');background-size:cover;background-position:center;background-color:var(--g4)">
+  <div class="wrap" style="text-align:center">
+    <h2 class="h2 h2-w sr" style="margin-bottom:18px">¿Necesitás más documentación?</h2>
+    <p class="bod bod-w sr" style="margin-bottom:32px;max-width:640px;margin-left:auto;margin-right:auto">Escribinos para recibir fichas técnicas, ensayos, certificados o coordinar una visita a obra.</p>
+    <div class="hero-ctas sr" style="justify-content:center">
+      <a href="index.html#cont" class="btn btn-w">Contactar</a>
+      <a href="assets/hoja-de-seguridad.pdf" class="btn btn-ow" download>Descargar HDS</a>
+    </div>
+  </div>
+</section>
+'''
+
 # ──── BLOG ────
 def blog_post_card(slug, category, title, excerpt, date, image="../assets/img/obra-01.jpg"):
     return f'''<a href="{slug}.html" class="bp-card sr">
@@ -830,6 +1122,26 @@ pages = [
             bg_position="center 30%",
         ),
         "content": quienes_content,
+    },
+    {
+        "filename": "hoja-de-seguridad.html",
+        "title": "Ficha técnica y Hoja de Seguridad — EMAT | Fibra de celulosa con retardante de llama",
+        "description": "Hoja de Datos de Seguridad (HDS) de la fibra de celulosa técnica EMAT: composición, primeros auxilios, manipulación, propiedades físicas y descarga del PDF completo.",
+        "og_title": "Ficha técnica y Hoja de Seguridad — EMAT",
+        "og_desc": "Documentación técnica completa sobre la fibra de celulosa con retardante de llama: 15 secciones y PDF descargable.",
+        "asset_prefix": "",
+        "page_url": "hoja-de-seguridad.html",
+        "hero": page_hero(
+            "Documentación técnica",
+            "FICHA TÉCNICA<br><span class='accent'>Y HOJA DE SEGURIDAD</span>",
+            "Información completa del producto: composición, propiedades físicas, manipulación segura y precauciones. Documentación disponible para descarga en PDF.",
+            cta_label="Descargar PDF",
+            cta_href="assets/hoja-de-seguridad.pdf",
+            cta2_label="Contactar al equipo técnico",
+            cta2_href="index.html#cont",
+            bg_image="assets/img/obra-15.jpg",
+        ),
+        "content": hoja_seguridad_content,
     },
 ]
 
